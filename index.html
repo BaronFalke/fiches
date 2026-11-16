@@ -77,15 +77,11 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .brand b i { font-style: normal; background: linear-gradient(transparent 58%, var(--hl) 58%, var(--hl) 90%, transparent 90%); padding-inline: 2px; }
 :root[data-theme="dark"] .brand b i { color: var(--ink); }
 .brand span { color: var(--muted); font-size: 13px; }
-.langwrap { position: relative; display: inline-flex; align-items: center; }
-.langsel { appearance: none; -webkit-appearance: none; font: inherit; font-size: 13px; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 8px; padding: 3px 22px 3px 6px; margin-left: -6px; cursor: pointer; }
-.langsel:hover { color: var(--ink); border-color: var(--line); }
-.langsel:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
-.langsel option { color: var(--ink); background: var(--surface); }
-.langwrap svg { position: absolute; right: 5px; width: 13px; height: 13px; pointer-events: none; }
 .tabs { display: flex; gap: 4px; background: var(--soft); padding: 4px; border-radius: 10px; }
 .tabs button { border: 0; background: transparent; padding: 6px 14px; border-radius: 7px; font-weight: 500; color: var(--muted); }
 .tabs button[aria-current="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+@media (max-width: 560px) { .tabs { width: 100%; } .tabs button { flex: 1 1 auto; min-width: 0; padding: 6px 5px; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } }
+@media (max-width: 355px) { .tabs { gap: 2px; padding: 3px; } .tabs button { padding: 6px 3px; font-size: 13px; } }
 .sync { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
 .sync::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--bar-learn); }
 .sync.cloud::before { background: var(--verb); }
@@ -99,8 +95,6 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .today .today-pool { margin: 0 0 16px; font-size: 13px; }
 .today .stats { margin-bottom: 14px; }
 .start-wrap { flex: 1; display: flex; min-height: 88px; }
-#start-all.startbtn { width: 100%; height: auto; flex: 1; border-radius: 14px; }
-#start-all.startbtn svg { width: 40px; height: 40px; }
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
 .stat { background: var(--soft); border-radius: 10px; padding: 10px 12px; }
 .stat b { display: block; font-family: var(--f-mono); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -145,9 +139,17 @@ details.forecast[open] > summary::after { content: "▴"; }
 .grow-t svg { width: 17px; height: 17px; flex: none; color: var(--muted); }
 .grow .gpath { font-size: 12px; color: var(--muted); }
 .grow-act .gmore { color: var(--muted); }
-.grow-more .btn { display: inline-flex; align-items: center; gap: 6px; }
-.grow-more .btn svg { width: 15px; height: 15px; }
-.grow-more .btn.gdel { margin: 0 0 0 auto; width: auto; height: auto; min-height: 32px; padding: 6px 12px; opacity: 1; color: var(--fem); }
+.gtiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 4px minmax(0, 1fr); gap: 6px; width: 100%; }
+.gtile.del { grid-column: 6; }
+.gtile.ph { border-style: dashed; background: transparent; cursor: default; opacity: .55; }
+@media (max-width: 380px) { .gtiles { gap: 4px; } .gtile { font-size: 11px; padding: 7px 1px; } }
+.gtile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 58px; padding: 8px 2px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: 12px; line-height: 1.15; cursor: pointer; text-align: center; }
+.gtile svg { width: 19px; height: 19px; flex: none; }
+.gtile span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gtile:not(.ph):hover { border-color: var(--muted); background: var(--soft); }
+.gtile[aria-pressed="true"], .gtile.on { border-color: var(--accent); color: var(--accent); }
+.gtile.del { color: var(--fem); border-color: color-mix(in srgb, var(--fem) 45%, var(--line)); }
+.gtile.del:hover { background: color-mix(in srgb, var(--fem) 10%, var(--surface)); border-color: var(--fem); }
 .gcur-kids.glist { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
 .ibtn { min-width: 36px; min-height: 36px; }
 /* learning modes */
@@ -189,6 +191,69 @@ details.forecast[open] > summary::after { content: "▴"; }
 .qhelp[aria-expanded="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .row > .qhelp { margin-left: -4px; }
 p.help-pop { background: var(--soft); border-radius: 10px; padding: 8px 12px; margin: 6px 0 10px; font-size: 13px; color: var(--ink); }
+/* reading */
+.read-top { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 14px; }
+.read-top .seg { flex-wrap: wrap; }
+.read-acts { display: inline-flex; gap: 8px; margin-left: auto; }
+.read-restore { margin-top: 10px; }
+.read-bar .ibtn svg { width: 18px; height: 18px; }
+.rn-filerow { float: right; margin-top: -4px; }
+.read-sec { margin: 18px 0 8px; }
+.read-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+.read-card { display: flex; flex-direction: column; gap: 3px; text-align: left; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; }
+.read-card:hover { border-color: var(--muted); }
+.rc-t { display: flex; align-items: center; gap: 8px; }
+.rc-t b { font-size: 15.5px; }
+.rc-de, .rc-m { font-size: 12.5px; color: var(--muted); }
+.read-new { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+.read-new textarea, .read-new input[type=text], .read-new select { width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: 15px; }
+.read-new textarea { resize: vertical; }
+.read-new .seg { flex-wrap: wrap; }
+.read-new > .rn-mode { display: flex; flex-wrap: nowrap; align-self: stretch; max-width: 520px; }
+.read-new > .rn-mode button { flex: 1 1 0; min-width: 0; white-space: normal; line-height: 1.2; min-height: 38px; padding: 6px 8px; }
+.read-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.read-bar .btn { white-space: nowrap; }
+.read-bar .ibtn svg { width: 18px; height: 18px; }
+.read-doc { max-width: 760px; margin: 0 auto; }
+.rd-head h2 { font-family: var(--f-display); font-weight: 400; font-size: 26px; margin: 0 0 4px; }
+.rd-tip { margin: 6px 0 12px; }
+.rd-par { font-family: var(--f-display); font-size: 19px; line-height: 1.75; margin: 0 0 14px; }
+.rd-s { cursor: pointer; border-radius: 4px; padding: 1px 0; transition: background .15s; }
+.rd-s:hover { background: color-mix(in srgb, var(--hl) 35%, transparent); }
+.rd-s.open { background: color-mix(in srgb, var(--hl) 70%, transparent); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.rd-s:focus-visible, .rd-b:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rd-trbox { display: flex; flex-direction: column; gap: 6px; background: var(--soft); border-radius: 10px; padding: 8px 10px; margin: -6px 0 16px; }
+.rd-tr { display: flex; gap: 8px; align-items: flex-start; font-size: 15px; color: var(--ink); line-height: 1.45; }
+.rd-tr .speak, .rd-btr .speak { flex: none; width: 28px; height: 28px; }
+.rd-tr > span { padding-top: 3px; }
+.rd-chat { display: flex; flex-direction: column; gap: 10px; }
+.rd-b { max-width: 82%; display: flex; flex-direction: column; gap: 2px; padding: 8px 12px; cursor: pointer; }
+.rd-b.left { align-self: flex-start; background: var(--soft); border-radius: 16px 16px 16px 4px; }
+.rd-b.right { align-self: flex-end; background: color-mix(in srgb, var(--hl) 38%, var(--surface)); border-radius: 16px 16px 4px 16px; }
+.rd-sp { font-size: 12px; color: var(--muted); }
+.rd-bt { font-family: var(--f-display); font-size: 17.5px; line-height: 1.45; }
+.rd-btr { display: flex; gap: 8px; align-items: center; justify-content: space-between; font-size: 14.5px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 4px; padding-top: 5px; }
+#rd-play { display: inline-flex; align-items: center; gap: 6px; }
+#rd-colors[aria-pressed="false"] { opacity: .55; }
+.rd-par [class^="t-"], .rd-bt [class^="t-"] { font-weight: inherit; }   /* in running text the colours are enough, no bold */
+#rd-play svg { width: 15px; height: 15px; }
+@media (prefers-reduced-motion: reduce) { .rd-s { transition: none; } }
+/* shared groups */
+.g-shared { display: inline-flex; color: var(--accent); }
+.g-shared svg { width: 16px; height: 16px; }
+.gsec-h .gjoin { margin-left: auto; }
+.gsec-h .gjoin + .gnew { margin-left: 6px; }
+.sh-body { display: flex; flex-direction: column; gap: 10px; }
+.sh-body p { margin: 0; }
+.sh-body .btn { display: inline-flex; align-items: center; gap: 6px; }
+.sh-body .btn svg { width: 15px; height: 15px; }
+.sh-codebox { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.sh-code { font: 600 24px var(--f-mono); letter-spacing: .12em; padding: 6px 12px; border: 1px dashed var(--line); border-radius: 10px; user-select: all; }
+.sh-code-in { width: 100%; max-width: 240px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: 600 20px var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
+.sh-members { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.sh-members li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; }
+.sh-members .gdel { width: auto; height: auto; margin: 0; padding: 4px 10px; }
+.sh-body .acct-btns .gdel { width: auto; height: auto; margin: 0; padding: 6px 12px; white-space: nowrap; }
 /* account */
 .acct-body { display: flex; flex-direction: column; gap: 10px; }
 .acct-body p { margin: 0; }
@@ -205,6 +270,22 @@ p.help-pop { background: var(--soft); border-radius: 10px; padding: 8px 12px; ma
 .acct-pwrow input { flex: 1; min-width: 0; }
 .acct-pwrow .acct-eye { width: 44px; height: 44px; flex: none; }
 .acct-pwrow .acct-eye[aria-pressed="true"] { background: var(--surface); color: var(--ink); border-color: var(--line); }
+/* checkboxes in the style of the other controls: rounded box, accent colour with a check when ticked */
+input[type="checkbox"] { -webkit-appearance: none; appearance: none; position: relative; flex: none; width: 20px; height: 20px; margin: 0; padding: 0; border: 1.5px solid color-mix(in srgb, var(--ink) 35%, var(--line)); border-radius: 6px; background: var(--surface); cursor: pointer; vertical-align: -4px; transition: background .15s, border-color .15s; }
+input[type="checkbox"]:hover { border-color: var(--accent); }
+input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); }
+input[type="checkbox"]:checked::after { content: ""; position: absolute; left: 5.5px; top: 1.5px; width: 5px; height: 10px; border: solid var(--on-accent); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+input[type="checkbox"]:indeterminate { background: var(--accent); border-color: var(--accent); }
+input[type="checkbox"]:indeterminate::after { content: ""; position: absolute; left: 4px; top: 7.5px; width: 9px; height: 2px; background: var(--on-accent); border-radius: 1px; }
+input[type="checkbox"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input[type="checkbox"]:disabled { opacity: .45; cursor: default; }
+@media (prefers-reduced-motion: reduce) { input[type="checkbox"] { transition: none; } }
+label.row:has(> input[type="checkbox"]) { flex-wrap: nowrap; align-items: flex-start; gap: 10px; }
+label.row > input[type="checkbox"] { margin-top: 1px; }
+label.row > input[type="checkbox"] + span { flex: 1; min-width: 0; }
+.ms-pop input[type="checkbox"], .pitem input[type="checkbox"] { width: 18px; height: 18px; }
+.ms-pop input[type="checkbox"]:checked::after, .pitem input[type="checkbox"]:checked::after { left: 4.5px; top: 1px; }
+#confirm-modal { z-index: 30; }   /* questions open above other dialogs (e.g. sharing) */
 /* colour themes */
 .set-sub { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
 .pal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
@@ -257,10 +338,8 @@ p.help-pop { background: var(--soft); border-radius: 10px; padding: 8px 12px; ma
 .kp-legend .kl-up { background: var(--accent); }
 .kp-legend .kl-down { background: var(--fem); opacity: .75; }
 .kp-legend #kp-tot { margin-left: auto; }
-.badge-det, .kp-how { margin-top: 4px; }
+.kp-how { margin-top: 4px; }
 .kp-how > summary { font-weight: 600; }
-.badge-det > summary { font-weight: 600; }
-.badge-det .badge-grid { margin-top: 10px; }
 /* progress dialog */
 .prog-tabs { display: flex; width: 100%; }
 .prog-tabs button { flex: 1; }
@@ -313,21 +392,10 @@ p.help-pop { background: var(--soft); border-radius: 10px; padding: 8px 12px; ma
 .ds-tiles span { font-size: 12px; color: var(--muted); }
 .ds-line { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; animation: dspop .35s ease both; }
 .ds-line svg { width: 22px; height: 22px; flex: none; color: #BA7517; }
-.ds-badge svg { color: #534AB7; }
 .ds-line div { display: flex; flex-direction: column; }
 .ds-line span { font-size: 12.5px; color: var(--muted); }
 @keyframes dspop { from { transform: scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .ds-line { animation: none; } .ring .ring-fg { transition: none; } }
-.badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-.bdg { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 8px; opacity: .55; }
-.bdg.on { opacity: 1; }
-.bdg b { font-size: 13.5px; }
-.bdg > span:last-child { font-size: 12px; color: var(--muted); }
-.bdg-ic { display: inline-flex; width: 40px; height: 40px; border-radius: 50%; align-items: center; justify-content: center; background: var(--soft); color: var(--muted); }
-.bdg.on .bdg-ic { background: color-mix(in srgb, #7F77DD 20%, var(--surface)); color: #534AB7; }
-.bdg.on .bdg-streak { background: color-mix(in srgb, #EF9F27 22%, var(--surface)); color: #854F0B; }
-.bdg.on .bdg-goals { background: color-mix(in srgb, #1D9E75 20%, var(--surface)); color: #0F6E56; }
-.bdg-ic svg { width: 22px; height: 22px; }
 .panel.today .stats { margin: 0; gap: 6px; }
 .today .stat { padding: 7px 9px; }
 .today .stat b { font-size: 17px; }
@@ -482,16 +550,12 @@ select { font: inherit; font-size: 13px; padding: 4px 8px; border-radius: 8px; b
 .gsec-h .gnew { margin-left: auto; width: 36px; height: 36px; }
 .gsec-h .gnew svg { width: 18px; height: 18px; }
 .gsec-h h3 { display: flex; align-items: center; gap: 6px; min-width: 0; }
-.gback { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; width: 30px; height: 30px; font-size: 16px; line-height: 1; cursor: pointer; flex: none; }
 .gcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; font-size: 13px; color: var(--muted); margin: -4px 0 10px; }
 .gcrumb button { border: 0; background: none; padding: 2px 0; color: var(--muted); font: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 .gcrumb b { color: var(--ink); font-weight: 600; }
 .gopen { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; }
 .gopen svg { width: 18px; height: 18px; flex: none; color: var(--muted); }
 .gopen span { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
-.group.gparent { border-left: 4px solid var(--ink); }
-.group .gpath { font-size: 12px; margin-top: -6px; }
-.gkids { font-weight: 600; color: var(--ink); }
 .gsec-h { display: flex; align-items: center; gap: 8px; width: 100%; margin: 0 0 10px; padding: 0; border: 0; background: none; color: var(--ink); font: inherit; text-align: left; }
 .gsec-h h3 { font-size: 15px; font-weight: 600; margin: 0; }
 .gsec-h .cnt { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -518,38 +582,22 @@ button.gsec-h { cursor: pointer; padding: 6px 0; }
 .grow-more { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; border-top: 1px dashed var(--line); padding-top: 8px; margin-top: 2px; }
 .grow-more p { flex: 1 1 100%; margin: 0 0 4px; font-size: 13px; color: var(--muted); }
 .grow-more .ibtn { width: 36px; height: 36px; }
-.grow-more .gdel { margin: 0 0 0 auto; width: 36px; height: 36px; }
-.groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-.group { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.group-h { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
 .gdel { flex: none; width: 28px; height: 28px; margin: -6px -6px 0 0; border: 1px solid transparent; border-radius: 8px; background: none; color: var(--fem); font-size: 15px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; opacity: .75; }
 .gdel:hover, .gdel:focus-visible { opacity: 1; border-color: var(--fem); background: color-mix(in srgb, var(--fem) 10%, transparent); }
-.group h3 { font-size: 16px; font-weight: 600; }
-.group p { margin: 0; font-size: 13px; color: var(--muted); }
 .lv { font-family: var(--f-mono); font-size: 11px; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; white-space: nowrap; color: var(--muted); }
 .meter { display: flex; height: 6px; border-radius: 3px; overflow: hidden; background: var(--bar-new); }
 .meter i { display: block; height: 100%; }
 .meter .m-done { background: var(--bar-done); }
 .meter .m-learn { background: var(--bar-learn); }
-.group-f { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto; flex-wrap: wrap; }
-.group-f .ibtn { width: 38px; height: 38px; }
-.group-f .ibtn[data-study] { margin-left: auto; width: 52px; }
-.group > .meta { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: -4px; }
-.group-f { flex-wrap: nowrap; }
 .seg button.seg-ic { display: inline-flex; align-items: center; justify-content: center; padding: 4px 12px; }
 .seg-ic svg { width: 15px; height: 15px; }
-.group-f .ibtn svg { width: 19px; height: 19px; }
 .ibtn:disabled { opacity: .4; cursor: default; }
 .groups-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .groups-h .section-h { margin-bottom: 0; }
 .groups-tools { display: flex; gap: 6px; }
 .groups-tools .ibtn { width: 36px; height: 36px; }
 .groups-tools .ibtn svg { width: 18px; height: 18px; }
-.group.muted { background: color-mix(in srgb, var(--surface) 60%, transparent); border-style: dashed; }
-.group.muted h3, .group.muted > p, .group.muted .meter, .group.muted .meta { opacity: .55; }
-.group-f .ibtn[data-mute][aria-pressed="true"] { color: var(--fem); background: color-mix(in srgb, var(--fem) 12%, var(--surface)); border-color: color-mix(in srgb, var(--fem) 45%, var(--line)); }
 .muted-tag { display: inline-block; font-size: 11px; font-weight: 600; color: var(--fem); margin-left: 4px; }
-.group-f .meta { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .badge-due { background: var(--hl); color: var(--hl-ink); border-radius: 6px; padding: 1px 7px; font-weight: 600; font-size: 12px; }
 
 .danger-zone { margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); }
@@ -721,10 +769,6 @@ td.st.due span { background: var(--hl); border-radius: 5px; padding: 1px 6px; }
 .conj-aux { font-size: 12px; color: var(--muted); margin-left: auto; }
 .conj-h { align-items: center; }
 .conj-sel { font-size: 14px; padding: 5px 8px; border-radius: 8px; max-width: 100%; }
-.conj-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
-.conj-tabs button { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 10px; font-size: 12.5px; font-weight: 500; }
-.conj-tabs button:hover { border-color: var(--muted); }
-.conj-tabs button[aria-selected="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .conj-info { margin: 0; font-size: 12.5px; color: var(--muted); }
 .conj-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, auto); grid-auto-flow: column; gap: 0 20px; }
 .conj-grid.one { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
@@ -829,7 +873,6 @@ tr.sel td { background: color-mix(in srgb, var(--hl) 22%, transparent); }
 .pv-box { max-width: 720px; background: none; border: 0; padding: 0; box-shadow: none; }
 .pv-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
 .pv-bar h2 { margin: 0 auto 0 0; font-size: 20px; }
-#pv-hint { color: #e6e9f0; text-align: center; margin: 0; }
 .pv-bar .pv-x { margin-left: auto; }
 .pv-bar h2 { margin-right: 0 !important; }
 .modal-box h2 { font-family: var(--f-display); font-weight: 400; font-size: 22px; }
@@ -859,8 +902,6 @@ tr.sel td { background: color-mix(in srgb, var(--hl) 22%, transparent); }
 .warn-b { font-family: var(--f-mono); font-size: 11px; font-weight: 600; border-radius: 6px; padding: 1px 6px; border: 1px solid var(--r2); color: var(--r2); }
 
 /* add / edit word */
-.addbtn { border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); border-radius: 10px; padding: 7px 14px; font-weight: 600; }
-.addbtn:hover { opacity: .9; }
 .editor { max-width: 760px; margin: 0 auto; }
 .editor h1 { font-family: var(--f-display); font-weight: 400; font-size: 28px; margin-bottom: 4px; }
 .editor .sub { color: var(--muted); margin: 0 0 18px; }
@@ -880,7 +921,6 @@ tr.sel td { background: color-mix(in srgb, var(--hl) 22%, transparent); }
 .charbar { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0 2px; }
 .charbar button { min-width: 34px; height: 34px; padding: 0 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: 500 17px/1 inherit; font-family: inherit; cursor: pointer; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
 .charbar button:active { background: var(--line); }
-.charbar .cb-shift[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .tokrow { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 0; font-size: 18px; line-height: 1.7; min-height: 32px; }
 .tokrow .sep { white-space: pre; }
 .hwrow { font-size: 17px; min-height: 30px; margin-top: 2px; }
@@ -931,6 +971,7 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
       <button data-i18n="top.tab-home" id="tab-home" aria-current="true"></button>
       <button data-i18n="top.tab-list" id="tab-list" aria-current="false"></button>
       <button data-i18n="gram.tab" id="tab-gram" aria-current="false"></button>
+      <button data-i18n="read.tab" id="tab-read" aria-current="false"></button>
     </nav>
     <div data-i18n="top.sync" class="sync" id="sync"></div>
     <button data-i18n-attr="title:top.open-settings.title;aria-label:top.open-settings.title" class="gearbtn" id="open-settings" type="button" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
@@ -972,8 +1013,6 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
       </details>
     </div>
 
-
-
     <div class="groups-h">
       <h2 data-i18n="home.themengruppen" class="section-h"></h2>
       <span data-i18n-attr="aria-label:home.gruppen-fuer-lernen-starten.aria" class="groups-tools" role="group">
@@ -983,8 +1022,6 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
     </div>
     <div class="gsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input data-i18n-attr="aria-label:home.gsearch.aria;placeholder:home.gsearch.placeholder" type="search" id="gsearch" autocomplete="off"></div>
     <div id="groups"></div>
-
-
 
     <div class="danger-zone" id="danger">
       <button data-i18n="home.reset" class="btn small ghost" id="reset"></button>
@@ -1003,7 +1040,6 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
       <p class="hint" data-i18n="acct.hint"></p>
       <div id="acct-body" class="acct-body"></div>
     </section>
-
 
     <section class="panel set-sec">
       <h2 data-i18n="set.design" class="section-h"></h2>
@@ -1073,7 +1109,6 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
       <p class="hint" id="ai-desc"></p>
     </section>
 
-
     <section class="panel set-sec" id="bk-sec">
       <h2 data-i18n="set.sicherung" class="section-h"></h2>
       <p data-i18n="set.sicherung-hint" class="hint"></p>
@@ -1081,7 +1116,6 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
       <div class="row" id="bk-undo-row" hidden><button class="btn small ghost" type="button" id="bk-undo"></button></div>
       <div class="bk-prev" id="bk-prev" hidden></div>
     </section>
-
 
     <h2 class="set-group" id="set-course-h"></h2>
     <p class="hint set-course-note" id="set-course-note" hidden></p>
@@ -1093,6 +1127,7 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
       <p class="hint" id="pace-hint"></p>
       <div class="gt-tw"><table class="gt-t pace-t" id="pace-prev"></table></div>
       <div class="row" style="gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px"><span data-i18n="set.goal.l" id="goal-l"></span><span class="seg" id="goal" role="group" aria-labelledby="goal-l"><button data-goal="10">10</button><button data-goal="20">20</button><button data-goal="30">30</button><button data-goal="50">50</button></span></div>
+      <label class="row" style="gap:8px;font-size:14px;cursor:pointer;margin-top:14px"><input type="checkbox" id="set-mcauto"> <span data-i18n="set.mcauto"></span></label>
     </section>
 
     <section class="panel set-sec set-course" id="input-sec">
@@ -1165,6 +1200,39 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
   <main id="view-start" hidden>
     <h1 class="start-h" data-i18n="start.h"></h1>
     <div class="courses" id="courses"></div>
+  </main>
+
+  <main id="view-read" hidden>
+    <div id="read-home">
+      <div class="read-top"><span class="seg" id="read-lv" role="group" data-i18n-attr="aria-label:read.level"></span><span class="read-acts"><button type="button" class="ibtn" id="read-export" data-i18n-attr="title:read.export.t;aria-label:read.export.t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></button><button type="button" class="ibtn ok addicon" id="read-new" data-i18n-attr="title:read.new;aria-label:read.new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></span></div>
+      <section class="panel read-new" id="read-new-panel" hidden>
+        <h2 class="section-h" data-i18n="read.new.h"></h2>
+        <p class="hint" data-i18n="read.new.hint"></p>
+        <span class="seg rn-mode" id="rn-mode" role="group"><button type="button" data-rnm="write" data-i18n="read.m.write"></button><button type="button" data-rnm="translate" data-i18n="read.m.translate"></button><button type="button" data-rnm="paste" data-i18n="read.m.paste"></button></span>
+        <div class="field rn-w rn-p"><label data-i18n="read.f.level"></label><span class="seg" id="rn-level" role="group"></span></div>
+        <div class="field rn-w rn-t rn-p"><label for="rn-genre" data-i18n="read.f.genre"></label><select id="rn-genre"></select></div>
+        <div class="field rn-w"><label for="rn-topic" data-i18n="read.f.topic"></label><input type="text" id="rn-topic" maxlength="120" autocomplete="off" data-i18n-attr="placeholder:read.f.topic.ph"></div>
+        <div class="field rn-w"><label data-i18n="read.f.len"></label><span class="seg" id="rn-len" role="group"><button type="button" data-len="8" data-i18n="read.len.s"></button><button type="button" data-len="14" data-i18n="read.len.m"></button><button type="button" data-len="22" data-i18n="read.len.l"></button></span></div>
+        <div class="field rn-t"><label for="rn-src" id="rn-src-l"></label><textarea id="rn-src" rows="7" spellcheck="false"></textarea></div>
+        <div class="field rn-p"><label for="rn-title" data-i18n="read.f.title"></label><input type="text" id="rn-title" maxlength="80" autocomplete="off"></div>
+        <div class="field rn-p"><label for="rn-paste" data-i18n="read.f.paste"></label><span class="rn-filerow"><button type="button" class="btn small ghost" id="rn-open" data-i18n="read.open"></button><input type="file" id="rn-file" accept=".txt,text/plain" hidden></span><textarea id="rn-paste" rows="7" spellcheck="false" data-i18n-attr="placeholder:read.f.paste.ph"></textarea></div>
+        <div class="row" style="gap:8px;flex-wrap:wrap"><button type="button" class="btn small primary" id="rn-go"></button><button type="button" class="btn small ghost" id="rn-cancel" data-i18n="th.cancel"></button></div>
+        <p class="acct-st" id="rn-status" role="status"></p>
+      </section>
+      <h2 class="section-h read-sec" data-i18n="read.own.h" id="read-own-h"></h2>
+      <div class="read-list" id="read-own"></div>
+      <h2 class="section-h read-sec" data-i18n="read.lib.h"></h2>
+      <div class="read-list" id="read-lib"></div>
+      <button type="button" class="btn small ghost read-restore" id="read-restore" hidden></button>
+    </div>
+    <div id="read-text" hidden>
+      <div class="read-bar"><button type="button" class="btn small ghost" id="rd-back" data-i18n="read.back"></button><span style="flex:1"></span><button type="button" class="btn small ghost" id="rd-play"></button><button type="button" class="btn small" id="rd-all"></button><button type="button" class="ibtn" id="rd-colors" data-i18n-attr="title:read.colors.t;aria-label:read.colors.t"></button><button type="button" class="btn small ghost" id="rd-colorize" data-i18n="read.colorize" hidden></button><button type="button" class="ibtn" id="rd-edit" data-i18n-attr="title:read.edit.t;aria-label:read.edit.t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4z"/><path d="m13.5 6.5 4 4"/></svg></button><button type="button" class="ibtn" id="rd-share" data-i18n-attr="title:read.share.t;aria-label:read.share.t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/></svg></button><button type="button" class="ibtn" id="rd-del" data-i18n-attr="title:read.del;aria-label:read.del" hidden></button></div>
+      <div class="panel read-doc">
+        <div class="rd-head"><h2 id="rd-title"></h2><p class="hint" id="rd-meta"></p></div>
+        <p class="hint rd-tip" data-i18n="read.tip"></p>
+        <div id="rd-lines"></div>
+      </div>
+    </div>
   </main>
 
   <main id="view-gram" hidden>
@@ -1436,6 +1504,12 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
       <div class="stage"><div data-i18n-attr="aria-label:pv.pv-card.aria" class="card" id="pv-card" tabindex="0" role="button"><div class="face front" id="pv-front"></div><div class="face back" id="pv-back"></div></div></div>
     </div>
   </div>
+  <div class="modal" id="share-modal" hidden>
+    <div class="modal-box gram-box" role="dialog" aria-modal="true" aria-labelledby="sh-h">
+      <div class="gram-bar"><h2 id="sh-h"></h2><button type="button" class="btn small ghost" id="sh-close" data-i18n-attr="aria-label:gram.close">✕</button></div>
+      <div id="sh-body" class="sh-body"></div>
+    </div>
+  </div>
   <div class="modal" id="theme-modal" hidden>
     <div class="modal-box gram-box" role="dialog" aria-modal="true" aria-labelledby="th-h">
       <div class="gram-bar"><h2 id="th-h" data-i18n="th.h"></h2><button type="button" class="btn small ghost" id="th-close" data-i18n-attr="aria-label:gram.close">✕</button></div>
@@ -1494,7 +1568,225 @@ div.pack-note p { margin: 0; flex: 1 1 260px; }
   <input type="file" id="bk-file" accept=".json,application/json" hidden>
 </div>
 
-
+<script type="text/plain" id="texts-fr">
+# fr-cafe | Au café | A1 | dialog | Im Café
+> [Serveur] Bonjour ! Qu'[v:est]-ce que vous [v:désirez] ? || Guten Tag! Was möchten Sie?
+> [Cliente] Bonjour. Je [v:voudrais] un [f:café], s'il vous [v:plaît]. || Guten Tag. Ich hätte gern einen Kaffee, bitte.
+> [Serveur] Avec du [m:lait] ? || Mit Milch?
+> [Cliente] [a:Non], merci. Et un [m:croissant], [a:aussi]. || Nein, danke. Und auch ein Croissant.
+> [Serveur] [a:Très] [a:bien]. Vous [v:mangez] [a:ici] ou c'[v:est] à [v:emporter] ? || Sehr gut. Essen Sie hier oder zum Mitnehmen?
+> [Cliente] Je [v:mange] [a:ici]. Je [v:suis] en [f:vacances] ! || Ich esse hier. Ich bin im Urlaub!
+> [Serveur] Ça [v:fait] quatre [m:euros] cinquante. || Das macht vier Euro fünfzig.
+> [Cliente] Voilà. Merci et [j:bonne] [f:journée] ! || Bitte schön. Danke und einen schönen Tag!
+# fr-famille | Ma famille | A1 | alltag | Meine Familie
+> Je m'[v:appelle] Léa et j'[v:ai] douze [m:ans]. || Ich heiße Léa und bin zwölf Jahre alt.
+> J'[v:habite] à Lyon avec mes [m:parents] et mon [m:frère]. || Ich wohne mit meinen Eltern und meinem Bruder in Lyon.
+> Mon [m:père] [v:est] [m:professeur] et ma [f:mère] [v:travaille] dans un [m:hôpital]. || Mein Vater ist Lehrer, und meine Mutter arbeitet in einem Krankenhaus.
+>
+> Mon [m:frère] s'[v:appelle] Hugo. Il [v:a] huit [m:ans]. || Mein Bruder heißt Hugo. Er ist acht Jahre alt.
+> Il [v:aime] le [m:football] et les [m:jeux] [j:vidéo]. || Er mag Fußball und Videospiele.
+> Nous [v:avons] [a:aussi] un [m:chat] [j:noir]. Il [v:dort] [j:toute] la [f:journée]. || Wir haben auch eine schwarze Katze. Sie schläft den ganzen Tag.
+>
+> Le [m:dimanche], nous [v:mangeons] chez ma [f:grand-mère]. || Sonntags essen wir bei meiner Großmutter.
+> Elle [v:fait] [a:toujours] un [m:gâteau] au [m:chocolat]. || Sie backt immer einen Schokoladenkuchen.
+# fr-week-end | Un week-end à la mer | A2 | reise | Ein Wochenende am Meer
+> Le [m:week-end] [j:dernier], nous [v:sommes partis] à Saint-Malo. || Letztes Wochenende sind wir nach Saint-Malo gefahren.
+> Le [m:voyage] en [m:train] [v:a duré] trois [f:heures]. || Die Zugfahrt hat drei Stunden gedauert.
+>
+> [m:Samedi] [m:matin], il [v:faisait] [j:beau], [a:alors] nous [v:sommes allés] à la [m:plage]. || Am Samstagmorgen war das Wetter schön, also sind wir an den Strand gegangen.
+> L'[f:eau] [v:était] [j:froide], mais les [m:enfants] se [v:sont baignés] quand [a:même]. || Das Wasser war kalt, aber die Kinder haben trotzdem gebadet.
+> L'après-midi, nous [v:avons visité] la [j:vieille] [f:ville] et ses [m:remparts]. || Am Nachmittag haben wir die Altstadt und ihre Stadtmauern besichtigt.
+>
+> Le [m:soir], nous [v:avons mangé] des [m:crêpes] dans un [j:petit] [m:restaurant]. || Am Abend haben wir in einem kleinen Restaurant Crêpes gegessen.
+>
+> [m:Dimanche], il [v:a plu] [j:toute] la [f:journée]. || Am Sonntag hat es den ganzen Tag geregnet.
+> Nous [v:sommes restés] à l'[m:hôtel] et nous [v:avons joué] aux [m:cartes]. || Wir sind im Hotel geblieben und haben Karten gespielt.
+> C'[v:était] un [a:très] [j:bon] [m:week-end], et nous [v:voulons] y [v:retourner] cet [m:été]. || Es war ein sehr schönes Wochenende, und wir wollen diesen Sommer wieder hinfahren.
+# fr-recette | La crêpe facile | A2 | rezept | Der einfache Crêpe
+> Pour huit [m:crêpes], il [v:faut] 250 [m:grammes] de [f:farine], trois [m:œufs] et un [m:demi-litre] de [m:lait]. || Für acht Crêpes braucht man 250 Gramm Mehl, drei Eier und einen halben Liter Milch.
+> [v:Mettez] la [f:farine] dans un [j:grand] [m:bol]. || Gib das Mehl in eine große Schüssel.
+> [v:Ajoutez] les [m:œufs] et [v:mélangez] [a:bien]. || Füge die Eier hinzu und verrühre alles gut.
+> [v:Versez] le [m:lait] [a:petit à petit] pour [v:éviter] les [m:grumeaux]. || Gieß die Milch nach und nach hinein, damit sich keine Klümpchen bilden.
+>
+> [v:Laissez] [v:reposer] la [f:pâte] pendant une [f:heure]. || Lass den Teig eine Stunde ruhen.
+> [v:Faites chauffer] une [f:poêle] avec un [a:peu] de [f:beurre]. || Erhitze eine Pfanne mit etwas Butter.
+> [v:Versez] une [j:petite] [f:louche] de [f:pâte] et [v:tournez] la [f:poêle]. || Gib eine kleine Kelle Teig hinein und schwenke die Pfanne.
+> Après une [f:minute], [v:retournez] la [m:crêpe]. || Wende den Crêpe nach einer Minute.
+>
+> [v:Servez] avec du [m:sucre], de la [f:confiture] ou du [m:chocolat]. || Serviere ihn mit Zucker, Marmelade oder Schokolade.
+# fr-lettre | Une lettre de Montréal | B1 | brief | Ein Brief aus Montreal
+> [j:Chère] Julie, || Liebe Julie,
+>
+> cela [v:fait] [a:déjà] trois [m:mois] que je [v:suis arrivée] à Montréal, et je n'[v:ai] pas [v:vu] le [m:temps] [v:passer]. || ich bin schon seit drei Monaten in Montreal, und die Zeit ist wie im Flug vergangen.
+> Au [m:début], j'[v:avais] un [a:peu] de [m:mal] à [v:comprendre] l'[m:accent] québécois, mais [a:maintenant] je m'y [v:suis habituée]. || Am Anfang hatte ich etwas Mühe, den Akzent aus Québec zu verstehen, aber inzwischen habe ich mich daran gewöhnt.
+> Mon [m:travail] à l'[f:université] me [v:plaît] [a:beaucoup], [a:même] si mes [f:journées] [v:sont] [j:longues]. || Meine Arbeit an der Universität gefällt mir sehr, auch wenn meine Tage lang sind.
+>
+> Ce qui m'[v:a] le [a:plus] [v:surprise], c'[v:est] le [m:froid] : en [m:janvier], il [v:a fait] [a:moins] trente [m:degrés] ! || Am meisten hat mich die Kälte überrascht: Im Januar hatte es minus dreißig Grad!
+> [a:Heureusement], la [f:ville] [v:a] des [f:galeries] [j:souterraines] où l'on [v:peut] se [v:promener] sans [v:sortir]. || Zum Glück hat die Stadt unterirdische Passagen, in denen man spazieren gehen kann, ohne hinauszugehen.
+> Les [m:gens] [v:sont] [a:très] [j:chaleureux] et j'[v:ai] [a:déjà] quelques [m:amis]. || Die Leute sind sehr herzlich, und ich habe schon ein paar Freunde.
+>
+> Si tu [v:as] [f:envie] de [v:venir] me [v:voir] au [m:printemps], tu [v:seras] la [f:bienvenue]. || Wenn du Lust hast, mich im Frühling zu besuchen, bist du herzlich willkommen.
+>
+> Je t'[v:embrasse], || Liebe Grüße,
+> Camille || Camille
+# fr-ville | Les villes sans voitures ? | B2 | nachricht | Städte ohne Autos?
+> De [a:plus] en [a:plus] de [f:villes] [j:européennes] [v:cherchent] à [v:réduire] la [f:place] de la [f:voiture] dans leur [m:centre]. || Immer mehr europäische Städte versuchen, den Platz des Autos in ihren Zentren zu verringern.
+> À Paris, plusieurs [j:grands] [m:axes] [v:ont été transformés] en [f:pistes] [j:cyclables] au [m:cours] des [j:dernières] [f:années]. || In Paris wurden in den letzten Jahren mehrere große Verkehrsachsen in Radwege umgewandelt.
+>
+> Les [m:partisans] de ces [f:mesures] [v:soulignent] qu'elles [v:améliorent] la [f:qualité] de l'[m:air] et [v:réduisent] le [m:bruit]. || Die Befürworter dieser Maßnahmen betonen, dass sie die Luftqualität verbessern und den Lärm verringern.
+> Les [m:commerçants], en [f:revanche], [v:craignent] de [v:perdre] des [m:clients] qui [v:venaient] [a:autrefois] en [f:voiture]. || Die Geschäftsleute dagegen befürchten, Kunden zu verlieren, die früher mit dem Auto kamen.
+> Plusieurs [f:études] [v:montrent] [a:pourtant] que les [m:piétons] et les [m:cyclistes] [v:dépensent] [a:davantage] sur le [j:long] [m:terme]. || Mehrere Studien zeigen jedoch, dass Fußgänger und Radfahrer auf lange Sicht mehr ausgeben.
+>
+> Le [j:principal] [m:défi] [v:reste] les [m:habitants] des [m:banlieues], qui [v:dépendent] [a:souvent] [a:encore] de leur [f:voiture]. || Die größte Herausforderung bleiben die Bewohner der Vororte, die oft noch auf ihr Auto angewiesen sind.
+> Pour eux, il [v:faudrait développer] des [m:transports] en [m:commun] [a:plus] [j:rapides] et [a:plus] [j:fréquents]. || Für sie müsste man schnellere und häufigere öffentliche Verkehrsmittel schaffen.
+>
+> Le [m:débat] [v:est] [a:loin] d'[v:être terminé], mais une [f:chose] [v:est] [j:sûre] : la [f:ville] de [a:demain] ne [v:ressemblera] pas à celle d'[a:hier]. || Die Debatte ist noch lange nicht beendet, aber eines ist sicher: Die Stadt von morgen wird nicht der von gestern gleichen.
+</script>
+<script type="text/plain" id="texts-es">
+# es-mercado | En el mercado | A1 | dialog | Auf dem Markt
+> [Vendedor] ¡Buenos [m:días]! ¿Qué le [v:pongo]? || Guten Morgen! Was darf es sein?
+> [Clienta] Buenos [m:días]. [v:Quiero] un [m:kilo] de [m:tomates], por favor. || Guten Morgen. Ich möchte ein Kilo Tomaten, bitte.
+> [Vendedor] ¿Algo [a:más]? || Sonst noch etwas?
+> [Clienta] Sí, [a:también] dos [f:naranjas] y una [f:lechuga]. || Ja, auch zwei Orangen und einen Kopfsalat.
+> [Vendedor] [a:Aquí] [v:tiene]. [v:Son] cuatro [m:euros] con veinte. || Bitte schön. Das macht vier Euro zwanzig.
+> [Clienta] ¿[v:Puedo pagar] con [f:tarjeta]? || Kann ich mit Karte bezahlen?
+> [Vendedor] [a:Claro] que sí. || Natürlich.
+> [Clienta] Muchas [f:gracias]. ¡[a:Hasta] [a:luego]! || Vielen Dank. Bis später!
+# es-dia | Un día normal | A1 | alltag | Ein ganz normaler Tag
+> Me [v:llamo] Pablo y [v:vivo] en Sevilla. || Ich heiße Pablo und wohne in Sevilla.
+> Me [v:levanto] a las siete y [v:desayuno] [m:café] con [f:tostadas]. || Ich stehe um sieben Uhr auf und frühstücke Kaffee mit Toast.
+> [v:Voy] al [m:trabajo] en [f:bicicleta] porque [v:está] [a:cerca]. || Ich fahre mit dem Fahrrad zur Arbeit, weil es nah ist.
+> [v:Trabajo] en una [f:tienda] de [f:ropa] en el [m:centro]. || Ich arbeite in einem Bekleidungsgeschäft im Zentrum.
+>
+> A las dos [v:como] con mis [m:compañeros]. || Um zwei Uhr esse ich mit meinen Kollegen zu Mittag.
+> Por la [f:tarde] [v:hace] mucho [m:calor], [a:así] que [v:descanso] un [a:poco]. || Am Nachmittag ist es sehr heiß, deshalb ruhe ich mich ein bisschen aus.
+>
+> Por la [f:noche] [v:salgo] con mis [m:amigos] a [v:tomar] algo. || Abends gehe ich mit meinen Freunden etwas trinken.
+> Me [v:acuesto] [a:tarde], a las doce [a:más] o [a:menos]. || Ich gehe spät ins Bett, ungefähr um zwölf.
+# es-barcelona | Un viaje a Barcelona | A2 | reise | Eine Reise nach Barcelona
+> El [m:verano] [j:pasado] [v:fui] a Barcelona con mi [f:hermana]. || Letzten Sommer bin ich mit meiner Schwester nach Barcelona gefahren.
+> Nos [v:alojamos] en un [m:hotel] [j:pequeño] [a:cerca] de las Ramblas. || Wir haben in einem kleinen Hotel in der Nähe der Ramblas gewohnt.
+>
+> El [j:primer] [m:día] [v:visitamos] la Sagrada Familia. || Am ersten Tag haben wir die Sagrada Família besichtigt.
+> [v:Había] mucha [f:gente], pero la [f:iglesia] [v:era] [j:impresionante]. || Es waren viele Leute da, aber die Kirche war beeindruckend.
+> [a:Después] [v:paseamos] por el [m:barrio] [j:gótico] y [v:comimos] [f:tapas]. || Danach sind wir durch das gotische Viertel spaziert und haben Tapas gegessen.
+>
+> Al [m:día] [j:siguiente] [v:fuimos] a la [f:playa] de la Barceloneta. || Am nächsten Tag sind wir zum Strand von Barceloneta gegangen.
+> El [f:agua] [v:estaba] [a:muy] [j:buena] y nos [v:bañamos] varias [f:veces]. || Das Wasser war sehr angenehm, und wir sind mehrmals baden gegangen.
+> Por la [f:noche] [v:vimos] el [m:espectáculo] de la Fuente Mágica. || Am Abend haben wir uns die Show am Magischen Brunnen angesehen.
+>
+> [v:Fue] un [m:viaje] [j:precioso] y [v:queremos volver] [a:pronto]. || Es war eine wunderschöne Reise, und wir wollen bald wiederkommen.
+# es-tortilla | La tortilla de patatas | A2 | rezept | Die spanische Kartoffeltortilla
+> Para una [f:tortilla] [v:necesitas] cuatro [f:patatas], una [f:cebolla], seis [m:huevos], [m:aceite] de [f:oliva] y [f:sal]. || Für eine Tortilla brauchst du vier Kartoffeln, eine Zwiebel, sechs Eier, Olivenöl und Salz.
+> [v:Pela] las [f:patatas] y [v:córtalas] en [f:rodajas] [j:finas]. || Schäle die Kartoffeln und schneide sie in dünne Scheiben.
+> [v:Corta] [a:también] la [f:cebolla] en [m:trozos] [j:pequeños]. || Schneide auch die Zwiebel in kleine Stücke.
+>
+> [v:Fríe] las [f:patatas] y la [f:cebolla] a [m:fuego] [j:lento] durante veinte [m:minutos]. || Brate die Kartoffeln und die Zwiebel zwanzig Minuten bei schwacher Hitze.
+> Mientras tanto, [v:bate] los [m:huevos] con un poco de [f:sal]. || Verquirle in der Zwischenzeit die Eier mit etwas Salz.
+> [v:Mezcla] las [f:patatas] con los [m:huevos] y [v:espera] cinco [m:minutos]. || Vermische die Kartoffeln mit den Eiern und warte fünf Minuten.
+>
+> [v:Pon] la [f:mezcla] en la [f:sartén] y [v:cocínala] unos [m:minutos]. || Gib die Mischung in die Pfanne und lass sie ein paar Minuten garen.
+> [v:Dale] la [f:vuelta] con [f:ayuda] de un [m:plato]. || Wende sie mithilfe eines Tellers.
+> [v:Puedes comerla] [j:caliente] o [j:fría]. ¡Que [v:aproveche]! || Du kannst sie warm oder kalt essen. Guten Appetit!
+# es-leyenda | La leyenda del lago | B1 | maerchen | Die Legende vom See
+> [v:Hace] muchos [m:años], en un [m:pueblo] de las [f:montañas], [v:vivía] una joven [j:llamada] Inés. || Vor vielen Jahren lebte in einem Bergdorf eine junge Frau namens Inés.
+> Cada [f:mañana] [v:subía] al [m:lago] para [v:buscar] [f:agua] para su [f:familia]. || Jeden Morgen stieg sie zum See hinauf, um Wasser für ihre Familie zu holen.
+>
+> Un [m:día] [v:vio] a un [m:anciano] que [v:estaba] [j:sentado] [a:junto] a la [f:orilla] y [v:parecía] [a:muy] [j:cansado]. || Eines Tages sah sie einen alten Mann, der am Ufer saß und sehr müde aussah.
+> Inés le [v:ofreció] un poco de [m:pan] y [f:agua], aunque ella misma [v:tenía] [a:poco]. || Inés bot ihm etwas Brot und Wasser an, obwohl sie selbst wenig hatte.
+> El [m:anciano] le [v:dio] las [f:gracias] y le [v:dijo] que [a:nunca] le [v:faltaría] nada. || Der alte Mann dankte ihr und sagte, dass es ihr nie an etwas fehlen würde.
+>
+> Esa misma [f:noche] [v:cayó] una [j:gran] [f:tormenta] sobre el [m:pueblo]. || In derselben Nacht brach ein großes Unwetter über das Dorf herein.
+> Cuando [v:amaneció], el [m:lago] se [v:había llenado] de [m:peces] de [m:colores]. || Als der Morgen dämmerte, war der See voller bunter Fische.
+> Desde [a:entonces], la [f:gente] del [m:pueblo] [a:nunca] [v:pasó] [f:hambre]. || Seitdem litten die Leute im Dorf nie mehr Hunger.
+>
+> [v:Dicen] que el [m:anciano] [a:todavía] [v:visita] el [m:lago] para [v:ver] si la [f:gente] [v:sigue siendo] [j:generosa]. || Man sagt, der alte Mann besuche den See noch heute, um zu sehen, ob die Menschen noch großzügig sind.
+# es-teletrabajo | El teletrabajo, ¿ventaja o trampa? | B2 | nachricht | Homeoffice – Vorteil oder Falle?
+> Desde la [f:pandemia], [m:millones] de [f:personas] [v:han empezado] a [v:trabajar] desde [f:casa] al [a:menos] algunos [m:días] a la [f:semana]. || Seit der Pandemie arbeiten Millionen Menschen zumindest an einigen Tagen pro Woche von zu Hause aus.
+> Muchos [v:destacan] que [v:ahorran] [m:tiempo] y [m:dinero] al no [v:tener] que [v:desplazarse]. || Viele betonen, dass sie Zeit und Geld sparen, weil sie nicht pendeln müssen.
+> [a:Además], [v:afirman] que [v:pueden concentrarse] [a:mejor] sin las [f:interrupciones] de la [f:oficina]. || Außerdem sagen sie, dass sie sich ohne die Unterbrechungen im Büro besser konzentrieren können.
+>
+> Sin [m:embargo], los [m:expertos] [v:advierten] de que el [m:límite] entre la [f:vida] [j:laboral] y la [j:personal] [v:tiende] a [v:desaparecer]. || Experten warnen jedoch, dass die Grenze zwischen Arbeit und Privatleben zu verschwimmen droht.
+> No [v:es] [j:raro] que la [f:gente] [v:conteste] [m:correos] a medianoche o durante el [m:fin] de [f:semana]. || Es ist nicht selten, dass Menschen um Mitternacht oder am Wochenende E-Mails beantworten.
+> [a:También] se [v:echa] de [a:menos] el [m:contacto] con los [m:compañeros], sobre todo entre los [m:empleados] [a:más] [j:jóvenes]. || Auch der Kontakt zu den Kollegen fehlt, vor allem den jüngeren Angestellten.
+>
+> Por eso, muchas [f:empresas] [v:apuestan] [a:ahora] por un [m:modelo] [j:híbrido]. || Deshalb setzen viele Unternehmen inzwischen auf ein hybrides Modell.
+> La [f:clave], según los especialistas, [v:está] en [v:establecer] [f:reglas] [j:claras] y [v:respetarlas]. || Der Schlüssel liegt laut Fachleuten darin, klare Regeln aufzustellen und sie einzuhalten.
+</script>
+<script type="text/plain" id="texts-en">
+# en-hotel | At the hotel | A1 | dialog | Im Hotel
+> [Receptionist] [j:Good] [m:evening]. [v:Can] I [v:help] you? || Guten Abend. Kann ich Ihnen helfen?
+> [Guest] Yes, I [v:have] a [m:reservation]. My [m:name] [v:is] Anna Weber. || Ja, ich habe eine Reservierung. Mein Name ist Anna Weber.
+> [Receptionist] [v:Let] me [v:see] … Yes, a [j:single] [m:room] for three [m:nights]. || Lassen Sie mich nachsehen … Ja, ein Einzelzimmer für drei Nächte.
+> [Guest] That[v:'s] [j:right]. [v:Is] [m:breakfast] [v:included]? || Richtig. Ist das Frühstück inbegriffen?
+> [Receptionist] Yes, [m:breakfast] [v:is] from seven to ten in the [m:restaurant]. || Ja, das Frühstück gibt es von sieben bis zehn im Restaurant.
+> [Guest] Great. And [v:is] there Wi-Fi in the [m:room]? || Super. Und gibt es WLAN im Zimmer?
+> [Receptionist] Of course. The [m:password] [v:is] on your [j:key] [m:card]. || Natürlich. Das Passwort steht auf Ihrer Schlüsselkarte.
+> [Guest] Your [m:room] [v:is] on the [j:second] [m:floor]. The [m:lift] [v:is] on the [m:left]. || Ihr Zimmer ist im zweiten Stock. Der Aufzug ist links.
+> [Receptionist] [v:Thank] you [a:very] [a:much]. || Vielen Dank.
+# en-friend | My best friend | A1 | alltag | Mein bester Freund
+> My [j:best] [m:friend] [v:is called] Tom. || Mein bester Freund heißt Tom.
+> He [v:lives] in the [j:same] [m:street] as me. || Er wohnt in derselben Straße wie ich.
+> We [v:go] to [m:school] [a:together] every [m:morning]. || Wir gehen jeden Morgen zusammen zur Schule.
+>
+> Tom [v:is] [j:tall] and [v:has] [j:short] [j:brown] [m:hair]. || Tom ist groß und hat kurze braune Haare.
+> He [v:is] [a:very] [j:funny] and [a:always] [v:makes] me [v:laugh]. || Er ist sehr lustig und bringt mich immer zum Lachen.
+> We both [v:like] [m:football] and [m:music]. || Wir mögen beide Fußball und Musik.
+>
+> At the [m:weekend], we [a:often] [v:play] [m:video] [m:games] at his [m:house]. || Am Wochenende spielen wir oft bei ihm Videospiele.
+> His [m:mum] [v:makes] the [j:best] [m:pizza] in the [m:world]! || Seine Mutter macht die beste Pizza der Welt!
+# en-london | A day in London | A2 | reise | Ein Tag in London
+> [j:Last] [m:month] I [v:spent] a [m:day] in London with my [m:cousin]. || Letzten Monat habe ich mit meinem Cousin einen Tag in London verbracht.
+> We [v:arrived] at King's Cross [m:station] [a:early] in the [m:morning]. || Wir sind früh am Morgen am Bahnhof King's Cross angekommen.
+>
+> [a:First], we [v:took] the [m:underground] to Westminster to [v:see] Big Ben. || Zuerst sind wir mit der U-Bahn nach Westminster gefahren, um Big Ben zu sehen.
+> [a:Then] we [v:walked] along the [m:river] to the London Eye. || Dann sind wir am Fluss entlang zum London Eye gelaufen.
+> The [m:view] from the [m:top] [v:was] [j:amazing], but the [m:queue] [v:was] [a:very] [j:long]. || Die Aussicht von oben war fantastisch, aber die Schlange war sehr lang.
+>
+> For [m:lunch] we [v:had] [m:fish] and [m:chips] in a [j:small] [m:pub]. || Zum Mittagessen hatten wir Fish and Chips in einem kleinen Pub.
+> In the [m:afternoon] it [v:started] to [v:rain], [a:so] we [v:visited] the British Museum. || Am Nachmittag fing es an zu regnen, also haben wir das Britische Museum besucht.
+>
+> We [v:were] [a:very] [j:tired] when we [v:took] the [m:train] [a:home]. || Wir waren sehr müde, als wir den Zug nach Hause nahmen.
+> But it [v:was] a [j:great] [m:day], and I [v:want] to [v:go] [a:back] [a:soon]. || Aber es war ein toller Tag, und ich will bald wieder hin.
+# en-email | An email to a new colleague | A2 | brief | Eine E-Mail an eine neue Kollegin
+> Hi Sarah, || Hallo Sarah,
+>
+> welcome to the [m:team]! I[v:'m] Mark, and I [v:work] in the [m:marketing] [m:department]. || willkommen im Team! Ich bin Mark und arbeite in der Marketingabteilung.
+>
+> Our [m:team] [m:meeting] [v:is] every Monday at ten o'clock in [m:room] 4B. || Unsere Teambesprechung ist jeden Montag um zehn Uhr in Raum 4B.
+> If you [v:need] anything for your [m:computer], please [v:call] the IT [m:desk]. || Wenn du etwas für deinen Computer brauchst, ruf bitte beim IT-Support an.
+> [j:Most] of us [v:have] [m:lunch] in the [m:canteen] at about half past twelve. || Die meisten von uns essen gegen halb eins in der Kantine zu Mittag.
+> You[v:'re] [j:welcome] to [v:join] us on your [j:first] [m:day]. || Du bist herzlich eingeladen, an deinem ersten Tag mitzukommen.
+>
+> [v:Do]n't [v:hesitate] to [v:ask] me if you [v:have] any [m:questions]. || Zögere nicht, mich zu fragen, wenn du Fragen hast.
+>
+> [j:Best] [m:wishes], || Viele Grüße,
+> Mark || Mark
+# en-secret | The secret garden door | B1 | geschichte | Die geheime Gartentür
+> When Emma [v:moved] to her [m:grandmother]'s [j:old] [m:house], she [v:was bored] at [a:first]. || Als Emma in das alte Haus ihrer Großmutter zog, war ihr zuerst langweilig.
+> There [v:was] no [m:internet], and the [j:nearest] [m:town] [v:was] [m:miles] [a:away]. || Es gab kein Internet, und die nächste Stadt war meilenweit entfernt.
+>
+> One [m:afternoon], while she [v:was exploring] the [m:garden], she [v:noticed] a [j:small] [m:door] [v:hidden] behind the [m:ivy]. || Eines Nachmittags, als sie den Garten erkundete, bemerkte sie eine kleine Tür, die hinter dem Efeu versteckt war.
+> The [m:door] [v:was locked], but she [v:found] a [j:rusty] [m:key] under a [m:stone] [a:nearby]. || Die Tür war verschlossen, aber sie fand in der Nähe einen rostigen Schlüssel unter einem Stein.
+>
+> Behind the [m:door] [v:was] a [j:second] [m:garden], [j:full] of [m:roses] and [j:old] [m:fruit] [m:trees]. || Hinter der Tür lag ein zweiter Garten voller Rosen und alter Obstbäume.
+> In the [m:middle] [v:stood] a [m:bench] with two [m:names] [v:carved] into the [m:wood]. || In der Mitte stand eine Bank, in deren Holz zwei Namen geschnitzt waren.
+> One of them [v:was] her [m:grandmother]'s. || Einer davon war der ihrer Großmutter.
+>
+> That [m:evening] Emma [a:finally] [v:asked] her [m:grandmother] about the [m:garden], and she [v:heard] a [m:story] she [v:would] [a:never] [v:forget]. || An diesem Abend fragte Emma ihre Großmutter endlich nach dem Garten und hörte eine Geschichte, die sie nie vergessen würde.
+# en-sleep | Why we need sleep | B2 | sachtext | Warum wir Schlaf brauchen
+> [m:Scientists] [v:have] [a:long] [v:known] that [m:sleep] [v:is] [j:essential], but they [v:are] [a:only] [v:beginning] to [v:understand] why. || Wissenschaftler wissen seit Langem, dass Schlaf lebenswichtig ist, aber sie beginnen erst zu verstehen, warum.
+>
+> During [j:deep] [m:sleep], the [m:brain] [v:appears] to [v:clear] away [m:waste] [m:products] that [v:build] up during the [m:day]. || Im Tiefschlaf scheint das Gehirn Abfallstoffe zu beseitigen, die sich im Laufe des Tages ansammeln.
+> [m:Sleep] [a:also] [v:plays] a [j:crucial] [m:role] in [m:memory], as [j:new] [m:information] [v:is transferred] into [j:long]-[m:term] [m:storage]. || Schlaf spielt auch eine entscheidende Rolle für das Gedächtnis, da neue Informationen ins Langzeitgedächtnis übertragen werden.
+> This [v:is] why [m:students] who [v:stay] up all [m:night] before an [m:exam] [a:often] [v:perform] [j:worse] than [v:expected]. || Deshalb schneiden Schüler, die vor einer Prüfung die ganze Nacht aufbleiben, oft schlechter ab als erwartet.
+>
+> A [m:lack] of [m:sleep] [v:has] [a:also] [v:been linked] to [m:weight] [m:gain], [m:heart] [m:disease] and a [j:weakened] [j:immune] [m:system]. || Schlafmangel wird außerdem mit Gewichtszunahme, Herzkrankheiten und einem geschwächten Immunsystem in Verbindung gebracht.
+> Despite this, [j:many] [m:adults] [a:regularly] [v:get] [j:less] than the [v:recommended] seven to nine [m:hours]. || Trotzdem schlafen viele Erwachsene regelmäßig weniger als die empfohlenen sieben bis neun Stunden.
+>
+> [m:Experts] [v:advise keeping] a [j:regular] [m:schedule] and [v:avoiding] [m:screens] for an [m:hour] before [m:bed]. || Experten raten, feste Schlafenszeiten einzuhalten und eine Stunde vor dem Schlafengehen auf Bildschirme zu verzichten.
+> In [j:other] [m:words], a [j:good] [m:night]'s [m:sleep] [v:is] not a [m:luxury] but a [m:necessity]. || Mit anderen Worten: Eine erholsame Nacht ist kein Luxus, sondern eine Notwendigkeit.
+</script>
 <script type="text/plain" id="grammar-fr">
 %fiches-grammar 1
 %id fr-de
@@ -2040,7 +2332,7 @@ window.FICHES_I18N.de = {
   "set.chars": "Sonderzeichen-Leiste beim Eingeben zeigen ({chars})",
   "set.chars.hint": "Die Leiste erscheint über der Tastatur, sobald du ein Wort oder einen Satz in der Fremdsprache eintippst.",
   "set.sicherung": "Sicherung",
-  "set.sicherung-hint": "Eine Sicherungsdatei enthält Lernfortschritt, eigene Wörter und Gruppen, Änderungen und Einstellungen aller Kurse. Damit überträgst du deine Daten zwischen Web und Android-App oder holst einen früheren Stand zurück. API-Schlüssel sind nicht enthalten.",
+  "set.sicherung-hint": "Eine Sicherungsdatei enthält Lernfortschritt, eigene Wörter und Gruppen, Änderungen und Einstellungen aller Kurse. Damit überträgst du deine Daten zwischen Web und Android-App oder holst einen früheren Stand zurück.",
   "bk.export": "Sicherung erstellen",
   "bk.import": "Sicherung einspielen",
   "bk.saved": "Sicherung gespeichert",
@@ -2322,10 +2614,6 @@ window.FICHES_I18N.de = {
   "grp.empty": "leer",
   "grp.general": "Allgemein",
   "grp.general.desc": "Wörter von „{name}“",
-  "grp.learnedOf": "{a} / {b} gelernt",
-  "grp.list": "Wörter der Gruppe anzeigen",
-  "grp.listAll": "Alle Wörter dieser Gruppe und ihrer Untergruppen anzeigen",
-  "grp.meter": "gefestigt / in Arbeit / neu",
   "grp.mute": "Gruppe stummschalten – nicht in „Lernen starten“",
   "grp.muteAll": "Gruppe mit allen Untergruppen stummschalten",
   "grp.mutedTag": "· stumm",
@@ -2385,7 +2673,6 @@ window.FICHES_I18N.de = {
   "home.reset-no": "Abbrechen",
   "home.reset-yes": "Ja, zurücksetzen",
   "home.start": "Lernen starten",
-  "home.start-all.title": "Lernen starten",
   "home.start.extra": "Zusätzlich üben",
   "home.start.muted": "Alle Gruppen sind stummgeschaltet",
   "home.stat.due": "fällig",
@@ -2398,7 +2685,6 @@ window.FICHES_I18N.de = {
   "home.stat.new.t": "Die neuen Wörter für heute anzeigen",
   "home.themengruppen": "Themengruppen",
   "home.today-title": "Heute lernen",
-  "home.todo": "{n} Karten warten auf dich – {due} Wiederholungen und {nl} neue Wörter.",
   "home.unmute-all.aria": "Alle Gruppen aktivieren",
   "home.unmute-all.title": "Alle Gruppen aktivieren – wieder in „Lernen starten“",
   "home.unmutedAll": "Alle Gruppen aktiviert",
@@ -2635,6 +2921,53 @@ window.FICHES_I18N.de = {
   "study.card.aria": "Karte umdrehen",
   "study.done-home": "Zur Übersicht",
   "study.done-more": "Weitere Karten lernen",
+  "sh.tag": "Gemeinsame Gruppe", "sh.btn": "Teilen", "sh.btn.on": "Geteilt", "sh.btn.t": "Gruppe mit anderen gemeinsam bearbeiten",
+  "sh.h": "„{name}“ teilen", "sh.join.h": "Gemeinsamer Gruppe beitreten", "sh.join.t": "Gemeinsamer Gruppe beitreten",
+  "sh.intro": "Andere können diese Gruppe mit dir zusammen bearbeiten: Wörter, Übersetzungen und Untergruppen werden für alle abgeglichen. Den Lernfortschritt hat jede Person für sich. Du bekommst einen Einladungscode, den du weitergibst.",
+  "sh.create": "Gruppe teilen", "sh.loading": "Wird geladen …",
+  "sh.ownerP": "Gib diesen Code an Personen weiter, die mitmachen sollen. Sie geben ihn unter Eigene Gruppen → Beitreten ein.",
+  "sh.memberP": "Du bearbeitest diese Gruppe gemeinsam mit anderen. Mit dem Code kannst du weitere Personen einladen.",
+  "sh.send": "Senden", "sh.sendText": "Mach mit bei meiner fiches-Gruppe „{name}“! Einladungscode: {code} (in fiches unter Eigene Gruppen → Beitreten eingeben)",
+  "sh.members.one": "1 Person", "sh.members.other": "{n} Personen", "sh.you": "du", "sh.owner": "hat geteilt",
+  "sh.remove": "Entfernen", "sh.removeQ": "Diese Person aus der Gruppe entfernen? Ihre Kopie der Wörter bleibt bei ihr.",
+  "sh.recode": "Neuer Code", "sh.recoded": "Neuer Code erstellt – der alte gilt nicht mehr",
+  "sh.stop": "Teilen beenden", "sh.stopQ": "Teilen für alle beenden? Alle behalten ihre Kopie, aber Änderungen werden nicht mehr abgeglichen.", "sh.stopped": "Teilen beendet",
+  "sh.leave": "Gruppe verlassen", "sh.leaveQ": "Die gemeinsame Gruppe verlassen? Deine Kopie der Wörter bleibt als eigene Gruppe erhalten.", "sh.left": "Gruppe verlassen",
+  "sh.join.p": "Gib den Einladungscode ein, den du bekommen hast. Die Gruppe erscheint dann bei deinen eigenen Gruppen.",
+  "sh.code": "Einladungscode", "sh.join.btn": "Beitreten", "sh.joined": "Du machst jetzt bei „{name}“ mit",
+  "sh.gone": "„{name}“ wird nicht mehr geteilt – die Wörter bleiben als eigene Gruppe erhalten.",
+  "sh.needLogin": "Zum Teilen brauchst du ein fiches-Konto. Melde dich unter Einstellungen → Konto an.",
+  "sh.notHere": "Gemeinsame Gruppen gibt es in der Android-App und auf deiner eigenen fiches-Webseite – dort mit einem fiches-Konto.",
+  "sh.e.code": "Diesen Code gibt es nicht. Prüf ihn bitte noch einmal.", "sh.e.course": "Diese Gruppe gehört zum Kurs {c} – wechsle zuerst in diesen Kurs.",
+  "read.tab": "Lesen", "read.back": "← Texte", "read.level": "Niveau", "read.all": "Alle",
+  "read.new": "Eigener Text", "read.new.h": "Eigener Text",
+  "read.new.hint": "Lass dir von einer KI einen Text schreiben oder übersetzen – mit deinem eingestellten KI-Assistenten oder per Kopieren und Einfügen mit jeder KI-App. Oder füge einen fertigen Text mit Übersetzung selbst ein.",
+  "read.m.write": "Schreiben lassen", "read.m.translate": "Übersetzen lassen", "read.m.paste": "Selbst einfügen",
+  "read.f.level": "Niveau", "read.f.genre": "Textart", "read.f.topic": "Thema (optional)", "read.f.topic.ph": "z. B. ein Tag am Strand, Smartphones, Weihnachten",
+  "read.f.len": "Länge", "read.len.s": "Kurz", "read.len.m": "Mittel", "read.len.l": "Lang",
+  "read.f.src": "Dein Text auf {lang}", "read.f.title": "Titel", "read.f.paste": "Text mit Übersetzung", "read.f.paste.ph": "# Titel | A2 | alltag\nSatz || Übersetzung\nSatz || Übersetzung\n\nNeuer Absatz || …",
+  "read.go": "Text erstellen", "read.go.paste": "Text speichern", "read.working": "Die KI arbeitet …",
+  "read.g.any": "beliebig", "read.g.alltag": "Alltag", "read.g.dialog": "Dialog", "read.g.geschichte": "Geschichte", "read.g.maerchen": "Märchen & Sage", "read.g.nachricht": "Nachricht", "read.g.brief": "Brief & E-Mail", "read.g.reise": "Reisebericht", "read.g.sachtext": "Sachtext", "read.g.rezept": "Rezept",
+  "read.own.h": "Eigene Texte", "read.lib.h": "Texte", "read.own.empty": "Noch keine eigenen Texte – lege mit „Eigener Text“ einen an.", "read.none": "Keine Texte in diesem Niveau.",
+  "read.lines.one": "1 Satz", "read.lines.other": "{n} Sätze", "read.untitled": "Ohne Titel", "read.ownTag": "eigener Text",
+  "read.tip": "Tippe auf einen Satz, um die Übersetzung zu sehen.",
+  "read.showAll": "Alle übersetzen", "read.hideAll": "Übersetzungen weg",
+  "read.play": "Vorlesen", "read.stop": "Stopp",
+  "read.colors.t": "Wortarten farbig zeigen (Farben wie in den Einstellungen)", "read.colorize": "Farben ergänzen",
+  "read.colored.one": "1 Satz eingefärbt", "read.colored.other": "{n} Sätze eingefärbt", "read.e.colors": "Die Antwort der KI passte nicht zum Text – versuch es noch einmal.",
+  "read.edit.t": "Text bearbeiten", "read.edit.h": "Text bearbeiten", "read.go.edit": "Speichern", "read.changedTag": "geändert",
+  "read.delLibText": "Der mitgelieferte Text wird auf allen deinen Geräten ausgeblendet. Du kannst ihn unten in der Liste wiederherstellen.",
+  "read.restore.one": "1 mitgelieferten Text wiederherstellen", "read.restore.other": "{n} mitgelieferte Texte wiederherstellen",
+  "read.restoreQ.one": "Mitgelieferten Text wiederherstellen?", "read.restoreQ.other": "{n} mitgelieferte Texte wiederherstellen?",
+  "read.restoreText": "Gelöschte und geänderte mitgelieferte Texte kommen in ihrer ursprünglichen Fassung zurück.", "read.restoreOk": "Wiederherstellen",
+  "read.restored.one": "1 Text wiederhergestellt", "read.restored.other": "{n} Texte wiederhergestellt",
+  "read.del": "Text löschen",
+  "read.share.t": "Text teilen – als Text, den andere unter „Selbst einfügen“ übernehmen können", "read.copied": "Text kopiert – andere fügen ihn unter Eigener Text → Selbst einfügen ein",
+  "read.export.t": "Eigene Texte als Datei speichern", "read.export.none": "Noch keine eigenen Texte zum Speichern.", "read.export.file": "fiches-texte-{lang}",
+  "read.exported.one": "1 Text gespeichert", "read.exported.other": "{n} Texte gespeichert",
+  "read.imported.one": "1 Text übernommen", "read.imported.other": "{n} Texte übernommen",
+  "read.open": "Datei öffnen …", "read.delQ": "Den Text „{t}“ löschen?", "read.delText": "Der Text wird auf allen deinen Geräten gelöscht.", "read.deleted": "Text gelöscht", "read.saved": "Text gespeichert",
+  "read.e.empty": "Bitte füge mindestens einen Satz ein.", "read.e.src": "Bitte füge zuerst deinen Text ein.", "read.e.answer": "In der Antwort der KI wurde kein Text gefunden. Versuch es noch einmal.",
   "acct.h": "Konto",
   "acct.hint": "Mit einem Konto werden Fortschritt, eigene Wörter und Gruppen zwischen deinen Geräten abgeglichen – für jeden Kurs. Ohne Konto bleibt alles auf diesem Gerät. Ein Konto legst du hier selbst an, mit E-Mail-Adresse und Passwort; auf weiteren Geräten meldest du dich mit denselben Daten an.",
   "acct.tab.login": "Anmelden", "acct.tab.reg": "Konto erstellen",
@@ -2709,28 +3042,21 @@ window.FICHES_I18N.de = {
   "prog.words": "Gelernte Wörter", "prog.learnedL": "gelernt", "prog.today": "heute",
   "prog.quality": "Antworten pro Woche", "prog.known": "gewusst", "prog.hard": "schwer", "prog.forgot": "vergessen",
   "prog.weekTip": "Woche ab {d}: {k} gewusst, {h} schwer, {f} vergessen ({p} % gewusst)",
-  "bdg.sub2": "Abzeichen – {n} von {m}",
   "kp.how": "Wie funktionieren die Punkte?",
   "kp.range": "Zeitraum in Tagen", "kp.now": "Punkte · Stufe {lv}", "kp.today": "seit gestern",
   "kp.won": "gewonnen", "kp.lost": "verloren", "kp.sum": "{n} Tage:", "kp.total": "Stand {p} Punkte",
   "kp.aria": "Gewonnene und verlorene Wissenspunkte pro Tag, letzte {n} Tage",
-  "bdg.sub": "{n} von {m} Abzeichen · {xp} Wissenspunkte · Stufe {lv}",
   "bdg.points": "Wissenspunkte zeigen, wie viel du gerade sicher weißt: Gelernte Wörter bringen mehr Punkte, je länger du sie behältst – schwierige Wörter, die du gemeistert hast, zählen bis zu 1,5-mal. Wenn du nicht wiederholst, sinken die Punkte langsam, und „Vergessen“ kostet die Punkte des Wortes.",
   "mot.sinceY": "seit gestern",
-  "bdg.words.one": "1 Wort gelernt", "bdg.words.other": "{n} Wörter gelernt",
-  "bdg.mastered.one": "1 Wort gefestigt", "bdg.mastered.other": "{n} Wörter gefestigt",
-  "bdg.streak.one": "1 Tag in Folge", "bdg.streak.other": "{n} Tage in Folge",
-  "bdg.goals.one": "Erstes Tagesziel", "bdg.goals.other": "{n} Tagesziele",
-  "bdg.since": "seit {d}", "bdg.progress": "{a} / {b}",
   
   "set.goal.l": "Tagesziel",
-  "set.goal.hint": "So viele Antworten pro Tag zählen als Tagesziel. Die Tage in Folge zählen schon ab einer Antwort pro Tag – ein ausgelassener Tag pro Woche wird verziehen.",
+  "set.mcauto": "Automatisch zur nächsten Aufgabe springen, wenn die Antwort richtig ist.",
   "home.go0": "Los geht's",
-  "home.go.one": "Los geht's – 1 Karte · ca. {m} Min.", "home.go.other": "Los geht's – {n} Karten · ca. {m} Min.",
   "home.todo2": "{due} Wiederholungen · {nl} neue Wörter",
   "ctl.allLevels": "alle Niveaus", "ctl.allPos": "alle Wortarten",
+  "grp.a.words": "Wörter", "grp.a.pause": "Pause", "grp.a.resume": "Pausiert", "grp.a.change": "Ändern", "grp.listT": "Wörter der Gruppe anzeigen", "grp.listAllT": "Alle Wörter der Gruppe und ihrer Untergruppen anzeigen",
   "grp.more": "Mehr", "grp.moreA": "Weitere Aktionen für {name}",
-  "grp.a.edit": "Bearbeiten", "grp.a.list": "Wörter", "grp.a.listAll": "Alle Wörter", "grp.a.mute": "Stummschalten", "grp.a.unmute": "Wieder aufnehmen", "grp.a.del": "Löschen",
+  "grp.a.del": "Löschen",
   "set.group.general": "Allgemein – für alle Kurse",
   "set.group.course": "Kurs: Deutsch → {lang}",
   "set.group.courses": "Kurseinstellungen",
@@ -2746,7 +3072,6 @@ window.FICHES_I18N.de = {
   "list.pg.first": "Erste Seite", "list.pg.prev": "Vorige Seite", "list.pg.next": "Nächste Seite", "list.pg.last": "Letzte Seite",
   "list.pg.page": "Seite wählen", "list.pg.of": "Seite {a} von {b}", "list.pg.size": "Wörter pro Seite", "list.pg.per": "{n} pro Seite",
   "set.learn.h": "Lernen",
-  "set.newlimit.hint": "So viele neue Wörter bringt „Lernen starten“ pro Tag für diesen Kurs – zusätzlich zu den fälligen Wiederholungen. „Weitere Karten lernen“ nach einer Runde bringt noch einmal so viele.",
   "start.h": "Was möchtest du lernen?",
   "start.from": "Deutsch → {lang}",
   "start.learned": "{a} von {b} Wörtern gelernt",
@@ -2815,7 +3140,6 @@ window.FICHES_I18N.de = {
   "list.imp-group.hint": "Alle neuen Wörter kommen in diese Gruppe. Wörter, die es schon gibt, bleiben in ihrer Gruppe.",
   "list.imp-file.btn": "Datei wählen …",
   "list.photo-file.btn": "Fotos wählen …",
-  "home.ctl.h": "Lerneinstellungen",
   "study.dl.hint": "Tippe auf eine Bewertung, um nur diese Wörter zu sehen, oder auf ein Wort für seine Karte.",
   "home.wortart": "Wortart",
   "study.done-title": "Geschafft",
@@ -3086,7 +3410,8 @@ window.FICHES_I18N.de = {
     if (Array.isArray(c.words)) c.words.forEach(function (w) {
       if (w && ID_MOVED[w.id] && !c.words.some(function (x) { return x && x.id === ID_MOVED[w.id]; })) { w.id = ID_MOVED[w.id]; if (w.fr && w.fr.indexOf(",") >= 0) w.fr = w.fr.split(",")[0].trim(); }
     });
-    return { updated: +c.updated || 0, words: Array.isArray(c.words) ? c.words.filter(function (w) { return w && w.id; }) : [], groups: Array.isArray(c.groups) ? c.groups.filter(function (g) { return g && g.key; }) : [] };
+    return { updated: +c.updated || 0, words: Array.isArray(c.words) ? c.words.filter(function (w) { return w && w.id; }) : [], groups: Array.isArray(c.groups) ? c.groups.filter(function (g) { return g && g.key; }) : [],
+      texts: Array.isArray(c.texts) ? c.texts.filter(function (x) { return x && x.id && (x.del || x.reset || Array.isArray(x.lines)); }) : [] };
   }
   let custom = normCustom((function () { try { return JSON.parse(localStorage.getItem(LSW)); } catch (e) { return null; } })());
   function saveCustomLocal() { try { localStorage.setItem(LSW, JSON.stringify(custom)); } catch (e) {} }
@@ -3201,7 +3526,7 @@ window.FICHES_I18N.de = {
       if (g.deleted || g.base || GBYKEY[g.key]) return;
       const same = BASE.filter(function (b) { return b.name.toLowerCase() === String(g.name || "").toLowerCase(); })[0];
       if (same && !g.parent) { GALIAS[g.key] = same.key; return; }   // top-level own group with the same name as a built-in one → merged
-      extra.push({ key: g.key, name: g.name, desc: g.desc || t("grp.ownDesc"), custom: true, words: [], parent: g.parent || null, refIds: Array.isArray(g.refs) ? g.refs : [] });
+      extra.push({ key: g.key, name: g.name, desc: g.desc || t("grp.ownDesc"), custom: true, words: [], parent: g.parent || null, refIds: Array.isArray(g.refs) ? g.refs : [], shared: g.shared && g.shared.id ? g.shared : null });
     });
     extra.forEach(function (g) { if (!GBYKEY[g.key]) { GBYKEY[g.key] = g; } });
     HIDDEN = [];
@@ -3364,7 +3689,6 @@ window.FICHES_I18N.de = {
     return out + esc(s.slice(last));
   }
   function plain(s) { return s.replace(/\[(?:m|f|v|a|j|o|p):([^\]]+)\]/g, "$1"); }
-  const VPREP = /^(.*\S)\s+(à|de|d'|sur|pour|avec|contre|par|en|dans|vers|après|sans|chez)$/;
   // default colour markup of a headword: nouns get their gender on the head noun, the article stays neutral; other types stay plain
   function defaultFrm(w) {
     const fr = String(w.fr || "");
@@ -3497,7 +3821,6 @@ window.FICHES_I18N.de = {
       if (busy) setTimeout(function () { speechSynthesis.speak(u); }, 80); else speechSynthesis.speak(u);
     } catch (e) {}
   }
-
 
   // ---------- vocabulary packs ----------
   // The built-in words live in pack files, one per language pair (learned language – own language), e.g. packs/fiches-fr-de.txt:
@@ -3766,7 +4089,9 @@ window.FICHES_I18N.de = {
     if (!Array.isArray(st.levels) || !st.levels.length) st.levels = LEVELS.slice();
     if (!Array.isArray(st.pos) || !st.pos.length) st.pos = POSK.slice();
     if (!PACE[st.pace]) st.pace = "standard";
+    if (s.meta) { delete s.meta.xp; delete s.meta.goals; delete s.meta.badges; }   // no longer used (collected points, badges)
     if ([10, 20, 30, 50].indexOf(st.goal) < 0) st.goal = 20;
+    if (typeof st.mcAuto !== "boolean") st.mcAuto = true;
     if (["cards", "mc", "pairs", "random"].indexOf(st.mode) < 0) st.mode = "cards";
     // C1/C2 were added later: whoever had every level selected keeps having every level selected
     if (!st.lv6) { if (["A1", "A2", "B1", "B2"].every(function (l) { return st.levels.indexOf(l) >= 0; })) st.levels = LEVELS.slice(); st.lv6 = true; }
@@ -3961,6 +4286,19 @@ window.FICHES_I18N.de = {
   let OWN_AT = null;      // own group currently opened on the home view (drill-down), null = top level
   // one compact row per group: name, level range, due badge, progress, learn button and "⋯" (edit, words, mute, delete);
   // a group with subgroups opens them when its row is tapped
+  // the actions of an opened group: equal tiles with icon and short label
+  function gTile(attrs, icon, label, title, cls) {
+    return '<button type="button" class="gtile' + (cls ? " " + cls : "") + '" ' + attrs + ' title="' + esc(title || label) + '">' + icon + "<span>" + esc(label) + "</span></button>";
+  }
+  // one line above the tiles: subgroups, description (not the generic "Eigene Gruppe"), due cards
+  function groupInfo(g, par, optIn, st) {
+    const parts = [];
+    if (par) parts.push(esc(tn("grp.subN", g.kids.length)));
+    if (g.desc && g.desc !== t("grp.ownDesc")) parts.push(esc(g.desc));
+    if (st.due) parts.push(esc(t("grp.dueN", { n: st.due })));
+    const txt = parts.join(" · ") + (optIn ? ' <span class="own">' + t("grp.optIn") + "</span>" : "");
+    return txt ? "<p>" + txt + "</p>" : "";
+  }
   function groupCard(g, now, withPath) { return groupRow(g, now, withPath); }
   function groupRow(g, now, withPath) {
     const par = isParentGroup(g), all = par ? (g.all || []) : gw(g);
@@ -3973,7 +4311,7 @@ window.FICHES_I18N.de = {
     const k = esc(g.key);
     return '<div class="grow' + (muted ? " muted" : "") + (par ? " gparent" : "") + '">' +
       '<button type="button" class="grow-main" ' + (par ? 'data-ownat="' + k + '" title="' + t("grp.openSub") + '"' : 'data-gexp="' + k + '" aria-expanded="' + open + '" title="' + t("grp.details") + '"') + ">" +
-        '<span class="grow-t">' + (par ? IC.folder : "") + "<b>" + esc(g.name) + '</b><span class="lv">' + range + "</span>" + (st.due ? '<span class="badge-due">' + t("grp.dueN", { n: st.due }) + "</span>" : "") + "</span>" +
+        '<span class="grow-t">' + (par ? IC.folder : "") + (sharedRoot(g) ? '<span class="g-shared" title="' + esc(t("sh.tag")) + '">' + IC.users + "</span>" : "") + "<b>" + esc(g.name) + '</b><span class="lv">' + range + "</span>" + (st.due ? '<span class="badge-due">' + t("grp.dueN", { n: st.due }) + "</span>" : "") + "</span>" +
         (withPath && g.parent ? '<span class="gpath">' + esc(gPath(GBYKEY[g.parent])) + "</span>" : "") +
         '<span class="grow-m"><span class="meter"><i class="m-done" style="width:' + pd + '%"></i><i class="m-learn" style="width:' + pl + '%"></i></span>' + (par ? tn("grp.subN", g.kids.length) + " · " : "") + st.learned + " / " + ws.length + (muted ? '<span class="muted-tag">' + t("grp.mutedTag") + "</span>" : "") + "</span>" +
       "</button>" +
@@ -3981,11 +4319,14 @@ window.FICHES_I18N.de = {
         '<button type="button" class="ibtn ok" data-study="' + k + '" title="' + (par ? t("grp.studyAll") : t("grp.study")) + '" aria-label="' + esc(t("grp.studyA", { name: g.name })) + '"' + (ws.length ? "" : " disabled") + ">" + IC.play + "</button>" +
         '<button type="button" class="ibtn gmore" data-gexp="' + k + '" aria-expanded="' + open + '" title="' + t("grp.more") + '" aria-label="' + esc(t("grp.moreA", { name: g.name })) + '">' + IC.dots + "</button>" +
       "</span>" +
-      (open ? '<div class="grow-more"><p>' + (par ? tn("grp.subN", g.kids.length) + (g.desc && g.desc !== t("grp.ownDesc") ? " · " : "") : "") + (par && g.desc === t("grp.ownDesc") ? "" : esc(g.desc || "")) + (optIn ? ' <span class="own">' + t("grp.optIn") + "</span>" : "") + (st.due ? " · " + t("grp.dueN", { n: st.due }) : "") + "</p>" +
-        '<button type="button" class="btn small ghost" data-editgroup="' + k + '" title="' + t("grp.edit") + '">' + IC.edit + t("grp.a.edit") + "</button>" +
-        '<button type="button" class="btn small ghost" data-list="' + k + '">' + IC.conj + (par ? t("grp.a.listAll") : t("grp.a.list")) + "</button>" +
-        (optIn ? "" : ibtn(muted ? "belloff" : "bell", 'data-mute="' + k + '" aria-pressed="' + muted + '"', muted ? t("grp.unmute") : par ? t("grp.muteAll") : t("grp.mute"))) +
-        '<button class="btn small ghost gdel" type="button" data-delgroup="' + k + '" aria-label="' + esc(t("grp.delA", { name: g.name })) + '">' + IC.trash + t("grp.a.del") + "</button></div>" : "") +
+      (open ? '<div class="grow-more">' + groupInfo(g, par, optIn, st) + '<div class="gtiles">' +
+        gTile('data-editgroup="' + k + '"', IC.edit, t("grp.a.change"), t("grp.edit")) +
+        gTile('data-list="' + k + '"', IC.conj, t("grp.a.words"), par ? t("grp.listAllT") : t("grp.listT")) +
+        // always four places and then "Löschen": an action a group does not have leaves an empty place, so all rows look alike
+        (optIn ? '<span class="gtile ph" aria-hidden="true"></span>' : gTile('data-mute="' + k + '" aria-pressed="' + muted + '"', muted ? IC.belloff : IC.bell, muted ? t("grp.a.resume") : t("grp.a.pause"), muted ? t("grp.unmute") : par ? t("grp.muteAll") : t("grp.mute"))) +
+        (g.custom && !g.parent && g.key !== OWN_GROUP.key ? gTile('data-share="' + k + '"', IC.users, g.shared ? t("sh.btn.on") : t("sh.btn"), t("sh.btn.t"), g.shared ? "on" : "") : '<span class="gtile ph" aria-hidden="true"></span>') +
+        gTile('data-delgroup="' + k + '" aria-label="' + esc(t("grp.delA", { name: g.name })) + '"', IC.trash, t("grp.a.del"), t("grp.delA", { name: g.name }), "del") +
+        "</div></div>" : "") +
       "</div>";
   }
   let BASE_OPEN = (function () { try { return localStorage.getItem("fiches-base-open") !== "0"; } catch (e) { return true; } })();
@@ -4013,7 +4354,8 @@ window.FICHES_I18N.de = {
       }).join("") + "</nav>" : "";
       const cur = OWN_AT ? GBYKEY[OWN_AT] : null;
       if (!OWN_AT) {
-        h += '<section class="gsec" aria-label="' + t("grp.own.h") + '"><div class="gsec-h"><h3>' + t("grp.own.h") + '</h3><span class="cnt">' + here.length + "</span>" + plus + "</div>" +
+        h += '<section class="gsec" aria-label="' + t("grp.own.h") + '"><div class="gsec-h"><h3>' + t("grp.own.h") + '</h3><span class="cnt">' + here.length + "</span>" +
+          '<button type="button" class="ibtn gjoin" data-joinshare="1" title="' + esc(t("sh.join.t")) + '" aria-label="' + esc(t("sh.join.t")) + '">' + IC.userplus + "</button>" + plus + "</div>" +
           (here.length ? '<div class="glist">' + here.map(function (g) { return groupCard(g, now); }).join("") + "</div>" : '<p class="gsec-empty">' + t("grp.noOwn") + "</p>") + "</section>";
       } else {
         // opened group: back to the parent, path, a framed header for the group itself, its subgroups inside the frame
@@ -4144,7 +4486,7 @@ window.FICHES_I18N.de = {
     // after the answer the sentences are shown complete (both languages)
     const qs = $("quiz").querySelector(".q-sents"); if (qs && BYID[S.mc.id]) qs.outerHTML = mcSents(BYID[S.mc.id], false, true);
     const go = function () { if (!S || S.queue[0] !== S.mc.id) return; applyRating(S.queue.shift(), right ? 2 : 0); nextCard(); };
-    if (right) { S.mcT = setTimeout(go, 700); }
+    if (right && state.settings.mcAuto !== false) { S.mcT = setTimeout(go, 700); }   // "Auswahl": continue by itself after a right answer (setting)
     else { $("q-go").textContent = t("mc.next"); $("q-next").hidden = false; $("q-go").onclick = go; $("q-go").focus(); }
   }
   $("quiz").addEventListener("click", function (e) {
@@ -4505,7 +4847,7 @@ window.FICHES_I18N.de = {
       const before = todayDone();
       S.tally[r]++; S.log.push([id, r]); logRating(r, now);
       const goal = state.settings.goal || 20;
-      if (before < goal && todayDone() >= goal) { state.meta.goals = (state.meta.goals || 0) + 1; S.goalHit = true; }
+      if (before < goal && todayDone() >= goal) S.goalHit = true;
     }
     const nc = state.cards[id];
     if (nc.learn == null && (nc.ivl || 0) >= 21 && prevIvl < 21) S.mast = (S.mast || 0) + 1;
@@ -4580,8 +4922,9 @@ window.FICHES_I18N.de = {
   IC.unlink = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17H7a5 5 0 0 1 0-10h2"/><path d="M15 7h2a5 5 0 0 1 4 8"/><path d="M8 12h3"/><path d="M3 3l18 18"/></svg>';
   IC.flame = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 2.5-5 .3 1.6 1 2.6 2 3 0-3-.5-5.5.5-8z"/></svg>';
   IC.award = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg>';
-  IC.star = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.8 6.2.9-4.5 4.4 1.1 6.2L12 17.4l-5.6 2.9 1.1-6.2L3 9.7l6.2-.9z"/></svg>';
   IC.target = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>';
+  IC.users = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg>';
+  IC.userplus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M19 8v6M16 11h6"/></svg>';
   IC.dots = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg>';
   function ibtn(icon, attrs, label) { return '<button type="button" class="ibtn" ' + attrs + ' title="' + esc(label) + '" aria-label="' + esc(label) + '">' + IC[icon] + "</button>"; }
   // text comparison: case, accents and ’/' ignored
@@ -4751,9 +5094,14 @@ window.FICHES_I18N.de = {
     $("confirm-modal").hidden = false;
     setTimeout(function () { try { $("cm-cancel").focus(); } catch (e) {} }, 0);
   }
-  $("cm-cancel").addEventListener("click", closeConfirm);
-  $("confirm-modal").addEventListener("click", function (e) { if (e.target === $("confirm-modal")) closeConfirm(); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("confirm-modal").hidden) closeConfirm(); });
+  let CONF_RES = null;
+  function confirmAsync(title, text, ok, icon) {
+    return new Promise(function (res) { CONF_RES = res; askConfirm(title, text, ok, function () { const r = CONF_RES; CONF_RES = null; if (r) r(true); }, icon); });
+  }
+  function cancelConfirm() { closeConfirm(); if (CONF_RES) { const r = CONF_RES; CONF_RES = null; r(false); } }
+  $("cm-cancel").addEventListener("click", cancelConfirm);
+  $("confirm-modal").addEventListener("click", function (e) { if (e.target === $("confirm-modal")) cancelConfirm(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("confirm-modal").hidden) cancelConfirm(); });
   $("cm-ok").addEventListener("click", function () {
     const k = PENDING_DEL, wd = PENDING_WDEL, fn = PENDING_FN; closeConfirm();
     if (fn) fn();
@@ -4807,8 +5155,6 @@ window.FICHES_I18N.de = {
     rebuildDeck(); renderHome();
     if (!quiet) toast(t("grp.restored", { name: custom.groups[i].name }));
   }
-
-
 
   // ---------- edit group name / description ----------
   let GM = null, GM_LAST = null;
@@ -4910,6 +5256,8 @@ window.FICHES_I18N.de = {
     document.documentElement.classList.toggle("on-start", v === "start" || (v === "settings" && SETTINGS_FROM_START));
     if (v === "start") renderStart();
     $("view-gram").hidden = v !== "gram"; $("tab-gram").setAttribute("aria-current", String(v === "gram"));
+    $("view-read").hidden = v !== "read"; $("tab-read").setAttribute("aria-current", String(v === "read"));
+    if (v === "read") renderRead();
     if (v === "gram") renderGramList();
     $("view-home").hidden = v !== "home"; $("view-study").hidden = v !== "study"; $("view-list").hidden = v !== "list"; $("view-add").hidden = v !== "add"; $("view-settings").hidden = v !== "settings";
     $("open-settings").setAttribute("aria-current", String(v === "settings"));
@@ -5015,6 +5363,331 @@ window.FICHES_I18N.de = {
   // ---------- events ----------
   $("tab-home").addEventListener("click", function () { show("home"); });
   $("tab-list").addEventListener("click", function () { show("list"); });
+  // ---------- reading: texts line by line, the German translation opens on tap ----------
+  const GENRES = ["alltag", "dialog", "geschichte", "maerchen", "nachricht", "brief", "reise", "sachtext", "rezept"];
+  const GENRE_EN = { alltag: "everyday text", dialog: "dialogue", geschichte: "short story", maerchen: "fairy tale or legend", nachricht: "news article", brief: "letter or email", reise: "travel report", sachtext: "informative text", rezept: "recipe" };
+  let READ_LV = "all", RD = null, RN = { mode: "write", level: "A2", len: 14 };
+  function libTexts() {
+    const el = document.getElementById("texts-" + LANG); if (!el) return [];
+    const out = []; let cur = null;
+    el.textContent.split("\n").forEach(function (l) {
+      l = l.trim();
+      if (l.charAt(0) === "#") { const p = l.slice(1).split("|").map(function (x) { return x.trim(); }); cur = { id: p[0], title: p[1], level: p[2], genre: p[3], title_de: p[4] || "", lines: [], lib: true }; out.push(cur); }
+      else if (l === ">" && cur) cur.np = true;
+      else if (l.charAt(0) === ">" && cur) {
+        const p = l.slice(1).split("||"), m = p[0].trim().match(/^\[(?![mfvajop]:)([^\]]+)\]\s*(.*)$/);
+        const line = { fr: m ? m[2] : p[0].trim(), de: (p[1] || "").trim() };
+        if (m) line.sp = m[1].trim();
+        if (cur.np) { line.p = true; cur.np = false; }
+        cur.lines.push(line);
+      }
+    });
+    return out;
+  }
+  function libIds() { const m = {}; libTexts().forEach(function (x) { m[x.id] = 1; }); return m; }
+  function ownTexts() { const L = libIds(); return (custom.texts || []).filter(function (x) { return !x.del && !x.reset && !L[x.id]; }).sort(function (a, b) { return (b.created || 0) - (a.created || 0); }); }
+  function libShown() {
+    const ov = {}; (custom.texts || []).forEach(function (x) { ov[x.id] = x; });
+    return libTexts().map(function (x) { const o = ov[x.id]; if (!o || o.reset) return x; if (o.del) return null; return Object.assign({}, o, { lib: true, changed: true }); }).filter(Boolean);
+  }
+  function libHidden() { const L = libIds(); return (custom.texts || []).filter(function (x) { return L[x.id] && (x.del || Array.isArray(x.lines)) && !x.reset; }); }
+  function textCard(x) {
+    return '<button type="button" class="read-card" data-rtext="' + esc(x.id) + '"><span class="rc-t"><b>' + esc(x.title || t("read.untitled")) + '</b><span class="lv">' + esc(x.level || "") + "</span></span>" +
+      (x.title_de ? '<span class="rc-de">' + esc(x.title_de) + "</span>" : "") +
+      '<span class="rc-m">' + esc((GENRES.indexOf(x.genre) >= 0 ? t("read.g." + x.genre) : "") + (x.genre ? " · " : "") + tn("read.lines", x.lines.length)) + "</span></button>";
+  }
+  function renderRead() {
+    if (RD) return;
+    $("read-lv").innerHTML = ["all"].concat(LEVELS.slice(0, 6)).map(function (l) { return '<button type="button" data-rlv="' + l + '" aria-pressed="' + (READ_LV === l) + '">' + (l === "all" ? esc(t("read.all")) : l) + "</button>"; }).join("");
+    const f = function (x) { return READ_LV === "all" || x.level === READ_LV; };
+    const own = ownTexts().filter(f), lib = libShown().filter(f).sort(function (a, b) { return LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level); });
+    $("read-own").innerHTML = own.length ? own.map(textCard).join("") : '<p class="hint">' + esc(t(ownTexts().length ? "read.none" : "read.own.empty")) + "</p>";
+    $("read-lib").innerHTML = lib.length ? lib.map(textCard).join("") : '<p class="hint">' + esc(t("read.none")) + "</p>";
+    const hid = libHidden().length;
+    $("read-restore").hidden = !hid; $("read-restore").textContent = tn("read.restore", hid);
+  }
+  function findText(id) { return libShown().concat(ownTexts()).filter(function (x) { return x.id === id; })[0] || null; }
+  function openText(id) {
+    const x = findText(id); if (!x) return;
+    RD = { t: x, open: {} };
+    $("read-home").hidden = true; $("read-text").hidden = false;
+    $("rd-title").textContent = x.title || t("read.untitled");
+    $("rd-meta").textContent = [x.title_de, x.level, GENRES.indexOf(x.genre) >= 0 ? t("read.g." + x.genre) : "", x.lib ? (x.changed ? t("read.changedTag") : "") : t("read.ownTag")].filter(Boolean).join(" · ");
+    $("rd-del").hidden = false; $("rd-del").innerHTML = IC.trash;
+    $("rd-play").hidden = !canSpeak; setPlay(false); markColors();
+    renderLines(); window.scrollTo(0, 0);
+  }
+  // book page: sentences flow in paragraphs; a tapped sentence is marked and its translation opens in a box below the paragraph.
+  // dialogues with speakers: chat bubbles, the translation opens inside the bubble
+  function paragraphsOf(lines) {
+    const ps = [];
+    lines.forEach(function (l, i) { if (!ps.length || l.p) ps.push([]); ps[ps.length - 1].push(i); });
+    if (ps.length === 1 && lines.length > 4) {                 // no paragraph information (older texts): about three sentences each
+      const n = Math.ceil(lines.length / Math.ceil(lines.length / 3)), out = [];
+      for (let i = 0; i < lines.length; i += n) out.push(ps[0].slice(i, i + n));
+      return out;
+    }
+    return ps;
+  }
+  // words in the colours of the settings (nouns by gender, verbs, adjectives, adverbs) – can be switched off while reading
+  function rdText(s) { return UI.readColors === false ? esc(plain(s)) : mark(s); }
+  function hasMarks(x) { return x.lines.some(function (l) { return /\[(?:m|f|v|a|j):/.test(l.fr); }); }
+  // only well-formed colour marks survive (answers of an AI)
+  function cleanMarks(s) {
+    s = String(s || "");
+    let out = "", rest = s.replace(/\[(?:m|f|v|a|j|o|p):([^\[\]]+)\]/g, function (m0) { return "\u0001" + encodeURIComponent(m0) + "\u0002"; });
+    rest = rest.replace(/[\[\]]/g, "");
+    out = rest.replace(/\u0001([^\u0002]*)\u0002/g, function (m0, x) { return decodeURIComponent(x); });
+    return out;
+  }
+  function isChat(x) { return x.genre === "dialog" && x.lines.filter(function (l) { return l.sp; }).length >= x.lines.length / 2; }
+  function sayBtn(text, cls) { return canSpeak ? '<button class="speak' + (cls ? " " + cls : "") + '" type="button" data-say="' + esc(text) + '" aria-label="' + t("card.saySent") + '">' + SPEAK_SVG + "</button>" : ""; }
+  function renderLines(focus) {
+    const x = RD.t, all = x.lines.every(function (l, i) { return RD.open[i]; });
+    let h = "";
+    if (isChat(x)) {
+      const who = [];
+      x.lines.forEach(function (l) { if (l.sp && who.indexOf(l.sp) < 0) who.push(l.sp); });
+      h = '<div class="rd-chat">' + x.lines.map(function (l, i) {
+        const side = l.sp ? (who.indexOf(l.sp) % 2 ? "right" : "left") : "left", o = !!RD.open[i];
+        return '<div class="rd-b ' + side + (o ? " open" : "") + '" data-rl="' + i + '" role="button" tabindex="0" aria-expanded="' + o + '">' +
+          (l.sp ? '<span class="rd-sp">' + esc(l.sp) + "</span>" : "") + '<span class="rd-bt" lang="' + LANG + '">' + rdText(l.fr) + "</span>" +
+          (o ? '<span class="rd-btr">' + esc(l.de) + sayBtn(plain(l.fr), "small") + "</span>" : "") + "</div>";
+      }).join("") + "</div>";
+    } else {
+      h = paragraphsOf(x.lines).map(function (idx) {
+        const open = idx.filter(function (i) { return RD.open[i]; });
+        return '<p class="rd-par" lang="' + LANG + '">' + idx.map(function (i) {
+          const o = !!RD.open[i];
+          return '<span class="rd-s' + (o ? " open" : "") + '" data-rl="' + i + '" role="button" tabindex="0" aria-expanded="' + o + '">' + rdText(x.lines[i].fr) + "</span>";
+        }).join(" ") + "</p>" +
+          (open.length ? '<div class="rd-trbox">' + open.map(function (i) { return '<div class="rd-tr">' + sayBtn(plain(x.lines[i].fr)) + "<span>" + esc(x.lines[i].de) + "</span></div>"; }).join("") + "</div>" : "");
+      }).join("");
+    }
+    $("rd-lines").innerHTML = h;
+    $("rd-all").textContent = all ? t("read.hideAll") : t("read.showAll");
+    if (focus != null) { const el = $("rd-lines").querySelector('[data-rl="' + focus + '"]'); if (el) el.focus({ preventScroll: true }); }
+  }
+  // read the whole text aloud (one utterance); a second tap stops
+  let RD_PLAY = null;
+  function setPlay(on) {
+    clearTimeout(RD_PLAY); RD_PLAY = on ? setTimeout(function () { setPlay(false); }, on) : null;
+    $("rd-play").innerHTML = (on ? IC.x : IC.play) + "<span>" + esc(on ? t("read.stop") : t("read.play")) + "</span>";
+    $("rd-play").setAttribute("aria-pressed", String(!!on));
+  }
+  $("rd-play").addEventListener("click", function () {
+    if (!RD) return;
+    if (RD_PLAY) { try { if (AB) { if (AB.speakLang) AB.speakLang(" ", LX.tts); else AB.speak(" "); } else speechSynthesis.cancel(); } catch (e) {} setPlay(false); return; }
+    const txt = RD.t.lines.map(function (l) { return plain(l.fr); }).join(" ");
+    speak(txt); setPlay(Math.max(4000, txt.length * 75));
+  });
+  function markColors() {
+    const on = UI.readColors !== false;
+    $("rd-colors").innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-1 2-2 0-1.4-1.2-1.8-1.2-3 0-1.1.9-2 2-2H17a4 4 0 0 0 4-4c0-3.9-4-7-9-7z"/><circle cx="7.5" cy="11" r="1.2" fill="currentColor"/><circle cx="10" cy="7" r="1.2" fill="currentColor"/><circle cx="15" cy="7" r="1.2" fill="currentColor"/></svg>';
+    $("rd-colors").setAttribute("aria-pressed", String(on));
+    $("rd-colorize").hidden = !RD || hasMarks(RD.t);
+  }
+  $("rd-colors").addEventListener("click", function () { UI.readColors = UI.readColors === false; saveUI(); markColors(); if (RD) renderLines(); });
+  // colours for an own text without marks: the AI marks the sentences, a sentence is only taken over if its words stay the same
+  $("rd-colorize").addEventListener("click", async function () {
+    if (!RD) return;
+    const b = this, x = RD.t; b.disabled = true;
+    const prompt = "Add word-type marks to each sentence (language: " + LX.en + "). " + MARK_RULES +
+      '\nReturn JSON only: {"lines": [{"text": "<the same sentence with marks>"}]} – exactly ' + x.lines.length + " items in the same order.\n\n" +
+      JSON.stringify({ lines: x.lines.map(function (l) { return { text: plain(l.fr) }; }) });
+    try {
+      const j = await aiJSONRaw(prompt, { what: "text" }), arr = (j && (j.lines || j.sentences || j.items)) || (Array.isArray(j) ? j : []);
+      let n = 0;
+      let rec = (custom.texts || []).filter(function (y) { return y.id === x.id && y.lines; })[0];
+      if (!rec) rec = setTextEntry(x.id, { title: x.title, title_de: x.title_de, level: x.level, genre: x.genre, lines: JSON.parse(JSON.stringify(x.lines)) });
+      if (rec && rec.lines) {
+        rec.lines.forEach(function (l, i) {
+          const a = arr[i], m = cleanMarks(a && (a.text || a.fr || (typeof a === "string" ? a : "")));
+          if (m && plain(m) === plain(l.fr)) { l.fr = m; n++; }
+        });
+        rec.mod = Date.now(); saveTexts(); RD.t = findText(x.id) || rec; renderLines(); markColors();
+      }
+      toast(n ? tn("read.colored", n) : t("read.e.colors"));
+    } catch (e) { if (!(e && e.code === "cancelled")) toast(aiErrMsg(e, "text")); }
+    b.disabled = false;
+  });
+  let RD_LAST = null;
+  function closeText() { RD_LAST = RD ? RD.t : RD_LAST; if (RD_PLAY) $("rd-play").click(); RD = null; $("read-text").hidden = true; $("read-home").hidden = false; renderRead(); }
+  function toggleLine(i) { RD.open[i] = !RD.open[i]; renderLines(i); }
+  $("rd-lines").addEventListener("click", function (e) {
+    const sp = e.target.closest("[data-say]"); if (sp) { speak(sp.dataset.say, sp); return; }
+    const l = e.target.closest("[data-rl]"); if (l && RD) toggleLine(+l.dataset.rl);
+  });
+  $("rd-lines").addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && e.target.matches("[data-rl]")) { e.preventDefault(); toggleLine(+e.target.dataset.rl); } });
+  $("rd-all").addEventListener("click", function () { if (!RD) return; const all = RD.t.lines.every(function (l, i) { return RD.open[i]; }); RD.t.lines.forEach(function (l, i) { RD.open[i] = !all; }); renderLines(); });
+  $("rd-back").addEventListener("click", closeText);
+  $("rd-del").addEventListener("click", function () {
+    if (!RD) return;
+    const id = RD.t.id, lib = !!RD.t.lib;
+    askConfirm(t("read.delQ", { t: RD.t.title }), t(lib ? "read.delLibText" : "read.delText"), t("read.del"), function () {
+      setTextEntry(id, { del: true });
+      if (RD && RD.t.id === id) closeText();
+      toast(t("read.deleted"));
+    });
+  });
+  // one entry per text id in the own texts (also for supplied texts: changed / hidden / reset)
+  function setTextEntry(id, fields) {
+    custom.texts = custom.texts || [];
+    let x = custom.texts.filter(function (y) { return y.id === id; })[0];
+    if (!x) { x = { id: id, created: Date.now() }; custom.texts.push(x); }
+    ["del", "reset", "lines", "title", "title_de", "level", "genre"].forEach(function (k) { if (!(k in fields)) delete x[k]; });
+    Object.assign(x, fields, { mod: Date.now() });
+    if (!fields.lines) ["title", "title_de", "level", "genre"].forEach(function (k) { delete x[k]; });
+    saveTexts(); return x;
+  }
+  $("read-restore").addEventListener("click", function () {
+    const n = libHidden().length;
+    askConfirm(tn("read.restoreQ", n), t("read.restoreText"), t("read.restoreOk"), function () {
+      libHidden().forEach(function (x) { setTextEntry(x.id, { reset: true }); });
+      renderRead(); toast(tn("read.restored", n));
+    }, "undo");
+  });
+  // edit: the text in the "Selbst einfügen" format, saved back over the same text
+  $("rd-edit").addEventListener("click", function () {
+    if (!RD) return;
+    RN.edit = { id: RD.t.id, lib: !!RD.t.lib, created: RD.t.created };
+    closeText(); RN.mode = "paste";
+    $("read-new-panel").hidden = false; renderNewText();
+    $("rn-paste").value = textToPlain(RD_LAST); $("rn-title").value = "";
+    $("read-new-panel").scrollIntoView({ block: "start" }); $("rn-paste").focus();
+  });
+  function textToPlain(x) {
+    const head = "# " + [x.title || t("read.untitled"), x.level || "", x.genre || "", x.title_de || ""].join(" | ").replace(/(\s\|\s)+$/, "");
+    const body = x.lines.map(function (l, i) { return (l.p && i ? "\n" : "") + (l.sp ? l.sp + ": " : "") + l.fr + " || " + (l.sp && l.de ? l.sp + ": " : "") + l.de; });
+    return head + "\n" + body.join("\n") + "\n";
+  }
+  $("rd-share").addEventListener("click", function () {
+    if (!RD) return;
+    const txt = textToPlain(RD.t);
+    if (AB && AB.shareText) { try { AB.shareText(txt); return; } catch (e) {} }
+    if (navigator.share) { navigator.share({ title: RD.t.title, text: txt }).catch(function () {}); return; }
+    copyText(txt, t("read.copied"), $("rn-paste"));
+  });
+  $("read-export").addEventListener("click", function () {
+    const own = ownTexts(); if (!own.length) { toast(t("read.export.none")); return; }
+    bkSave(t("read.export.file", { lang: LANG }) + ".txt", own.map(textToPlain).join("\n")).then(function (ok) { if (ok) toast(tn("read.exported", own.length)); }, function () {});
+  });
+  $("rn-open").addEventListener("click", function () { $("rn-file").click(); });
+  $("rn-file").addEventListener("change", function () {
+    const f = this.files && this.files[0]; if (!f) return;
+    const r = new FileReader(); r.onload = function () { $("rn-paste").value = String(r.result || ""); }; r.readAsText(f, "utf-8"); this.value = "";
+  });
+  function saveTexts() { custom.updated = Date.now(); saveCustomLocal(); wordsWriter.queue(); }
+  $("read-lv").addEventListener("click", function (e) { const b = e.target.closest("[data-rlv]"); if (!b) return; READ_LV = b.dataset.rlv; renderRead(); });
+  $("read-own").addEventListener("click", function (e) { const b = e.target.closest("[data-rtext]"); if (b) openText(b.dataset.rtext); });
+  $("read-lib").addEventListener("click", function (e) { const b = e.target.closest("[data-rtext]"); if (b) openText(b.dataset.rtext); });
+  // ---------- own texts: written or translated by an AI (prompt / API like the other AI features) or pasted ----------
+  function renderNewText() {
+    Array.prototype.forEach.call($("rn-mode").children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.rnm === RN.mode)); });
+    Array.prototype.forEach.call($("read-new-panel").querySelectorAll(".field"), function (f) { f.hidden = !f.classList.contains({ write: "rn-w", translate: "rn-t", paste: "rn-p" }[RN.mode]); });
+    $("rn-level").innerHTML = LEVELS.slice(0, 6).map(function (l) { return '<button type="button" data-rnl="' + l + '" aria-pressed="' + (RN.level === l) + '">' + l + "</button>"; }).join("");
+    Array.prototype.forEach.call($("rn-len").children, function (b) { b.setAttribute("aria-pressed", String(+b.dataset.len === RN.len)); });
+    if (!$("rn-genre").options.length) $("rn-genre").innerHTML = '<option value="">' + esc(t("read.g.any")) + "</option>" + GENRES.slice().sort(function (a, b) { return t("read.g." + a).localeCompare(t("read.g." + b), "de"); }).map(function (g) { return '<option value="' + g + '">' + esc(t("read.g." + g)) + "</option>"; }).join("");
+    $("rn-src-l").textContent = t("read.f.src", { lang: t("lang." + LANG) });
+    $("rn-paste").placeholder = t("read.f.paste.ph").split("\\n").join("\n");   // example over several lines
+    $("rn-go").textContent = RN.edit ? t("read.go.edit") : RN.mode === "paste" ? t("read.go.paste") : t("read.go");
+    $("rn-mode").hidden = !!RN.edit; $("read-new-panel").querySelector("h2").firstChild.textContent = RN.edit ? t("read.edit.h") : t("read.new.h");
+  }
+  $("read-new").addEventListener("click", function () { const p = $("read-new-panel"); RN.edit = null; p.hidden = !p.hidden; if (!p.hidden) { $("rn-status").textContent = ""; $("rn-paste").value = ""; renderNewText(); } });
+  $("rn-cancel").addEventListener("click", function () { $("read-new-panel").hidden = true; const e = RN.edit; RN.edit = null; renderNewText(); if (e) openText(e.id); });
+  $("rn-mode").addEventListener("click", function (e) { const b = e.target.closest("[data-rnm]"); if (!b) return; RN.mode = b.dataset.rnm; $("rn-status").textContent = ""; renderNewText(); });
+  $("rn-level").addEventListener("click", function (e) { const b = e.target.closest("[data-rnl]"); if (!b) return; RN.level = b.dataset.rnl; renderNewText(); });
+  $("rn-len").addEventListener("click", function (e) { const b = e.target.closest("[data-len]"); if (!b) return; RN.len = +b.dataset.len; renderNewText(); });
+  const MARK_RULES = "In \"text\", mark words with these tags: [m:word] masculine noun, [f:word] feminine noun (English: every noun as [m:word]), [v:word] verb (every verb form, also auxiliaries; a verb form of several words may be one tag, e.g. [v:have eaten]), [j:word] adjective, [a:word] adverb. Articles, pronouns, prepositions, names and punctuation stay unmarked. Without the tags the sentence must stay exactly the same.";
+  function textPrompt() {
+    const L = LX.en, g = $("rn-genre").value, out = 'Return JSON only, no other text, in exactly this form:\n{"title": "<title in ' + L + '>", "title_de": "<the title in German>", "level": "<CEFR level A1–C2>", "genre": "<one of: ' + GENRES.join(", ") + '>", "lines": [{"text": "<one sentence in ' + L + '>", "tr": "<its natural German translation>", "paragraph": true, "speaker": "<name>"}]}\n' +
+      "- One sentence per item. Keep the order of the text.\n- \"paragraph\": true only on the first sentence of each new paragraph (write natural paragraphs of about 2–4 sentences); leave it out otherwise.\n" +
+      "- " + MARK_RULES + "\n" +
+      "- For a dialogue: one spoken line per item and \"speaker\" with the speaker's short name (the same name every time, no colon in the text); leave \"speaker\" out in other texts.\n- The German translation is natural German, not word for word.";
+    if (RN.mode === "translate") {
+      return "Here is a text in " + L + ". Split it into sentences and translate each sentence into German. Estimate the CEFR level of the text and give it a short title" + (g ? "; genre: " + g : "") + ".\n" + out + "\n\nText:\n<<<\n" + $("rn-src").value.trim() + "\n>>>";
+    }
+    const topic = $("rn-topic").value.trim();
+    const kind = GENRE_EN[g] || "short text (any genre)";
+    return "Write " + (/^[aeiou]/.test(kind) ? "an " : "a ") + kind + " in " + L + " for a learner of " + L + " at CEFR level " + RN.level + ". " +
+      (topic ? "Topic: " + topic + ". " : "Choose an interesting, everyday topic. ") +
+      "Length: about " + RN.len + " sentences. Use only vocabulary and grammar suitable for level " + RN.level + ". Then translate each sentence into German.\n" + out;
+  }
+  // AI answer → text; accepts {lines:[{text,tr}]} and a few variations
+  function textFromAI(j) {
+    if (Array.isArray(j)) j = { lines: j };
+    if (!j || typeof j !== "object") return null;
+    const arr = j.lines || j.sentences || j.items || [];
+    const lines = arr.map(function (x, i) {
+      if (!x || typeof x === "string") return null;
+      const l = { fr: cleanMarks(String(x.text || x.fr || x.sentence || x.original || "").trim()), de: String(x.tr || x.de || x.translation || x.german || "").trim() };
+      if (x.paragraph && i) l.p = true;
+      const sp = String(x.speaker || "").replace(/:$/, "").trim(); if (sp) l.sp = sp.slice(0, 30);
+      return l;
+    }).filter(function (x) { return x && x.fr; });
+    if (!lines.length) return null;
+    const lv = String(j.level || "").toUpperCase().trim();
+    return { title: String(j.title || "").trim().slice(0, 80), title_de: String(j.title_de || "").trim().slice(0, 80), level: LEVELS.indexOf(lv) >= 0 ? lv : RN.level, genre: GENRES.indexOf(j.genre) >= 0 ? j.genre : ($("rn-genre").value || ""), lines: lines };
+  }
+  // pasted text: one line per sentence, "sentence || translation"; a first line "# title" is the title
+  // pasted text (also the shared format): "# Titel | A2 | dialog | Deutscher Titel" starts a text, then one line per sentence
+  // "Satz || Übersetzung", an empty line starts a paragraph, "Name: …" sets the speaker in a dialogue; several texts at once are possible
+  function textsFromPaste(raw) {
+    const out = []; let cur = null, np = false;
+    const start = function (head) {
+      const p = head.split("|").map(function (x) { return x.trim(); });
+      const lv = (p[1] || "").toUpperCase(), g = (p[2] || "").toLowerCase();
+      cur = { title: (p[0] || $("rn-title").value.trim()).slice(0, 80), title_de: (p[3] || "").slice(0, 80), level: LEVELS.indexOf(lv) >= 0 ? lv : RN.level,
+        genre: GENRES.indexOf(g) >= 0 ? g : ($("rn-genre").value || ""), lines: [] };
+      out.push(cur); np = false;
+    };
+    raw.split(/\r?\n/).forEach(function (l) {
+      l = l.trim();
+      if (!l) { np = !!(cur && cur.lines.length); return; }
+      if (l.charAt(0) === "#") { start(l.replace(/^#+\s*/, "")); return; }
+      if (!cur) start($("rn-title").value.trim());
+      const p = l.split("||"), line = { fr: p[0].trim(), de: (p[1] || "").trim() };
+      const m = cur.genre === "dialog" && line.fr.match(/^([^:]{1,25}):\s+(.+)$/);
+      if (m) { line.sp = m[1].trim(); line.fr = m[2]; line.de = line.de.replace(/^[^:]{1,25}:\s+/, ""); }
+      if (np) { line.p = true; np = false; }
+      cur.lines.push(line);
+    });
+    return out.filter(function (x) { return x.lines.length; });
+  }
+  $("rn-go").addEventListener("click", async function () {
+    const b = $("rn-go"); if (b.disabled) return;
+    const st = $("rn-status"); st.textContent = ""; st.classList.remove("acct-err");
+    let x = null;
+    if (RN.mode === "paste") {
+      const many = textsFromPaste($("rn-paste").value);
+      if (!many.length) { st.textContent = t("read.e.empty"); st.classList.add("acct-err"); return; }
+      if (RN.edit) {                                             // edited text: saved over the same id (a supplied text becomes a changed copy)
+        const e = RN.edit, y = many[0];
+        setTextEntry(e.id, { title: y.title, title_de: y.title_de, level: y.level, genre: y.genre, lines: y.lines, created: e.created || Date.now() });
+        RN.edit = null; $("read-new-panel").hidden = true; $("rn-paste").value = ""; renderNewText(); toast(t("read.saved")); openText(e.id); return;
+      }
+      if (many.length > 1) {                                     // several texts (e.g. an exported file): save all, back to the list
+        const now = Date.now();
+        custom.texts = custom.texts || [];
+        many.forEach(function (x, i) { custom.texts.push(Object.assign({ id: "t-" + (now + i).toString(36) + Math.random().toString(36).slice(2, 6), created: now + i, mod: now + i }, x)); });
+        saveTexts(); $("read-new-panel").hidden = true; $("rn-paste").value = ""; $("rn-title").value = "";
+        toast(tn("read.imported", many.length)); renderRead(); return;
+      }
+      x = many[0];
+    } else {
+      if (RN.mode === "translate" && $("rn-src").value.trim().length < 10) { st.textContent = t("read.e.src"); st.classList.add("acct-err"); return; }
+      b.disabled = true; st.textContent = t("read.working");
+      try { x = textFromAI(await aiJSONRaw(textPrompt(), { what: "text" })); }
+      catch (e) { if (e && e.code === "cancelled") { st.textContent = ""; b.disabled = false; return; } st.textContent = aiErrMsg(e, "text"); st.classList.add("acct-err"); b.disabled = false; return; }
+      b.disabled = false;
+      if (!x) { st.textContent = t("read.e.answer"); st.classList.add("acct-err"); return; }
+    }
+    const now = Date.now(), rec = Object.assign({ id: "t-" + now.toString(36) + Math.random().toString(36).slice(2, 6), created: now, mod: now }, x);
+    custom.texts = custom.texts || []; custom.texts.push(rec); saveTexts();
+    $("read-new-panel").hidden = true; $("rn-src").value = ""; $("rn-paste").value = ""; $("rn-title").value = ""; $("rn-topic").value = ""; st.textContent = "";
+    toast(t("read.saved")); openText(rec.id);
+  });
+  $("tab-read").addEventListener("click", function () { if (RD) closeText(); show("read"); });
   $("tab-gram").addEventListener("click", function () { $("gram-detail").hidden = true; $("gram-list").hidden = false; show("gram"); });
   function markMode() { Array.prototype.forEach.call($("mode").children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.mode === (state.settings.mode || "cards"))); }); }
   $("mode").addEventListener("click", function (e) { const b = e.target.closest("[data-mode]"); if (!b) return; state.settings.mode = b.dataset.mode; touch(); markMode(); });
@@ -5029,6 +5702,8 @@ window.FICHES_I18N.de = {
     if (oa) { OWN_AT = oa.dataset.ownat || null; renderGroups(); const sec = $("groups").querySelector(".gsec"); if (sec && sec.getBoundingClientRect().top < 0) sec.scrollIntoView({ block: "start" }); return; }
     const ng = e.target.closest("[data-newgroup]");
     if (ng) { openGroupEditor(null, ng.dataset.newgroup || null); return; }
+    const shb = e.target.closest("[data-share]"); if (shb) { openShare(shb.dataset.share); return; }
+    if (e.target.closest("[data-joinshare]")) { openJoin(); return; }
     const gx = e.target.closest("[data-gexp]");
     if (gx) { GEXP[gx.dataset.gexp] = !GEXP[gx.dataset.gexp]; renderGroups(); return; }
     const eg = e.target.closest("[data-editgroup]");
@@ -5068,6 +5743,7 @@ window.FICHES_I18N.de = {
   // new cards per day: in the settings (per course)
   function markGoal() { Array.prototype.forEach.call($("goal").children, function (b) { b.setAttribute("aria-pressed", String(+b.dataset.goal === (state.settings.goal || 20))); }); }
   $("goal").addEventListener("click", function (e) { const b = e.target.closest("[data-goal]"); if (!b) return; state.settings.goal = +b.dataset.goal; touch(); markGoal(); renderHome(); });
+  $("set-mcauto").addEventListener("change", function () { state.settings.mcAuto = $("set-mcauto").checked; touch(); });
   function markPace() {
     const pc = state.settings.pace || "standard";
     Array.prototype.forEach.call($("pace").children, function (b) { b.setAttribute("aria-pressed", String(b.dataset.pace === pc)); });
@@ -7196,11 +7872,10 @@ window.FICHES_I18N.de = {
       const h = out.meta.hist = out.meta.hist || {};
       Object.keys(other.meta.hist).forEach(function (k) { const x = h[k] || [0, 0, 0, 0], y = other.meta.hist[k] || []; h[k] = x.map(function (v, i) { return Math.max(v, y[i] || 0); }); });
     }
-    if (other.meta) {                                      // points, reached goals, best streak, badges: keep the larger / both
+    if (other.meta) {                                      // best streak, daily points and counts: keep the larger values
       if (other.meta.cnt) { const c = out.meta.cnt = out.meta.cnt || {}; Object.keys(other.meta.cnt).forEach(function (k) { const x = c[k] || [0, 0], y = other.meta.cnt[k] || [0, 0]; c[k] = [Math.max(x[0], y[0]), Math.max(x[1], y[1])]; }); }
       if (other.meta.kpg) { const g = out.meta.kpg = out.meta.kpg || {}; Object.keys(other.meta.kpg).forEach(function (k) { const x = g[k] || [0, 0], y = other.meta.kpg[k] || [0, 0]; g[k] = [Math.max(x[0], y[0]), Math.max(x[1], y[1])]; }); }
-      ["goals", "best"].forEach(function (k) { out.meta[k] = Math.max(out.meta[k] || 0, other.meta[k] || 0); });
-      if (other.meta.badges) { out.meta.badges = out.meta.badges || {}; Object.keys(other.meta.badges).forEach(function (k) { const x = out.meta.badges[k], y = other.meta.badges[k]; out.meta.badges[k] = !x || y < x ? y : x; }); }
+      ["best"].forEach(function (k) { out.meta[k] = Math.max(out.meta[k] || 0, other.meta[k] || 0); });
     }
     out.updated = Math.max(a.updated || 0, b.updated || 0);
     return out;
@@ -7209,7 +7884,9 @@ window.FICHES_I18N.de = {
     const byId = {}, gByKey = {};
     a.words.concat(b.words).forEach(function (w) { const x = byId[w.id]; if (!x || (w.mod || 0) > (x.mod || 0)) byId[w.id] = w; });
     a.groups.concat(b.groups).forEach(function (g) { const x = gByKey[g.key]; if (!x || (g.mod || 0) > (x.mod || 0)) gByKey[g.key] = g; });
-    return { updated: Math.max(a.updated, b.updated), words: Object.keys(byId).map(function (k) { return byId[k]; }), groups: Object.keys(gByKey).map(function (k) { return gByKey[k]; }) };
+    const tById = {};
+    (a.texts || []).concat(b.texts || []).forEach(function (x) { const y = tById[x.id]; if (!y || (x.mod || 0) > (y.mod || 0)) tById[x.id] = x; });
+    return { updated: Math.max(a.updated, b.updated), words: Object.keys(byId).map(function (k) { return byId[k]; }), groups: Object.keys(gByKey).map(function (k) { return gByKey[k]; }), texts: Object.keys(tById).map(function (k) { return tById[k]; }) };
   }
   function rerender() { if (view === "start") renderStart(); if (view === "home") renderHome(); if (view === "list") renderList(); if (view === "settings") renderTrash(); }
   async function initSync() {
@@ -7341,7 +8018,7 @@ window.FICHES_I18N.de = {
     renderAccountStatus();
   }
   function sbQueue(kind) { if (!sbOn()) return; clearTimeout(SB.timers[kind]); SB.timers[kind] = setTimeout(function () { sbSync(kind); }, 2500); }
-  function sbSyncAll() { if (!sbOn()) return Promise.resolve(); return Promise.all([sbSync("words"), sbSync("progress")]); }
+  function sbSyncAll() { if (!sbOn()) return Promise.resolve(); return Promise.all([sbSync("words"), sbSync("progress")]).then(function () { return shSyncAll(); }); }
   // changes elsewhere in the app reach the account through the existing hooks
   (function () { const q = wordsWriter.queue; wordsWriter.queue = function () { q(); sbQueue("words"); }; })();
   window.addEventListener("online", function () { sbSyncAll(); });
@@ -7406,7 +8083,7 @@ window.FICHES_I18N.de = {
       }
       else if (a === "out") { try { await sbFetch("/auth/v1/logout", { method: "POST" }, true); } catch (x) {} SB.auth = null; sbSaveAuth(); SB.last = 0; SB.err = ""; setSync(false); renderAccount(); }
       else if (a === "wipe") {
-        if (!confirm(t("acct.del.confirm"))) return;
+        if (!(await confirmAsync(t("acct.del.h"), t("acct.del.confirm"), t("acct.del.btn")))) return;
         await sbFetch("/rest/v1/fiches_data?user_id=eq." + encodeURIComponent(SB.auth.uid), { method: "DELETE" }, true);
         try { await sbFetch("/auth/v1/logout", { method: "POST" }, true); } catch (x) {}
         SB.auth = null; sbSaveAuth(); SB.last = 0; setSync(false); renderAccount(); toast(t("acct.del.done"));
@@ -7419,6 +8096,183 @@ window.FICHES_I18N.de = {
     const k = e.target.id === "acct-email" || e.target.id === "acct-pw" ? ($("acct-body").querySelector('[data-acct="register"]') ? "register" : "login") : e.target.id === "acct-newpw" ? "chpw" : null;
     if (k) { e.preventDefault(); const b = $("acct-body").querySelector('[data-acct="' + k + '"]'); if (b) b.click(); }
   });
+
+  // ---------- shared groups (collaboration): a top-level own group with its subgroups and words lives in fiches_shared ----------
+  // every member keeps a normal copy in the own words; on each sync the copy and the shared row are merged entry by entry
+  // (newer "mod" wins, deletions are kept as marks), progress stays personal. Joining needs an invitation code.
+  const SH = { busy: false, again: false, timer: null, err: "", last: 0 };
+  function sharedRoot(g) { while (g && g.parent) g = GBYKEY[g.parent]; return g && g.shared ? g : null; }
+  function sharedEntries() { return custom.groups.filter(function (g) { return g.shared && g.shared.id && !g.parent && !g.deleted; }); }
+  function subKeys(rootKey) {
+    const keys = {}; keys[rootKey] = 1; let more = true;
+    while (more) { more = false; custom.groups.forEach(function (g) { if (g.parent && keys[g.parent] && !keys[g.key]) { keys[g.key] = 1; more = true; } }); }
+    return keys;
+  }
+  // what goes into the shared row: the groups of the tree and the words in them (including deleted ones, so deletions travel)
+  function sharedPayload(rootKey) {
+    const keys = subKeys(rootKey);
+    return { groups: custom.groups.filter(function (g) { return keys[g.key]; }).map(function (g) { const x = Object.assign({}, g); if (x.key === rootKey) delete x.parent; return x; }),
+      words: custom.words.filter(function (w) { return keys[w.group] && !w.base; }) };
+  }
+  function sameJSON(a, b) { return JSON.stringify(a) === JSON.stringify(b); }
+  async function shGet(sid) {
+    const rows = await sbFetch("/rest/v1/fiches_shared?select=id,owner,course,name,code,data,updated_at&id=eq." + encodeURIComponent(sid), {}, true);
+    return rows && rows[0] ? rows[0] : null;
+  }
+  async function shPatch(sid, body) {
+    await sbFetch("/rest/v1/fiches_shared?id=eq." + encodeURIComponent(sid), { method: "PATCH", headers: { Prefer: "return=minimal" }, body: body }, true);
+  }
+  // merge one shared group: shared row → own words, then own words → shared row
+  async function shSyncOne(root) {
+    const row = await shGet(root.shared.id);
+    if (!row) {                                              // sharing ended or this member was removed: keep the copy as a normal own group
+      const i = custom.groups.findIndex(function (g) { return g.key === root.key; });
+      if (i >= 0) custom.groups[i] = Object.assign({}, custom.groups[i], { shared: undefined, mod: Date.now() });
+      return { gone: root.name };
+    }
+    const d = row.data || {}, inc = { updated: 0, words: Array.isArray(d.words) ? d.words : [], groups: Array.isArray(d.groups) ? d.groups : [], texts: [] };
+    const before = JSON.stringify(custom);
+    const keepParent = root.parent;
+    custom = mergeCustom(custom, normCustom(JSON.parse(JSON.stringify(inc))));
+    const ri = custom.groups.findIndex(function (g) { return g.key === root.key; });
+    if (ri >= 0) { custom.groups[ri].shared = Object.assign({}, custom.groups[ri].shared || {}, { id: row.id, owner: row.owner }); if (keepParent) custom.groups[ri].parent = keepParent; }
+    const out = sharedPayload(root.key);
+    if (!sameJSON(out, { groups: inc.groups, words: inc.words })) await shPatch(row.id, { data: out, name: (custom.groups[ri] || root).name, updated_at: new Date().toISOString() });
+    return { changed: JSON.stringify(custom) !== before };
+  }
+  async function shSyncAll() {
+    if (!sbOn() || !sharedEntries().length) return;
+    if (SH.busy) { SH.again = true; return; }
+    SH.busy = true; let changed = false; const gone = [];
+    try {
+      for (const g of sharedEntries()) { const r = await shSyncOne(g); if (r.changed) changed = true; if (r.gone) { gone.push(r.gone); changed = true; } }
+      SH.err = ""; SH.last = Date.now();
+    } catch (e) { SH.err = sbErrText(e); }
+    SH.busy = false;
+    if (changed) { custom.updated = Date.now(); saveCustomLocal(); wordsWriter.queue(); rebuildDeck(); if (view !== "study" && view !== "add") rerender(); }
+    gone.forEach(function (n) { toast(t("sh.gone", { name: n })); });
+    if (!$("share-modal").hidden && SHV) renderShare();
+    if (SH.again) { SH.again = false; shQueue(); }
+  }
+  function shQueue() { if (!sbOn() || !sharedEntries().length) return; clearTimeout(SH.timer); SH.timer = setTimeout(shSyncAll, 3000); }
+  (function () { const q = wordsWriter.queue; wordsWriter.queue = function () { q(); if (!SH.busy) shQueue(); }; })();
+  // ---------- dialog: share a group / join with a code ----------
+  let SHV = null;   // { mode: "share"|"join", key, row, members, msg }
+  const CODE_CH = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  function newCode() { let c = ""; const r = new Uint8Array(8); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(r) : r.forEach(function (x, i) { r[i] = Math.random() * 256; }); r.forEach(function (x, i) { c += CODE_CH[x % CODE_CH.length] + (i === 3 ? "-" : ""); }); return c; }
+  function openShare(key) { SHV = { mode: "share", key: key, row: null, members: [], msg: "" }; $("share-modal").hidden = false; renderShare(); loadShare(); }
+  function openJoin() { SHV = { mode: "join", msg: "" }; $("share-modal").hidden = false; renderShare(); const i = $("sh-code"); if (i) i.focus(); }
+  function closeShare() { $("share-modal").hidden = true; SHV = null; }
+  async function loadShare() {
+    const e = custom.groups.filter(function (g) { return g.key === SHV.key; })[0];
+    if (!e || !e.shared || !sbOn()) return;
+    try {
+      SHV.row = await shGet(e.shared.id);
+      if (SHV.row) SHV.members = await sbFetch("/rest/v1/fiches_shared_members?select=user_id,email,joined_at&shared_id=eq." + encodeURIComponent(e.shared.id) + "&order=joined_at", {}, true) || [];
+      else { await shSyncAll(); }
+    } catch (err) { SHV.msg = sbErrText(err); }
+    if (SHV) renderShare();
+  }
+  function renderShare() {
+    if (!SHV) return;
+    const b = $("sh-body"), msg = SHV.msg ? '<p class="acct-st acct-err" role="status">' + esc(SHV.msg) + "</p>" : "";
+    if (SHV.mode === "join") {
+      $("sh-h").textContent = t("sh.join.h");
+      b.innerHTML = !sbAvailable() || !SB.auth ? '<p class="acct-note">' + esc(sbAvailable() ? t("sh.needLogin") : t("sh.notHere")) + "</p>" :
+        '<p class="acct-note">' + esc(t("sh.join.p")) + '</p><div class="field"><label for="sh-code">' + esc(t("sh.code")) + '</label><input id="sh-code" class="sh-code-in" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="K7QP-2XMD"></div>' +
+        '<div class="row acct-btns"><button type="button" class="btn small primary" data-sh="join">' + esc(t("sh.join.btn")) + "</button></div>" + msg;
+      return;
+    }
+    const e = custom.groups.filter(function (g) { return g.key === SHV.key; })[0]; if (!e) { closeShare(); return; }
+    $("sh-h").textContent = t("sh.h", { name: e.name });
+    if (!sbAvailable() || !SB.auth) { b.innerHTML = '<p class="acct-note">' + esc(sbAvailable() ? t("sh.needLogin") : t("sh.notHere")) + "</p>"; return; }
+    if (!e.shared) {
+      b.innerHTML = '<p class="acct-note">' + esc(t("sh.intro")) + '</p><div class="row acct-btns"><button type="button" class="btn small primary" data-sh="create">' + IC.users + esc(t("sh.create")) + "</button></div>" + msg;
+      return;
+    }
+    const row = SHV.row, mine = row && row.owner === SB.auth.uid;
+    if (!row) { b.innerHTML = '<p class="acct-note">' + esc(t("sh.loading")) + "</p>" + msg; return; }
+    b.innerHTML = '<p class="acct-note">' + esc(mine ? t("sh.ownerP") : t("sh.memberP")) + "</p>" +
+      '<div class="sh-codebox"><span class="sh-code" id="sh-code-v">' + esc(row.code) + '</span><button type="button" class="btn small" data-sh="copy">' + IC.copy + esc(t("th.copy")) + "</button>" +
+      (AB && AB.shareText || navigator.share ? '<button type="button" class="btn small ghost" data-sh="send">' + esc(t("sh.send")) + "</button>" : "") + "</div>" +
+      '<h3 class="set-sub">' + esc(tn("sh.members", SHV.members.length)) + '</h3><ul class="sh-members">' + SHV.members.map(function (m) {
+        const me = m.user_id === SB.auth.uid, own = m.user_id === row.owner;
+        return "<li><span>" + esc(m.email || "?") + (me ? ' <span class="own">' + esc(t("sh.you")) + "</span>" : "") + (own ? ' <span class="lv">' + esc(t("sh.owner")) + "</span>" : "") + "</span>" +
+          (mine && !me ? '<button type="button" class="btn small ghost gdel" data-sh="remove" data-uid="' + esc(m.user_id) + '">' + esc(t("sh.remove")) + "</button>" : "") + "</li>";
+      }).join("") + "</ul>" +
+      '<p class="acct-st" role="status">' + esc(SH.err ? SH.err : SH.last ? t("acct.synced", { tm: new Date(SH.last).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) }) : "") + "</p>" +
+      '<div class="row acct-btns"><button type="button" class="btn small" data-sh="sync">' + esc(t("acct.syncNow")) + "</button>" +
+      (mine ? '<button type="button" class="btn small ghost" data-sh="recode">' + esc(t("sh.recode")) + '</button><button type="button" class="btn small ghost gdel" data-sh="stop">' + esc(t("sh.stop")) + "</button>"
+        : '<button type="button" class="btn small ghost gdel" data-sh="leave">' + esc(t("sh.leave")) + "</button>") + "</div>" + msg;
+  }
+  // a shared group: no longer marked as shared here (the words stay as a normal own group)
+  function unshareLocal(key) {
+    const i = custom.groups.findIndex(function (g) { return g.key === key; });
+    if (i >= 0) { custom.groups[i] = Object.assign({}, custom.groups[i], { shared: undefined, mod: Date.now() }); custom.updated = Date.now(); saveCustomLocal(); wordsWriter.queue(); rebuildDeck(); renderHome(); }
+  }
+  $("sh-body").addEventListener("click", async function (ev) {
+    const b = ev.target.closest("[data-sh]"); if (!b || b.disabled || !SHV) return;
+    const a = b.dataset.sh; b.disabled = true; SHV.msg = "";
+    try {
+      if (a === "join") {
+        const code = ($("sh-code").value || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        if (code.length !== 8) { SHV.msg = t("sh.e.code"); renderShare(); return; }
+        const sid = await sbFetch("/rest/v1/rpc/fiches_join", { method: "POST", body: { join_code: code.slice(0, 4) + "-" + code.slice(4) } }, true);
+        const row = await shGet(sid);
+        if (!row) throw Object.assign(new Error("invalid_code"), { code: "invalid_code" });
+        if (row.course !== PAIR) {                                 // another course: don't stay a member here
+          try { await sbFetch("/rest/v1/fiches_shared_members?shared_id=eq." + encodeURIComponent(row.id) + "&user_id=eq." + encodeURIComponent(SB.auth.uid), { method: "DELETE" }, true); } catch (x) {}
+          SHV.msg = t("sh.e.course", { c: t("lang." + row.course.split("-")[0]) }); renderShare(); return;
+        }
+        const d = row.data || {}, inc = normCustom(JSON.parse(JSON.stringify({ words: d.words || [], groups: d.groups || [] })));
+        custom = mergeCustom(custom, inc);
+        const root = custom.groups.filter(function (g) { return g.shared && g.shared.id === row.id; })[0] || custom.groups.filter(function (g) { return !g.parent && inc.groups.some(function (x) { return x.key === g.key; }); })[0];
+        if (root) { root.shared = { id: row.id, owner: row.owner }; delete root.parent; root.deleted = false; }
+        custom.updated = Date.now(); saveCustomLocal(); wordsWriter.queue(); rebuildDeck(); renderHome();
+        toast(t("sh.joined", { name: row.name })); closeShare();
+      } else if (a === "create") {
+        const e = custom.groups.filter(function (g) { return g.key === SHV.key; })[0];
+        let row = null;
+        for (let n = 0; n < 4 && !row; n++) {
+          try {
+            const r = await sbFetch("/rest/v1/fiches_shared?select=id,owner,course,name,code,data,updated_at", { method: "POST", headers: { Prefer: "return=representation" },
+              body: [{ owner: SB.auth.uid, course: PAIR, name: e.name, code: newCode(), data: sharedPayload(e.key) }] }, true);
+            row = r && r[0];
+          } catch (err) { if (err.code !== "23505") throw err; }       // code already taken: try another one
+        }
+        const i = custom.groups.findIndex(function (g) { return g.key === SHV.key; });
+        custom.groups[i] = Object.assign({}, custom.groups[i], { shared: { id: row.id, owner: row.owner }, mod: Date.now() });
+        custom.updated = Date.now(); saveCustomLocal(); wordsWriter.queue(); rebuildDeck(); renderHome();
+        SHV.row = row; SHV.members = [{ user_id: SB.auth.uid, email: SB.auth.email }];
+        loadShare();
+      } else if (a === "copy") { copyText(SHV.row.code, t("th.copied"), $("sh-code-v")); }
+      else if (a === "send") {
+        const txt = t("sh.sendText", { name: SHV.row.name, code: SHV.row.code });
+        if (AB && AB.shareText) AB.shareText(txt); else if (navigator.share) navigator.share({ text: txt }).catch(function () {});
+      }
+      else if (a === "sync") { await shSyncAll(); await loadShare(); }
+      else if (a === "recode") {
+        let ok = false;
+        for (let n = 0; n < 4 && !ok; n++) { const c = newCode(); try { await shPatch(SHV.row.id, { code: c }); SHV.row.code = c; ok = true; } catch (err) { if (err.code !== "23505") throw err; } }
+        toast(t("sh.recoded"));
+      } else if (a === "remove") {
+        if (!(await confirmAsync(t("sh.remove"), t("sh.removeQ"), t("sh.remove")))) return;
+        await sbFetch("/rest/v1/fiches_shared_members?shared_id=eq." + encodeURIComponent(SHV.row.id) + "&user_id=eq." + encodeURIComponent(b.dataset.uid), { method: "DELETE" }, true);
+        await loadShare();
+      } else if (a === "leave" || a === "stop") {
+        if (!(await confirmAsync(t(a === "leave" ? "sh.leave" : "sh.stop"), t(a === "leave" ? "sh.leaveQ" : "sh.stopQ"), t(a === "leave" ? "sh.leave" : "sh.stop"), "undo"))) return;
+        if (a === "leave") await sbFetch("/rest/v1/fiches_shared_members?shared_id=eq." + encodeURIComponent(SHV.row.id) + "&user_id=eq." + encodeURIComponent(SB.auth.uid), { method: "DELETE" }, true);
+        else await sbFetch("/rest/v1/fiches_shared?id=eq." + encodeURIComponent(SHV.row.id), { method: "DELETE" }, true);
+        unshareLocal(SHV.key); toast(t(a === "leave" ? "sh.left" : "sh.stopped")); closeShare();
+      }
+    } catch (err) {
+      SHV.msg = err && (err.code === "invalid_code" || /invalid_code/.test(err.message || "")) ? t("sh.e.code") : sbErrText(err);
+    } finally { b.disabled = false; if (SHV) renderShare(); }
+  });
+  $("sh-body").addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target.id === "sh-code") { e.preventDefault(); const b = $("sh-body").querySelector('[data-sh="join"]'); if (b) b.click(); } });
+  $("sh-close").addEventListener("click", closeShare);
+  $("share-modal").addEventListener("click", function (e) { if (e.target === $("share-modal")) closeShare(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("share-modal").hidden) closeShare(); });
 
   // ---------- backup file: progress, own words, groups and settings of all courses (v71) ----------
   // { format: "fiches-backup", version: 1, created, courses: { "fr-de": { state, custom } … }, device: { ui, ai } }
@@ -7686,6 +8540,9 @@ window.FICHES_I18N.de = {
     if (view === "add") { leaveEditor(); return true; }
     if (PV) { closePreview(); return true; }
     if (GM) { closeGroupEditor(); return true; }
+    if (!$("share-modal").hidden) { closeShare(); return true; }
+    if (view === "read" && RD) { closeText(); return true; }
+    if (view === "read" && !$("read-new-panel").hidden) { $("read-new-panel").hidden = true; return true; }
     if (view === "settings") { closeSettings(); return true; }
     if (view !== "home" && view !== "start") { show("home"); return true; }
     if (view === "home") { show("start"); return true; }
@@ -7709,8 +8566,8 @@ window.FICHES_I18N.de = {
     gender: { colors: {}, off: { v: true, a: true, j: true, o: true } },
     none: { colors: {}, off: { m: true, f: true, v: true, a: true, j: true, o: true } }
   };
-  var UI = { theme: "system", colors: {}, off: {}, cardBg: "lined", cardOp: 100, legend: true, chars: true, cardSents: false, cardConj: false, palette: "classic", own: [] };
-  try { const x = JSON.parse(localStorage.getItem(UI_KEY) || "null"); if (x) UI = { theme: x.theme || "system", colors: x.colors || {}, off: x.off || {}, cardBg: x.cardBg === "plain" ? "plain" : "lined", cardOp: +x.cardOp >= 10 && +x.cardOp <= 100 ? +x.cardOp : 100, legend: x.legend !== false, chars: x.chars !== false, cardSents: !!x.cardSents, cardConj: !!x.cardConj, palette: typeof x.palette === "string" ? x.palette : "classic", own: Array.isArray(x.own) ? x.own.filter(function (o) { return o && /^c-/.test(o.id) && Array.isArray(o.l) && Array.isArray(o.d); }).slice(0, 12) : [] }; } catch (e) {}
+  var UI = { theme: "light", colors: {}, off: {}, cardBg: "lined", cardOp: 100, legend: true, chars: true, cardSents: false, cardConj: false, palette: "classic", own: [], readColors: true };
+  try { const x = JSON.parse(localStorage.getItem(UI_KEY) || "null"); if (x) UI = { theme: x.theme || "light", colors: x.colors || {}, off: x.off || {}, cardBg: x.cardBg === "plain" ? "plain" : "lined", cardOp: +x.cardOp >= 10 && +x.cardOp <= 100 ? +x.cardOp : 100, legend: x.legend !== false, chars: x.chars !== false, cardSents: !!x.cardSents, cardConj: !!x.cardConj, palette: typeof x.palette === "string" ? x.palette : "classic", readColors: x.readColors !== false, own: Array.isArray(x.own) ? x.own.filter(function (o) { return o && /^c-/.test(o.id) && Array.isArray(o.l) && Array.isArray(o.d); }).slice(0, 12) : [] }; } catch (e) {}
   function applyCardBg() {
     const r = document.documentElement;
     r.setAttribute("data-cardbg", UI.cardBg);
@@ -7891,6 +8748,7 @@ window.FICHES_I18N.de = {
   }
   function renderSettings() {
     markNewLimit(); markPace(); markGoal(); renderPalettes(); renderAccount();
+    $("set-mcauto").checked = state.settings.mcAuto !== false;
     document.querySelectorAll("[data-theme-set]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.themeSet === UI.theme)); });
     document.querySelectorAll("[data-cardbg-set]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.cardbgSet === UI.cardBg)); });
     $("set-legend").checked = UI.legend !== false;
@@ -7992,7 +8850,7 @@ window.FICHES_I18N.de = {
       }
     });
     // panels in the word list: the introduction under the heading
-    Array.prototype.forEach.call(document.querySelectorAll("section.panel.io > h2 + p"), function (p) { if (!p.id) attach(p, p.previousElementSibling, true); });
+    Array.prototype.forEach.call(document.querySelectorAll("section.panel.io > h2 + p, #read-new-panel > h2 + p"), function (p) { if (!p.id) attach(p, p.previousElementSibling, true); });
   })();
 
   rebuildDeck();
