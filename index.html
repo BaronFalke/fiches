@@ -139,8 +139,13 @@ details.forecast[open] > summary::after { content: "▴"; }
 .grow-t svg { width: 17px; height: 17px; flex: none; color: var(--muted); }
 .grow .gpath { font-size: 12px; color: var(--muted); }
 .grow-act .gmore { color: var(--muted); }
-.gtiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 4px minmax(0, 1fr); gap: 6px; width: 100%; }
-.gtile.del { grid-column: 6; }
+.gtiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) 4px minmax(0, 1fr); gap: 6px; width: 100%; }
+.gtile.del { grid-column: 5; }
+.g-kids { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; padding: 0 6px; border: 1px solid var(--line); border-radius: 6px; font-size: 11.5px; color: var(--muted); }
+.g-kids svg { width: 12px; height: 12px; }
+.grow-act .gmute { color: var(--muted); }
+.grow-act .gmute[aria-pressed="true"] { color: var(--fem); border-color: color-mix(in srgb, var(--fem) 45%, var(--line)); background: color-mix(in srgb, var(--fem) 8%, var(--surface)); }
+.ibtn-ph { display: inline-block; width: 36px; height: 36px; flex: none; }
 .gtile.ph { border-style: dashed; background: transparent; cursor: default; opacity: .55; }
 @media (max-width: 380px) { .gtiles { gap: 4px; } .gtile { font-size: 11px; padding: 7px 1px; } }
 .gtile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 58px; padding: 8px 2px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: 12px; line-height: 1.15; cursor: pointer; text-align: center; }
@@ -2925,12 +2930,16 @@ window.FICHES_I18N.de = {
   "sh.h": "„{name}“ teilen", "sh.join.h": "Gemeinsamer Gruppe beitreten", "sh.join.t": "Gemeinsamer Gruppe beitreten",
   "sh.intro": "Andere können diese Gruppe mit dir zusammen bearbeiten: Wörter, Übersetzungen und Untergruppen werden für alle abgeglichen. Den Lernfortschritt hat jede Person für sich. Du bekommst einen Einladungscode, den du weitergibst.",
   "sh.create": "Gruppe teilen", "sh.loading": "Wird geladen …",
-  "sh.ownerP": "Gib diesen Code an Personen weiter, die mitmachen sollen. Sie geben ihn unter Eigene Gruppen → Beitreten ein.",
-  "sh.memberP": "Du bearbeitest diese Gruppe gemeinsam mit anderen. Mit dem Code kannst du weitere Personen einladen.",
+  "sh.ownerP": "Gib den Einladungscode an eine Person weiter, die mitmachen soll. Sie gibt ihn unter Eigene Gruppen → Beitreten ein. Untergruppen sind automatisch dabei.",
+  "sh.memberP": "Du bearbeitest diese Gruppe gemeinsam mit anderen. Weitere Personen kann nur einladen, wer die Gruppe geteilt hat.",
   "sh.send": "Senden", "sh.sendText": "Mach mit bei meiner fiches-Gruppe „{name}“! Einladungscode: {code} (in fiches unter Eigene Gruppen → Beitreten eingeben)",
   "sh.members.one": "1 Person", "sh.members.other": "{n} Personen", "sh.you": "du", "sh.owner": "hat geteilt",
   "sh.remove": "Entfernen", "sh.removeQ": "Diese Person aus der Gruppe entfernen? Ihre Kopie der Wörter bleibt bei ihr.",
   "sh.recode": "Neuer Code", "sh.recoded": "Neuer Code erstellt – der alte gilt nicht mehr",
+  "sh.newCode": "Einladungscode erstellen", "sh.codeValid": "Der Code gilt einmal und bis {d}. Für jede weitere Person erstellst du einen neuen.",
+  "sh.e.nested": "In dieser Gruppe liegt schon eine gemeinsame Gruppe – sie kann deshalb nicht noch einmal geteilt werden.",
+  "gm.err.sharedIn": "Eine gemeinsame Gruppe kann nicht in eine andere gemeinsame Gruppe verschoben werden.",
+  "sh.e.notAllowed": "Die Änderung wurde von der Datenbank abgelehnt – bitte prüfe die Einrichtung der gemeinsamen Gruppen in Supabase.",
   "sh.stop": "Teilen beenden", "sh.stopQ": "Teilen für alle beenden? Alle behalten ihre Kopie, aber Änderungen werden nicht mehr abgeglichen.", "sh.stopped": "Teilen beendet",
   "sh.leave": "Gruppe verlassen", "sh.leaveQ": "Die gemeinsame Gruppe verlassen? Deine Kopie der Wörter bleibt als eigene Gruppe erhalten.", "sh.left": "Gruppe verlassen",
   "sh.join.p": "Gib den Einladungscode ein, den du bekommen hast. Die Gruppe erscheint dann bei deinen eigenen Gruppen.",
@@ -3054,7 +3063,7 @@ window.FICHES_I18N.de = {
   "home.go0": "Los geht's",
   "home.todo2": "{due} Wiederholungen · {nl} neue Wörter",
   "ctl.allLevels": "alle Niveaus", "ctl.allPos": "alle Wortarten",
-  "grp.a.words": "Wörter", "grp.a.pause": "Pause", "grp.a.resume": "Pausiert", "grp.a.change": "Ändern", "grp.listT": "Wörter der Gruppe anzeigen", "grp.listAllT": "Alle Wörter der Gruppe und ihrer Untergruppen anzeigen",
+  "grp.a.words": "Wörter", "grp.a.change": "Ändern", "grp.listT": "Wörter der Gruppe anzeigen", "grp.listAllT": "Alle Wörter der Gruppe und ihrer Untergruppen anzeigen",
   "grp.more": "Mehr", "grp.moreA": "Weitere Aktionen für {name}",
   "grp.a.del": "Löschen",
   "set.group.general": "Allgemein – für alle Kurse",
@@ -4293,9 +4302,7 @@ window.FICHES_I18N.de = {
   // one line above the tiles: subgroups, description (not the generic "Eigene Gruppe"), due cards
   function groupInfo(g, par, optIn, st) {
     const parts = [];
-    if (par) parts.push(esc(tn("grp.subN", g.kids.length)));
     if (g.desc && g.desc !== t("grp.ownDesc")) parts.push(esc(g.desc));
-    if (st.due) parts.push(esc(t("grp.dueN", { n: st.due })));
     const txt = parts.join(" · ") + (optIn ? ' <span class="own">' + t("grp.optIn") + "</span>" : "");
     return txt ? "<p>" + txt + "</p>" : "";
   }
@@ -4313,18 +4320,18 @@ window.FICHES_I18N.de = {
       '<button type="button" class="grow-main" ' + (par ? 'data-ownat="' + k + '" title="' + t("grp.openSub") + '"' : 'data-gexp="' + k + '" aria-expanded="' + open + '" title="' + t("grp.details") + '"') + ">" +
         '<span class="grow-t">' + (par ? IC.folder : "") + (sharedRoot(g) ? '<span class="g-shared" title="' + esc(t("sh.tag")) + '">' + IC.users + "</span>" : "") + "<b>" + esc(g.name) + '</b><span class="lv">' + range + "</span>" + (st.due ? '<span class="badge-due">' + t("grp.dueN", { n: st.due }) + "</span>" : "") + "</span>" +
         (withPath && g.parent ? '<span class="gpath">' + esc(gPath(GBYKEY[g.parent])) + "</span>" : "") +
-        '<span class="grow-m"><span class="meter"><i class="m-done" style="width:' + pd + '%"></i><i class="m-learn" style="width:' + pl + '%"></i></span>' + (par ? tn("grp.subN", g.kids.length) + " · " : "") + st.learned + " / " + ws.length + (muted ? '<span class="muted-tag">' + t("grp.mutedTag") + "</span>" : "") + "</span>" +
+        '<span class="grow-m"><span class="meter"><i class="m-done" style="width:' + pd + '%"></i><i class="m-learn" style="width:' + pl + '%"></i></span>' + st.learned + " / " + ws.length + (par ? '<span class="g-kids" title="' + esc(tn("grp.subN", g.kids.length)) + '">' + IC.folder + g.kids.length + "</span>" : "") + (muted ? '<span class="muted-tag">' + t("grp.mutedTag") + "</span>" : "") + "</span>" +
       "</button>" +
       '<span class="grow-act">' +
         '<button type="button" class="ibtn ok" data-study="' + k + '" title="' + (par ? t("grp.studyAll") : t("grp.study")) + '" aria-label="' + esc(t("grp.studyA", { name: g.name })) + '"' + (ws.length ? "" : " disabled") + ">" + IC.play + "</button>" +
+        (optIn ? '<span class="ibtn-ph" aria-hidden="true"></span>' : '<button type="button" class="ibtn gmute" data-mute="' + k + '" aria-pressed="' + muted + '" title="' + esc(muted ? t("grp.unmute") : par ? t("grp.muteAll") : t("grp.mute")) + '" aria-label="' + esc(muted ? t("grp.unmute") : t("grp.mute")) + '">' + (muted ? IC.belloff : IC.bell) + "</button>") +
         '<button type="button" class="ibtn gmore" data-gexp="' + k + '" aria-expanded="' + open + '" title="' + t("grp.more") + '" aria-label="' + esc(t("grp.moreA", { name: g.name })) + '">' + IC.dots + "</button>" +
       "</span>" +
       (open ? '<div class="grow-more">' + groupInfo(g, par, optIn, st) + '<div class="gtiles">' +
         gTile('data-editgroup="' + k + '"', IC.edit, t("grp.a.change"), t("grp.edit")) +
         gTile('data-list="' + k + '"', IC.conj, t("grp.a.words"), par ? t("grp.listAllT") : t("grp.listT")) +
-        // always four places and then "Löschen": an action a group does not have leaves an empty place, so all rows look alike
-        (optIn ? '<span class="gtile ph" aria-hidden="true"></span>' : gTile('data-mute="' + k + '" aria-pressed="' + muted + '"', muted ? IC.belloff : IC.bell, muted ? t("grp.a.resume") : t("grp.a.pause"), muted ? t("grp.unmute") : par ? t("grp.muteAll") : t("grp.mute"))) +
-        (g.custom && !g.parent && g.key !== OWN_GROUP.key ? gTile('data-share="' + k + '"', IC.users, g.shared ? t("sh.btn.on") : t("sh.btn"), t("sh.btn.t"), g.shared ? "on" : "") : '<span class="gtile ph" aria-hidden="true"></span>') +
+        // always three places and then "Löschen": an action a group does not have leaves an empty place, so all rows look alike
+        (g.custom && g.key !== OWN_GROUP.key && (!g.parent || g.shared) ? gTile('data-share="' + k + '"', IC.users, g.shared ? t("sh.btn.on") : t("sh.btn"), t("sh.btn.t"), g.shared ? "on" : "") : '<span class="gtile ph" aria-hidden="true"></span>') +
         gTile('data-delgroup="' + k + '" aria-label="' + esc(t("grp.delA", { name: g.name })) + '"', IC.trash, t("grp.a.del"), t("grp.delA", { name: g.name }), "del") +
         "</div></div>" : "") +
       "</div>";
@@ -5236,6 +5243,11 @@ window.FICHES_I18N.de = {
       return parent ? g.parent === parent : (!g.custom || !g.parent);
     });
     if (clash) { $("gm-err").textContent = t("gm.err.clash"); $("gm-err").hidden = false; return; }
+    if (parent && GM.key) {
+      const me = custom.groups.filter(function (g) { return g.key === GM.key; })[0];
+      const target = sharedRoot(GBYKEY[parent]);
+      if (target && target.key !== GM.key && ((me && me.shared) || treeHasShared(GM.key))) { $("gm-err").textContent = t("gm.err.sharedIn"); $("gm-err").hidden = false; return; }
+    }
     const r = saveGroupMeta(name, desc, parent); closeGroupEditor();
     toast((GM_LAST = r.key, r.moved ? t("gm.savedMoved") : t("gm.saved", { name: name })));
   });
@@ -7198,6 +7210,17 @@ window.FICHES_I18N.de = {
       row.push(w.frm && plain(w.frm) === w.fr ? w.frm : defaultFrm(w), PAIR);
       lines.push(row.map(csvCell).join(";"));
     });
+    // linked words: one more line with the own group, so the link comes back on import ("link existing words")
+    GROUPS.forEach(function (g) {
+      if (!g.custom || !(g.refIds || []).length) return;
+      g.refIds.forEach(function (id) {
+        const w = BYID[id]; if (!w) return;
+        const row = [w.id, w.fr, w.tr, w.pos, w.pos === "n" ? w.gender : "", w.level, gPath(g, " / ")];
+        for (let i = 0; i < 3; i++) { const x = w.sents[i]; row.push(x ? x.fr : "", x ? x.tr : ""); }
+        row.push(w.frm && plain(w.frm) === w.fr ? w.frm : defaultFrm(w), PAIR);
+        lines.push(row.map(csvCell).join(";"));
+      });
+    });
     return "\uFEFF" + lines.join("\r\n") + "\r\n";
   }
   function parseCSV(text) {
@@ -7224,7 +7247,8 @@ window.FICHES_I18N.de = {
     return POS[v] ? v : "";
   }
   function sameWord(a, b) {
-    return a.fr === b.fr && (a.frm || defaultFrm(a)) === (b.frm || defaultFrm(b)) && a.tr === b.tr && a.pos === b.pos && (a.gender || "") === (b.gender || "") && a.level === b.level && a.group === b.group &&
+    // compared after the same normalisation the import applies (e.g. "el [m:este]" → "el este"), so an unchanged export stays unchanged
+    return a.fr === b.fr && normMarkup(a.frm || defaultFrm(a)) === normMarkup(b.frm || defaultFrm(b)) && a.tr === b.tr && a.pos === b.pos && (a.gender || "") === (b.gender || "") && a.level === b.level && a.group === b.group &&
       JSON.stringify(normSents(a.sents)) === JSON.stringify(normSents(b.sents));
   }
   // opt.group: put new words into this group (name or path) instead of the file's "group" column; existing words keep their group
@@ -7982,6 +8006,7 @@ window.FICHES_I18N.de = {
     if (st === 400 && SB.step !== "register" && !SB.auth) return t("acct.e.login");
     if (c === "email_address_invalid" || c === "validation_failed") return t("acct.e.email");
     if (c === "signedout") return t("acct.expired");
+    if (c === "not_allowed") return t("sh.e.notAllowed");
     return t("acct.e.other", { m: (e && e.message) || "?" });
   }
   async function sbGet(kind, pair) {
@@ -8101,8 +8126,12 @@ window.FICHES_I18N.de = {
   // every member keeps a normal copy in the own words; on each sync the copy and the shared row are merged entry by entry
   // (newer "mod" wins, deletions are kept as marks), progress stays personal. Joining needs an invitation code.
   const SH = { busy: false, again: false, timer: null, err: "", last: 0 };
-  function sharedRoot(g) { while (g && g.parent) g = GBYKEY[g.parent]; return g && g.shared ? g : null; }
-  function sharedEntries() { return custom.groups.filter(function (g) { return g.shared && g.shared.id && !g.parent && !g.deleted; }); }
+  // the shared group a group belongs to: itself or the nearest shared group above it
+  function sharedRoot(g) { while (g) { if (g.shared) return g; g = g.parent ? GBYKEY[g.parent] : null; } return null; }
+  function sharedEntries() { return custom.groups.filter(function (g) { return g.shared && g.shared.id && !g.deleted; }); }
+  // keys of all groups below a group (to check that shared trees do not overlap)
+  function treeKeys(key) { return Object.keys(subKeys(key)); }
+  function treeHasShared(key) { return treeKeys(key).some(function (k) { const c = custom.groups.filter(function (g) { return g.key === k; })[0]; return c && c.shared && k !== key; }); }
   function subKeys(rootKey) {
     const keys = {}; keys[rootKey] = 1; let more = true;
     while (more) { more = false; custom.groups.forEach(function (g) { if (g.parent && keys[g.parent] && !keys[g.key]) { keys[g.key] = 1; more = true; } }); }
@@ -8112,15 +8141,16 @@ window.FICHES_I18N.de = {
   function sharedPayload(rootKey) {
     const keys = subKeys(rootKey);
     return { groups: custom.groups.filter(function (g) { return keys[g.key]; }).map(function (g) { const x = Object.assign({}, g); if (x.key === rootKey) delete x.parent; return x; }),
-      words: custom.words.filter(function (w) { return keys[w.group] && !w.base; }) };
+      words: custom.words.filter(function (w) { return keys[w.group]; }) };
   }
   function sameJSON(a, b) { return JSON.stringify(a) === JSON.stringify(b); }
   async function shGet(sid) {
-    const rows = await sbFetch("/rest/v1/fiches_shared?select=id,owner,course,name,code,data,updated_at&id=eq." + encodeURIComponent(sid), {}, true);
+    const rows = await sbFetch("/rest/v1/fiches_shared?select=id,owner,course,name,data,updated_at&id=eq." + encodeURIComponent(sid), {}, true);
     return rows && rows[0] ? rows[0] : null;
   }
   async function shPatch(sid, body) {
-    await sbFetch("/rest/v1/fiches_shared?id=eq." + encodeURIComponent(sid), { method: "PATCH", headers: { Prefer: "return=minimal" }, body: body }, true);
+    const r = await sbFetch("/rest/v1/fiches_shared?id=eq." + encodeURIComponent(sid) + "&select=id", { method: "PATCH", headers: { Prefer: "return=representation" }, body: body }, true);
+    if (!r || !r.length) { const e = new Error("not_allowed"); e.code = "not_allowed"; throw e; }   // the rules refused the change
   }
   // merge one shared group: shared row → own words, then own words → shared row
   async function shSyncOne(root) {
@@ -8160,6 +8190,16 @@ window.FICHES_I18N.de = {
   let SHV = null;   // { mode: "share"|"join", key, row, members, msg }
   const CODE_CH = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   function newCode() { let c = ""; const r = new Uint8Array(8); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(r) : r.forEach(function (x, i) { r[i] = Math.random() * 256; }); r.forEach(function (x, i) { c += CODE_CH[x % CODE_CH.length] + (i === 3 ? "-" : ""); }); return c; }
+  // a new one-time code (valid 7 days) replaces the previous one; only the owner can read or write codes
+  async function shNewCode(sid) {
+    for (let n = 0; n < 4; n++) {
+      try {
+        await sbFetch("/rest/v1/fiches_shared_codes?on_conflict=shared_id", { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
+          body: [{ shared_id: sid, code: newCode(), expires_at: new Date(Date.now() + 7 * 864e5).toISOString() }] }, true);
+        return;
+      } catch (err) { if (err.code !== "23505") throw err; }
+    }
+  }
   function openShare(key) { SHV = { mode: "share", key: key, row: null, members: [], msg: "" }; $("share-modal").hidden = false; renderShare(); loadShare(); }
   function openJoin() { SHV = { mode: "join", msg: "" }; $("share-modal").hidden = false; renderShare(); const i = $("sh-code"); if (i) i.focus(); }
   function closeShare() { $("share-modal").hidden = true; SHV = null; }
@@ -8168,7 +8208,14 @@ window.FICHES_I18N.de = {
     if (!e || !e.shared || !sbOn()) return;
     try {
       SHV.row = await shGet(e.shared.id);
-      if (SHV.row) SHV.members = await sbFetch("/rest/v1/fiches_shared_members?select=user_id,email,joined_at&shared_id=eq." + encodeURIComponent(e.shared.id) + "&order=joined_at", {}, true) || [];
+      if (SHV.row) {
+        SHV.members = await sbFetch("/rest/v1/fiches_shared_members?select=user_id,email,joined_at&shared_id=eq." + encodeURIComponent(e.shared.id) + "&order=joined_at", {}, true) || [];
+        SHV.code = null;
+        if (SHV.row.owner === SB.auth.uid) {
+          const c = await sbFetch("/rest/v1/fiches_shared_codes?select=code,expires_at&shared_id=eq." + encodeURIComponent(e.shared.id), {}, true);
+          if (c && c[0] && new Date(c[0].expires_at).getTime() > Date.now()) SHV.code = c[0];
+        }
+      }
       else { await shSyncAll(); }
     } catch (err) { SHV.msg = sbErrText(err); }
     if (SHV) renderShare();
@@ -8192,9 +8239,12 @@ window.FICHES_I18N.de = {
     }
     const row = SHV.row, mine = row && row.owner === SB.auth.uid;
     if (!row) { b.innerHTML = '<p class="acct-note">' + esc(t("sh.loading")) + "</p>" + msg; return; }
+    const code = mine && SHV.code;
     b.innerHTML = '<p class="acct-note">' + esc(mine ? t("sh.ownerP") : t("sh.memberP")) + "</p>" +
-      '<div class="sh-codebox"><span class="sh-code" id="sh-code-v">' + esc(row.code) + '</span><button type="button" class="btn small" data-sh="copy">' + IC.copy + esc(t("th.copy")) + "</button>" +
-      (AB && AB.shareText || navigator.share ? '<button type="button" class="btn small ghost" data-sh="send">' + esc(t("sh.send")) + "</button>" : "") + "</div>" +
+      (!mine ? "" : code ? '<div class="sh-codebox"><span class="sh-code" id="sh-code-v">' + esc(code.code) + '</span><button type="button" class="btn small" data-sh="copy">' + IC.copy + esc(t("th.copy")) + "</button>" +
+        (AB && AB.shareText || navigator.share ? '<button type="button" class="btn small ghost" data-sh="send">' + esc(t("sh.send")) + "</button>" : "") + "</div>" +
+        '<p class="acct-note">' + esc(t("sh.codeValid", { d: new Date(code.expires_at).toLocaleDateString("de-DE", { day: "numeric", month: "long" }) })) + "</p>"
+        : '<div class="row acct-btns"><button type="button" class="btn small primary" data-sh="recode">' + esc(t("sh.newCode")) + "</button></div>") +
       '<h3 class="set-sub">' + esc(tn("sh.members", SHV.members.length)) + '</h3><ul class="sh-members">' + SHV.members.map(function (m) {
         const me = m.user_id === SB.auth.uid, own = m.user_id === row.owner;
         return "<li><span>" + esc(m.email || "?") + (me ? ' <span class="own">' + esc(t("sh.you")) + "</span>" : "") + (own ? ' <span class="lv">' + esc(t("sh.owner")) + "</span>" : "") + "</span>" +
@@ -8202,7 +8252,7 @@ window.FICHES_I18N.de = {
       }).join("") + "</ul>" +
       '<p class="acct-st" role="status">' + esc(SH.err ? SH.err : SH.last ? t("acct.synced", { tm: new Date(SH.last).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) }) : "") + "</p>" +
       '<div class="row acct-btns"><button type="button" class="btn small" data-sh="sync">' + esc(t("acct.syncNow")) + "</button>" +
-      (mine ? '<button type="button" class="btn small ghost" data-sh="recode">' + esc(t("sh.recode")) + '</button><button type="button" class="btn small ghost gdel" data-sh="stop">' + esc(t("sh.stop")) + "</button>"
+      (mine ? (code ? '<button type="button" class="btn small ghost" data-sh="recode">' + esc(t("sh.recode")) + "</button>" : "") + '<button type="button" class="btn small ghost gdel" data-sh="stop">' + esc(t("sh.stop")) + "</button>"
         : '<button type="button" class="btn small ghost gdel" data-sh="leave">' + esc(t("sh.leave")) + "</button>") + "</div>" + msg;
   }
   // a shared group: no longer marked as shared here (the words stay as a normal own group)
@@ -8217,7 +8267,7 @@ window.FICHES_I18N.de = {
       if (a === "join") {
         const code = ($("sh-code").value || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
         if (code.length !== 8) { SHV.msg = t("sh.e.code"); renderShare(); return; }
-        const sid = await sbFetch("/rest/v1/rpc/fiches_join", { method: "POST", body: { join_code: code.slice(0, 4) + "-" + code.slice(4) } }, true);
+        const sid = await sbFetch("/rest/v1/rpc/fiches_join", { method: "POST", body: { join_code: code.slice(0, 4) + "-" + code.slice(4), join_course: PAIR } }, true);
         const row = await shGet(sid);
         if (!row) throw Object.assign(new Error("invalid_code"), { code: "invalid_code" });
         if (row.course !== PAIR) {                                 // another course: don't stay a member here
@@ -8232,29 +8282,29 @@ window.FICHES_I18N.de = {
         toast(t("sh.joined", { name: row.name })); closeShare();
       } else if (a === "create") {
         const e = custom.groups.filter(function (g) { return g.key === SHV.key; })[0];
+        if (treeHasShared(e.key)) { SHV.msg = t("sh.e.nested"); return; }
         let row = null;
         for (let n = 0; n < 4 && !row; n++) {
           try {
-            const r = await sbFetch("/rest/v1/fiches_shared?select=id,owner,course,name,code,data,updated_at", { method: "POST", headers: { Prefer: "return=representation" },
-              body: [{ owner: SB.auth.uid, course: PAIR, name: e.name, code: newCode(), data: sharedPayload(e.key) }] }, true);
+            const r = await sbFetch("/rest/v1/fiches_shared?select=id,owner,course,name,data,updated_at", { method: "POST", headers: { Prefer: "return=representation" },
+              body: [{ owner: SB.auth.uid, course: PAIR, name: e.name, data: sharedPayload(e.key) }] }, true);
             row = r && r[0];
-          } catch (err) { if (err.code !== "23505") throw err; }       // code already taken: try another one
+          } catch (err) { if (err.code !== "23505") throw err; }
         }
+        await shNewCode(row.id);
         const i = custom.groups.findIndex(function (g) { return g.key === SHV.key; });
         custom.groups[i] = Object.assign({}, custom.groups[i], { shared: { id: row.id, owner: row.owner }, mod: Date.now() });
         custom.updated = Date.now(); saveCustomLocal(); wordsWriter.queue(); rebuildDeck(); renderHome();
         SHV.row = row; SHV.members = [{ user_id: SB.auth.uid, email: SB.auth.email }];
         loadShare();
-      } else if (a === "copy") { copyText(SHV.row.code, t("th.copied"), $("sh-code-v")); }
+      } else if (a === "copy") { copyText(SHV.code.code, t("th.copied"), $("sh-code-v")); }
       else if (a === "send") {
-        const txt = t("sh.sendText", { name: SHV.row.name, code: SHV.row.code });
+        const txt = t("sh.sendText", { name: SHV.row.name, code: SHV.code.code });
         if (AB && AB.shareText) AB.shareText(txt); else if (navigator.share) navigator.share({ text: txt }).catch(function () {});
       }
       else if (a === "sync") { await shSyncAll(); await loadShare(); }
       else if (a === "recode") {
-        let ok = false;
-        for (let n = 0; n < 4 && !ok; n++) { const c = newCode(); try { await shPatch(SHV.row.id, { code: c }); SHV.row.code = c; ok = true; } catch (err) { if (err.code !== "23505") throw err; } }
-        toast(t("sh.recoded"));
+        await shNewCode(SHV.row.id); await loadShare(); toast(t("sh.recoded"));
       } else if (a === "remove") {
         if (!(await confirmAsync(t("sh.remove"), t("sh.removeQ"), t("sh.remove")))) return;
         await sbFetch("/rest/v1/fiches_shared_members?shared_id=eq." + encodeURIComponent(SHV.row.id) + "&user_id=eq." + encodeURIComponent(b.dataset.uid), { method: "DELETE" }, true);
@@ -8266,7 +8316,8 @@ window.FICHES_I18N.de = {
         unshareLocal(SHV.key); toast(t(a === "leave" ? "sh.left" : "sh.stopped")); closeShare();
       }
     } catch (err) {
-      SHV.msg = err && (err.code === "invalid_code" || /invalid_code/.test(err.message || "")) ? t("sh.e.code") : sbErrText(err);
+      const wc = err && /wrong_course:([a-z]{2})/.exec(err.message || "");
+      SHV.msg = wc ? t("sh.e.course", { c: t("lang." + wc[1]) }) : err && (err.code === "invalid_code" || /invalid_code/.test(err.message || "")) ? t("sh.e.code") : sbErrText(err);
     } finally { b.disabled = false; if (SHV) renderShare(); }
   });
   $("sh-body").addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target.id === "sh-code") { e.preventDefault(); const b = $("sh-body").querySelector('[data-sh="join"]'); if (b) b.click(); } });

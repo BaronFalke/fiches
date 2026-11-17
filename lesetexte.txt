@@ -1,0 +1,216 @@
+=== fr
+# fr-cafe | Au café | A1 | dialog | Im Café
+> [Serveur] Bonjour ! Qu'[v:est]-ce que vous [v:désirez] ? || Guten Tag! Was möchten Sie?
+> [Cliente] Bonjour. Je [v:voudrais] un [f:café], s'il vous [v:plaît]. || Guten Tag. Ich hätte gern einen Kaffee, bitte.
+> [Serveur] Avec du [m:lait] ? || Mit Milch?
+> [Cliente] [a:Non], merci. Et un [m:croissant], [a:aussi]. || Nein, danke. Und auch ein Croissant.
+> [Serveur] [a:Très] [a:bien]. Vous [v:mangez] [a:ici] ou c'[v:est] à [v:emporter] ? || Sehr gut. Essen Sie hier oder zum Mitnehmen?
+> [Cliente] Je [v:mange] [a:ici]. Je [v:suis] en [f:vacances] ! || Ich esse hier. Ich bin im Urlaub!
+> [Serveur] Ça [v:fait] quatre [m:euros] cinquante. || Das macht vier Euro fünfzig.
+> [Cliente] Voilà. Merci et [j:bonne] [f:journée] ! || Bitte schön. Danke und einen schönen Tag!
+# fr-famille | Ma famille | A1 | alltag | Meine Familie
+> Je m'[v:appelle] Léa et j'[v:ai] douze [m:ans]. || Ich heiße Léa und bin zwölf Jahre alt.
+> J'[v:habite] à Lyon avec mes [m:parents] et mon [m:frère]. || Ich wohne mit meinen Eltern und meinem Bruder in Lyon.
+> Mon [m:père] [v:est] [m:professeur] et ma [f:mère] [v:travaille] dans un [m:hôpital]. || Mein Vater ist Lehrer, und meine Mutter arbeitet in einem Krankenhaus.
+>
+> Mon [m:frère] s'[v:appelle] Hugo. Il [v:a] huit [m:ans]. || Mein Bruder heißt Hugo. Er ist acht Jahre alt.
+> Il [v:aime] le [m:football] et les [m:jeux] [j:vidéo]. || Er mag Fußball und Videospiele.
+> Nous [v:avons] [a:aussi] un [m:chat] [j:noir]. Il [v:dort] [j:toute] la [f:journée]. || Wir haben auch eine schwarze Katze. Sie schläft den ganzen Tag.
+>
+> Le [m:dimanche], nous [v:mangeons] chez ma [f:grand-mère]. || Sonntags essen wir bei meiner Großmutter.
+> Elle [v:fait] [a:toujours] un [m:gâteau] au [m:chocolat]. || Sie backt immer einen Schokoladenkuchen.
+# fr-week-end | Un week-end à la mer | A2 | reise | Ein Wochenende am Meer
+> Le [m:week-end] [j:dernier], nous [v:sommes partis] à Saint-Malo. || Letztes Wochenende sind wir nach Saint-Malo gefahren.
+> Le [m:voyage] en [m:train] [v:a duré] trois [f:heures]. || Die Zugfahrt hat drei Stunden gedauert.
+>
+> [m:Samedi] [m:matin], il [v:faisait] [j:beau], [a:alors] nous [v:sommes allés] à la [m:plage]. || Am Samstagmorgen war das Wetter schön, also sind wir an den Strand gegangen.
+> L'[f:eau] [v:était] [j:froide], mais les [m:enfants] se [v:sont baignés] quand [a:même]. || Das Wasser war kalt, aber die Kinder haben trotzdem gebadet.
+> L'après-midi, nous [v:avons visité] la [j:vieille] [f:ville] et ses [m:remparts]. || Am Nachmittag haben wir die Altstadt und ihre Stadtmauern besichtigt.
+>
+> Le [m:soir], nous [v:avons mangé] des [m:crêpes] dans un [j:petit] [m:restaurant]. || Am Abend haben wir in einem kleinen Restaurant Crêpes gegessen.
+>
+> [m:Dimanche], il [v:a plu] [j:toute] la [f:journée]. || Am Sonntag hat es den ganzen Tag geregnet.
+> Nous [v:sommes restés] à l'[m:hôtel] et nous [v:avons joué] aux [m:cartes]. || Wir sind im Hotel geblieben und haben Karten gespielt.
+> C'[v:était] un [a:très] [j:bon] [m:week-end], et nous [v:voulons] y [v:retourner] cet [m:été]. || Es war ein sehr schönes Wochenende, und wir wollen diesen Sommer wieder hinfahren.
+# fr-recette | La crêpe facile | A2 | rezept | Der einfache Crêpe
+> Pour huit [m:crêpes], il [v:faut] 250 [m:grammes] de [f:farine], trois [m:œufs] et un [m:demi-litre] de [m:lait]. || Für acht Crêpes braucht man 250 Gramm Mehl, drei Eier und einen halben Liter Milch.
+> [v:Mettez] la [f:farine] dans un [j:grand] [m:bol]. || Gib das Mehl in eine große Schüssel.
+> [v:Ajoutez] les [m:œufs] et [v:mélangez] [a:bien]. || Füge die Eier hinzu und verrühre alles gut.
+> [v:Versez] le [m:lait] [a:petit à petit] pour [v:éviter] les [m:grumeaux]. || Gieß die Milch nach und nach hinein, damit sich keine Klümpchen bilden.
+>
+> [v:Laissez] [v:reposer] la [f:pâte] pendant une [f:heure]. || Lass den Teig eine Stunde ruhen.
+> [v:Faites chauffer] une [f:poêle] avec un [a:peu] de [f:beurre]. || Erhitze eine Pfanne mit etwas Butter.
+> [v:Versez] une [j:petite] [f:louche] de [f:pâte] et [v:tournez] la [f:poêle]. || Gib eine kleine Kelle Teig hinein und schwenke die Pfanne.
+> Après une [f:minute], [v:retournez] la [m:crêpe]. || Wende den Crêpe nach einer Minute.
+>
+> [v:Servez] avec du [m:sucre], de la [f:confiture] ou du [m:chocolat]. || Serviere ihn mit Zucker, Marmelade oder Schokolade.
+# fr-lettre | Une lettre de Montréal | B1 | brief | Ein Brief aus Montreal
+> [j:Chère] Julie, || Liebe Julie,
+>
+> cela [v:fait] [a:déjà] trois [m:mois] que je [v:suis arrivée] à Montréal, et je n'[v:ai] pas [v:vu] le [m:temps] [v:passer]. || ich bin schon seit drei Monaten in Montreal, und die Zeit ist wie im Flug vergangen.
+> Au [m:début], j'[v:avais] un [a:peu] de [m:mal] à [v:comprendre] l'[m:accent] québécois, mais [a:maintenant] je m'y [v:suis habituée]. || Am Anfang hatte ich etwas Mühe, den Akzent aus Québec zu verstehen, aber inzwischen habe ich mich daran gewöhnt.
+> Mon [m:travail] à l'[f:université] me [v:plaît] [a:beaucoup], [a:même] si mes [f:journées] [v:sont] [j:longues]. || Meine Arbeit an der Universität gefällt mir sehr, auch wenn meine Tage lang sind.
+>
+> Ce qui m'[v:a] le [a:plus] [v:surprise], c'[v:est] le [m:froid] : en [m:janvier], il [v:a fait] [a:moins] trente [m:degrés] ! || Am meisten hat mich die Kälte überrascht: Im Januar hatte es minus dreißig Grad!
+> [a:Heureusement], la [f:ville] [v:a] des [f:galeries] [j:souterraines] où l'on [v:peut] se [v:promener] sans [v:sortir]. || Zum Glück hat die Stadt unterirdische Passagen, in denen man spazieren gehen kann, ohne hinauszugehen.
+> Les [m:gens] [v:sont] [a:très] [j:chaleureux] et j'[v:ai] [a:déjà] quelques [m:amis]. || Die Leute sind sehr herzlich, und ich habe schon ein paar Freunde.
+>
+> Si tu [v:as] [f:envie] de [v:venir] me [v:voir] au [m:printemps], tu [v:seras] la [f:bienvenue]. || Wenn du Lust hast, mich im Frühling zu besuchen, bist du herzlich willkommen.
+>
+> Je t'[v:embrasse], || Liebe Grüße,
+> Camille || Camille
+# fr-ville | Les villes sans voitures ? | B2 | nachricht | Städte ohne Autos?
+> De [a:plus] en [a:plus] de [f:villes] [j:européennes] [v:cherchent] à [v:réduire] la [f:place] de la [f:voiture] dans leur [m:centre]. || Immer mehr europäische Städte versuchen, den Platz des Autos in ihren Zentren zu verringern.
+> À Paris, plusieurs [j:grands] [m:axes] [v:ont été transformés] en [f:pistes] [j:cyclables] au [m:cours] des [j:dernières] [f:années]. || In Paris wurden in den letzten Jahren mehrere große Verkehrsachsen in Radwege umgewandelt.
+>
+> Les [m:partisans] de ces [f:mesures] [v:soulignent] qu'elles [v:améliorent] la [f:qualité] de l'[m:air] et [v:réduisent] le [m:bruit]. || Die Befürworter dieser Maßnahmen betonen, dass sie die Luftqualität verbessern und den Lärm verringern.
+> Les [m:commerçants], en [f:revanche], [v:craignent] de [v:perdre] des [m:clients] qui [v:venaient] [a:autrefois] en [f:voiture]. || Die Geschäftsleute dagegen befürchten, Kunden zu verlieren, die früher mit dem Auto kamen.
+> Plusieurs [f:études] [v:montrent] [a:pourtant] que les [m:piétons] et les [m:cyclistes] [v:dépensent] [a:davantage] sur le [j:long] [m:terme]. || Mehrere Studien zeigen jedoch, dass Fußgänger und Radfahrer auf lange Sicht mehr ausgeben.
+>
+> Le [j:principal] [m:défi] [v:reste] les [m:habitants] des [m:banlieues], qui [v:dépendent] [a:souvent] [a:encore] de leur [f:voiture]. || Die größte Herausforderung bleiben die Bewohner der Vororte, die oft noch auf ihr Auto angewiesen sind.
+> Pour eux, il [v:faudrait développer] des [m:transports] en [m:commun] [a:plus] [j:rapides] et [a:plus] [j:fréquents]. || Für sie müsste man schnellere und häufigere öffentliche Verkehrsmittel schaffen.
+>
+> Le [m:débat] [v:est] [a:loin] d'[v:être terminé], mais une [f:chose] [v:est] [j:sûre] : la [f:ville] de [a:demain] ne [v:ressemblera] pas à celle d'[a:hier]. || Die Debatte ist noch lange nicht beendet, aber eines ist sicher: Die Stadt von morgen wird nicht der von gestern gleichen.
+=== es
+# es-mercado | En el mercado | A1 | dialog | Auf dem Markt
+> [Vendedor] ¡Buenos [m:días]! ¿Qué le [v:pongo]? || Guten Morgen! Was darf es sein?
+> [Clienta] Buenos [m:días]. [v:Quiero] un [m:kilo] de [m:tomates], por favor. || Guten Morgen. Ich möchte ein Kilo Tomaten, bitte.
+> [Vendedor] ¿Algo [a:más]? || Sonst noch etwas?
+> [Clienta] Sí, [a:también] dos [f:naranjas] y una [f:lechuga]. || Ja, auch zwei Orangen und einen Kopfsalat.
+> [Vendedor] [a:Aquí] [v:tiene]. [v:Son] cuatro [m:euros] con veinte. || Bitte schön. Das macht vier Euro zwanzig.
+> [Clienta] ¿[v:Puedo pagar] con [f:tarjeta]? || Kann ich mit Karte bezahlen?
+> [Vendedor] [a:Claro] que sí. || Natürlich.
+> [Clienta] Muchas [f:gracias]. ¡[a:Hasta] [a:luego]! || Vielen Dank. Bis später!
+# es-dia | Un día normal | A1 | alltag | Ein ganz normaler Tag
+> Me [v:llamo] Pablo y [v:vivo] en Sevilla. || Ich heiße Pablo und wohne in Sevilla.
+> Me [v:levanto] a las siete y [v:desayuno] [m:café] con [f:tostadas]. || Ich stehe um sieben Uhr auf und frühstücke Kaffee mit Toast.
+> [v:Voy] al [m:trabajo] en [f:bicicleta] porque [v:está] [a:cerca]. || Ich fahre mit dem Fahrrad zur Arbeit, weil es nah ist.
+> [v:Trabajo] en una [f:tienda] de [f:ropa] en el [m:centro]. || Ich arbeite in einem Bekleidungsgeschäft im Zentrum.
+>
+> A las dos [v:como] con mis [m:compañeros]. || Um zwei Uhr esse ich mit meinen Kollegen zu Mittag.
+> Por la [f:tarde] [v:hace] mucho [m:calor], [a:así] que [v:descanso] un [a:poco]. || Am Nachmittag ist es sehr heiß, deshalb ruhe ich mich ein bisschen aus.
+>
+> Por la [f:noche] [v:salgo] con mis [m:amigos] a [v:tomar] algo. || Abends gehe ich mit meinen Freunden etwas trinken.
+> Me [v:acuesto] [a:tarde], a las doce [a:más] o [a:menos]. || Ich gehe spät ins Bett, ungefähr um zwölf.
+# es-barcelona | Un viaje a Barcelona | A2 | reise | Eine Reise nach Barcelona
+> El [m:verano] [j:pasado] [v:fui] a Barcelona con mi [f:hermana]. || Letzten Sommer bin ich mit meiner Schwester nach Barcelona gefahren.
+> Nos [v:alojamos] en un [m:hotel] [j:pequeño] [a:cerca] de las Ramblas. || Wir haben in einem kleinen Hotel in der Nähe der Ramblas gewohnt.
+>
+> El [j:primer] [m:día] [v:visitamos] la Sagrada Familia. || Am ersten Tag haben wir die Sagrada Família besichtigt.
+> [v:Había] mucha [f:gente], pero la [f:iglesia] [v:era] [j:impresionante]. || Es waren viele Leute da, aber die Kirche war beeindruckend.
+> [a:Después] [v:paseamos] por el [m:barrio] [j:gótico] y [v:comimos] [f:tapas]. || Danach sind wir durch das gotische Viertel spaziert und haben Tapas gegessen.
+>
+> Al [m:día] [j:siguiente] [v:fuimos] a la [f:playa] de la Barceloneta. || Am nächsten Tag sind wir zum Strand von Barceloneta gegangen.
+> El [f:agua] [v:estaba] [a:muy] [j:buena] y nos [v:bañamos] varias [f:veces]. || Das Wasser war sehr angenehm, und wir sind mehrmals baden gegangen.
+> Por la [f:noche] [v:vimos] el [m:espectáculo] de la Fuente Mágica. || Am Abend haben wir uns die Show am Magischen Brunnen angesehen.
+>
+> [v:Fue] un [m:viaje] [j:precioso] y [v:queremos volver] [a:pronto]. || Es war eine wunderschöne Reise, und wir wollen bald wiederkommen.
+# es-tortilla | La tortilla de patatas | A2 | rezept | Die spanische Kartoffeltortilla
+> Para una [f:tortilla] [v:necesitas] cuatro [f:patatas], una [f:cebolla], seis [m:huevos], [m:aceite] de [f:oliva] y [f:sal]. || Für eine Tortilla brauchst du vier Kartoffeln, eine Zwiebel, sechs Eier, Olivenöl und Salz.
+> [v:Pela] las [f:patatas] y [v:córtalas] en [f:rodajas] [j:finas]. || Schäle die Kartoffeln und schneide sie in dünne Scheiben.
+> [v:Corta] [a:también] la [f:cebolla] en [m:trozos] [j:pequeños]. || Schneide auch die Zwiebel in kleine Stücke.
+>
+> [v:Fríe] las [f:patatas] y la [f:cebolla] a [m:fuego] [j:lento] durante veinte [m:minutos]. || Brate die Kartoffeln und die Zwiebel zwanzig Minuten bei schwacher Hitze.
+> Mientras tanto, [v:bate] los [m:huevos] con un poco de [f:sal]. || Verquirle in der Zwischenzeit die Eier mit etwas Salz.
+> [v:Mezcla] las [f:patatas] con los [m:huevos] y [v:espera] cinco [m:minutos]. || Vermische die Kartoffeln mit den Eiern und warte fünf Minuten.
+>
+> [v:Pon] la [f:mezcla] en la [f:sartén] y [v:cocínala] unos [m:minutos]. || Gib die Mischung in die Pfanne und lass sie ein paar Minuten garen.
+> [v:Dale] la [f:vuelta] con [f:ayuda] de un [m:plato]. || Wende sie mithilfe eines Tellers.
+> [v:Puedes comerla] [j:caliente] o [j:fría]. ¡Que [v:aproveche]! || Du kannst sie warm oder kalt essen. Guten Appetit!
+# es-leyenda | La leyenda del lago | B1 | maerchen | Die Legende vom See
+> [v:Hace] muchos [m:años], en un [m:pueblo] de las [f:montañas], [v:vivía] una joven [j:llamada] Inés. || Vor vielen Jahren lebte in einem Bergdorf eine junge Frau namens Inés.
+> Cada [f:mañana] [v:subía] al [m:lago] para [v:buscar] [f:agua] para su [f:familia]. || Jeden Morgen stieg sie zum See hinauf, um Wasser für ihre Familie zu holen.
+>
+> Un [m:día] [v:vio] a un [m:anciano] que [v:estaba] [j:sentado] [a:junto] a la [f:orilla] y [v:parecía] [a:muy] [j:cansado]. || Eines Tages sah sie einen alten Mann, der am Ufer saß und sehr müde aussah.
+> Inés le [v:ofreció] un poco de [m:pan] y [f:agua], aunque ella misma [v:tenía] [a:poco]. || Inés bot ihm etwas Brot und Wasser an, obwohl sie selbst wenig hatte.
+> El [m:anciano] le [v:dio] las [f:gracias] y le [v:dijo] que [a:nunca] le [v:faltaría] nada. || Der alte Mann dankte ihr und sagte, dass es ihr nie an etwas fehlen würde.
+>
+> Esa misma [f:noche] [v:cayó] una [j:gran] [f:tormenta] sobre el [m:pueblo]. || In derselben Nacht brach ein großes Unwetter über das Dorf herein.
+> Cuando [v:amaneció], el [m:lago] se [v:había llenado] de [m:peces] de [m:colores]. || Als der Morgen dämmerte, war der See voller bunter Fische.
+> Desde [a:entonces], la [f:gente] del [m:pueblo] [a:nunca] [v:pasó] [f:hambre]. || Seitdem litten die Leute im Dorf nie mehr Hunger.
+>
+> [v:Dicen] que el [m:anciano] [a:todavía] [v:visita] el [m:lago] para [v:ver] si la [f:gente] [v:sigue siendo] [j:generosa]. || Man sagt, der alte Mann besuche den See noch heute, um zu sehen, ob die Menschen noch großzügig sind.
+# es-teletrabajo | El teletrabajo, ¿ventaja o trampa? | B2 | nachricht | Homeoffice – Vorteil oder Falle?
+> Desde la [f:pandemia], [m:millones] de [f:personas] [v:han empezado] a [v:trabajar] desde [f:casa] al [a:menos] algunos [m:días] a la [f:semana]. || Seit der Pandemie arbeiten Millionen Menschen zumindest an einigen Tagen pro Woche von zu Hause aus.
+> Muchos [v:destacan] que [v:ahorran] [m:tiempo] y [m:dinero] al no [v:tener] que [v:desplazarse]. || Viele betonen, dass sie Zeit und Geld sparen, weil sie nicht pendeln müssen.
+> [a:Además], [v:afirman] que [v:pueden concentrarse] [a:mejor] sin las [f:interrupciones] de la [f:oficina]. || Außerdem sagen sie, dass sie sich ohne die Unterbrechungen im Büro besser konzentrieren können.
+>
+> Sin [m:embargo], los [m:expertos] [v:advierten] de que el [m:límite] entre la [f:vida] [j:laboral] y la [j:personal] [v:tiende] a [v:desaparecer]. || Experten warnen jedoch, dass die Grenze zwischen Arbeit und Privatleben zu verschwimmen droht.
+> No [v:es] [j:raro] que la [f:gente] [v:conteste] [m:correos] a medianoche o durante el [m:fin] de [f:semana]. || Es ist nicht selten, dass Menschen um Mitternacht oder am Wochenende E-Mails beantworten.
+> [a:También] se [v:echa] de [a:menos] el [m:contacto] con los [m:compañeros], sobre todo entre los [m:empleados] [a:más] [j:jóvenes]. || Auch der Kontakt zu den Kollegen fehlt, vor allem den jüngeren Angestellten.
+>
+> Por eso, muchas [f:empresas] [v:apuestan] [a:ahora] por un [m:modelo] [j:híbrido]. || Deshalb setzen viele Unternehmen inzwischen auf ein hybrides Modell.
+> La [f:clave], según los especialistas, [v:está] en [v:establecer] [f:reglas] [j:claras] y [v:respetarlas]. || Der Schlüssel liegt laut Fachleuten darin, klare Regeln aufzustellen und sie einzuhalten.
+=== en
+# en-hotel | At the hotel | A1 | dialog | Im Hotel
+> [Receptionist] [j:Good] [m:evening]. [v:Can] I [v:help] you? || Guten Abend. Kann ich Ihnen helfen?
+> [Guest] Yes, I [v:have] a [m:reservation]. My [m:name] [v:is] Anna Weber. || Ja, ich habe eine Reservierung. Mein Name ist Anna Weber.
+> [Receptionist] [v:Let] me [v:see] … Yes, a [j:single] [m:room] for three [m:nights]. || Lassen Sie mich nachsehen … Ja, ein Einzelzimmer für drei Nächte.
+> [Guest] That[v:'s] [j:right]. [v:Is] [m:breakfast] [v:included]? || Richtig. Ist das Frühstück inbegriffen?
+> [Receptionist] Yes, [m:breakfast] [v:is] from seven to ten in the [m:restaurant]. || Ja, das Frühstück gibt es von sieben bis zehn im Restaurant.
+> [Guest] Great. And [v:is] there Wi-Fi in the [m:room]? || Super. Und gibt es WLAN im Zimmer?
+> [Receptionist] Of course. The [m:password] [v:is] on your [j:key] [m:card]. || Natürlich. Das Passwort steht auf Ihrer Schlüsselkarte.
+> [Guest] Your [m:room] [v:is] on the [j:second] [m:floor]. The [m:lift] [v:is] on the [m:left]. || Ihr Zimmer ist im zweiten Stock. Der Aufzug ist links.
+> [Receptionist] [v:Thank] you [a:very] [a:much]. || Vielen Dank.
+# en-friend | My best friend | A1 | alltag | Mein bester Freund
+> My [j:best] [m:friend] [v:is called] Tom. || Mein bester Freund heißt Tom.
+> He [v:lives] in the [j:same] [m:street] as me. || Er wohnt in derselben Straße wie ich.
+> We [v:go] to [m:school] [a:together] every [m:morning]. || Wir gehen jeden Morgen zusammen zur Schule.
+>
+> Tom [v:is] [j:tall] and [v:has] [j:short] [j:brown] [m:hair]. || Tom ist groß und hat kurze braune Haare.
+> He [v:is] [a:very] [j:funny] and [a:always] [v:makes] me [v:laugh]. || Er ist sehr lustig und bringt mich immer zum Lachen.
+> We both [v:like] [m:football] and [m:music]. || Wir mögen beide Fußball und Musik.
+>
+> At the [m:weekend], we [a:often] [v:play] [m:video] [m:games] at his [m:house]. || Am Wochenende spielen wir oft bei ihm Videospiele.
+> His [m:mum] [v:makes] the [j:best] [m:pizza] in the [m:world]! || Seine Mutter macht die beste Pizza der Welt!
+# en-london | A day in London | A2 | reise | Ein Tag in London
+> [j:Last] [m:month] I [v:spent] a [m:day] in London with my [m:cousin]. || Letzten Monat habe ich mit meinem Cousin einen Tag in London verbracht.
+> We [v:arrived] at King's Cross [m:station] [a:early] in the [m:morning]. || Wir sind früh am Morgen am Bahnhof King's Cross angekommen.
+>
+> [a:First], we [v:took] the [m:underground] to Westminster to [v:see] Big Ben. || Zuerst sind wir mit der U-Bahn nach Westminster gefahren, um Big Ben zu sehen.
+> [a:Then] we [v:walked] along the [m:river] to the London Eye. || Dann sind wir am Fluss entlang zum London Eye gelaufen.
+> The [m:view] from the [m:top] [v:was] [j:amazing], but the [m:queue] [v:was] [a:very] [j:long]. || Die Aussicht von oben war fantastisch, aber die Schlange war sehr lang.
+>
+> For [m:lunch] we [v:had] [m:fish] and [m:chips] in a [j:small] [m:pub]. || Zum Mittagessen hatten wir Fish and Chips in einem kleinen Pub.
+> In the [m:afternoon] it [v:started] to [v:rain], [a:so] we [v:visited] the British Museum. || Am Nachmittag fing es an zu regnen, also haben wir das Britische Museum besucht.
+>
+> We [v:were] [a:very] [j:tired] when we [v:took] the [m:train] [a:home]. || Wir waren sehr müde, als wir den Zug nach Hause nahmen.
+> But it [v:was] a [j:great] [m:day], and I [v:want] to [v:go] [a:back] [a:soon]. || Aber es war ein toller Tag, und ich will bald wieder hin.
+# en-email | An email to a new colleague | A2 | brief | Eine E-Mail an eine neue Kollegin
+> Hi Sarah, || Hallo Sarah,
+>
+> welcome to the [m:team]! I[v:'m] Mark, and I [v:work] in the [m:marketing] [m:department]. || willkommen im Team! Ich bin Mark und arbeite in der Marketingabteilung.
+>
+> Our [m:team] [m:meeting] [v:is] every Monday at ten o'clock in [m:room] 4B. || Unsere Teambesprechung ist jeden Montag um zehn Uhr in Raum 4B.
+> If you [v:need] anything for your [m:computer], please [v:call] the IT [m:desk]. || Wenn du etwas für deinen Computer brauchst, ruf bitte beim IT-Support an.
+> [j:Most] of us [v:have] [m:lunch] in the [m:canteen] at about half past twelve. || Die meisten von uns essen gegen halb eins in der Kantine zu Mittag.
+> You[v:'re] [j:welcome] to [v:join] us on your [j:first] [m:day]. || Du bist herzlich eingeladen, an deinem ersten Tag mitzukommen.
+>
+> [v:Do]n't [v:hesitate] to [v:ask] me if you [v:have] any [m:questions]. || Zögere nicht, mich zu fragen, wenn du Fragen hast.
+>
+> [j:Best] [m:wishes], || Viele Grüße,
+> Mark || Mark
+# en-secret | The secret garden door | B1 | geschichte | Die geheime Gartentür
+> When Emma [v:moved] to her [m:grandmother]'s [j:old] [m:house], she [v:was bored] at [a:first]. || Als Emma in das alte Haus ihrer Großmutter zog, war ihr zuerst langweilig.
+> There [v:was] no [m:internet], and the [j:nearest] [m:town] [v:was] [m:miles] [a:away]. || Es gab kein Internet, und die nächste Stadt war meilenweit entfernt.
+>
+> One [m:afternoon], while she [v:was exploring] the [m:garden], she [v:noticed] a [j:small] [m:door] [v:hidden] behind the [m:ivy]. || Eines Nachmittags, als sie den Garten erkundete, bemerkte sie eine kleine Tür, die hinter dem Efeu versteckt war.
+> The [m:door] [v:was locked], but she [v:found] a [j:rusty] [m:key] under a [m:stone] [a:nearby]. || Die Tür war verschlossen, aber sie fand in der Nähe einen rostigen Schlüssel unter einem Stein.
+>
+> Behind the [m:door] [v:was] a [j:second] [m:garden], [j:full] of [m:roses] and [j:old] [m:fruit] [m:trees]. || Hinter der Tür lag ein zweiter Garten voller Rosen und alter Obstbäume.
+> In the [m:middle] [v:stood] a [m:bench] with two [m:names] [v:carved] into the [m:wood]. || In der Mitte stand eine Bank, in deren Holz zwei Namen geschnitzt waren.
+> One of them [v:was] her [m:grandmother]'s. || Einer davon war der ihrer Großmutter.
+>
+> That [m:evening] Emma [a:finally] [v:asked] her [m:grandmother] about the [m:garden], and she [v:heard] a [m:story] she [v:would] [a:never] [v:forget]. || An diesem Abend fragte Emma ihre Großmutter endlich nach dem Garten und hörte eine Geschichte, die sie nie vergessen würde.
+# en-sleep | Why we need sleep | B2 | sachtext | Warum wir Schlaf brauchen
+> [m:Scientists] [v:have] [a:long] [v:known] that [m:sleep] [v:is] [j:essential], but they [v:are] [a:only] [v:beginning] to [v:understand] why. || Wissenschaftler wissen seit Langem, dass Schlaf lebenswichtig ist, aber sie beginnen erst zu verstehen, warum.
+>
+> During [j:deep] [m:sleep], the [m:brain] [v:appears] to [v:clear] away [m:waste] [m:products] that [v:build] up during the [m:day]. || Im Tiefschlaf scheint das Gehirn Abfallstoffe zu beseitigen, die sich im Laufe des Tages ansammeln.
+> [m:Sleep] [a:also] [v:plays] a [j:crucial] [m:role] in [m:memory], as [j:new] [m:information] [v:is transferred] into [j:long]-[m:term] [m:storage]. || Schlaf spielt auch eine entscheidende Rolle für das Gedächtnis, da neue Informationen ins Langzeitgedächtnis übertragen werden.
+> This [v:is] why [m:students] who [v:stay] up all [m:night] before an [m:exam] [a:often] [v:perform] [j:worse] than [v:expected]. || Deshalb schneiden Schüler, die vor einer Prüfung die ganze Nacht aufbleiben, oft schlechter ab als erwartet.
+>
+> A [m:lack] of [m:sleep] [v:has] [a:also] [v:been linked] to [m:weight] [m:gain], [m:heart] [m:disease] and a [j:weakened] [j:immune] [m:system]. || Schlafmangel wird außerdem mit Gewichtszunahme, Herzkrankheiten und einem geschwächten Immunsystem in Verbindung gebracht.
+> Despite this, [j:many] [m:adults] [a:regularly] [v:get] [j:less] than the [v:recommended] seven to nine [m:hours]. || Trotzdem schlafen viele Erwachsene regelmäßig weniger als die empfohlenen sieben bis neun Stunden.
+>
+> [m:Experts] [v:advise keeping] a [j:regular] [m:schedule] and [v:avoiding] [m:screens] for an [m:hour] before [m:bed]. || Experten raten, feste Schlafenszeiten einzuhalten und eine Stunde vor dem Schlafengehen auf Bildschirme zu verzichten.
+> In [j:other] [m:words], a [j:good] [m:night]'s [m:sleep] [v:is] not a [m:luxury] but a [m:necessity]. || Mit anderen Worten: Eine erholsame Nacht ist kein Luxus, sondern eine Notwendigkeit.
