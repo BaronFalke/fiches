@@ -115,6 +115,8 @@ label.filebtn { display: inline-flex; align-items: center; gap: 6px; cursor: poi
 label.filebtn input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
 label.filebtn:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
 .filerow { gap: 10px; align-items: center; flex-wrap: wrap; }
+.ac-link { display: inline-flex; align-items: center; gap: 3px; color: var(--accent); }
+.ac-link svg { width: 12px; height: 12px; }
 /* overview: one big start button, filters and forecast fold away, groups as rows */
 .start-wrap { min-height: 0; flex: none; margin: 14px 0 10px; }
 .panel.today { justify-content: flex-start; }
@@ -141,6 +143,7 @@ details.forecast[open] > summary::after { content: "▴"; }
 .grow-act .gmore { color: var(--muted); }
 .gtiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) 4px minmax(0, 1fr); gap: 6px; width: 100%; }
 .gtile.del { grid-column: 5; }
+.gcur-off { color: var(--muted); font-size: 12px; white-space: nowrap; }
 .g-kids { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; padding: 0 6px; border: 1px solid var(--line); border-radius: 6px; font-size: 11.5px; color: var(--muted); }
 .g-kids svg { width: 12px; height: 12px; }
 .grow-act .gmute { color: var(--muted); }
@@ -2926,12 +2929,13 @@ window.FICHES_I18N.de = {
   "study.card.aria": "Karte umdrehen",
   "study.done-home": "Zur Übersicht",
   "study.done-more": "Weitere Karten lernen",
+  "ac.linkedT": "In diese eigene Gruppe verknüpft",
   "sh.tag": "Gemeinsame Gruppe", "sh.btn": "Teilen", "sh.btn.on": "Geteilt", "sh.btn.t": "Gruppe mit anderen gemeinsam bearbeiten",
   "sh.h": "„{name}“ teilen", "sh.join.h": "Gemeinsamer Gruppe beitreten", "sh.join.t": "Gemeinsamer Gruppe beitreten",
   "sh.intro": "Andere können diese Gruppe mit dir zusammen bearbeiten: Wörter, Übersetzungen und Untergruppen werden für alle abgeglichen. Den Lernfortschritt hat jede Person für sich. Du bekommst einen Einladungscode, den du weitergibst.",
   "sh.create": "Gruppe teilen", "sh.loading": "Wird geladen …",
   "sh.ownerP": "Gib den Einladungscode an eine Person weiter, die mitmachen soll. Sie gibt ihn unter Eigene Gruppen → Beitreten ein. Untergruppen sind automatisch dabei.",
-  "sh.memberP": "Du bearbeitest diese Gruppe gemeinsam mit anderen. Weitere Personen kann nur einladen, wer die Gruppe geteilt hat.",
+  "sh.memberP": "Du bearbeitest diese Gruppe gemeinsam mit anderen.\nNur der Gruppenleiter kann weitere Leute einladen.",
   "sh.send": "Senden", "sh.sendText": "Mach mit bei meiner fiches-Gruppe „{name}“! Einladungscode: {code} (in fiches unter Eigene Gruppen → Beitreten eingeben)",
   "sh.members.one": "1 Person", "sh.members.other": "{n} Personen", "sh.you": "du", "sh.owner": "hat geteilt",
   "sh.remove": "Entfernen", "sh.removeQ": "Diese Person aus der Gruppe entfernen? Ihre Kopie der Wörter bleibt bei ihr.",
@@ -2994,6 +2998,7 @@ window.FICHES_I18N.de = {
   "acct.e.signupOff": "Neue Konten sind im Moment nicht möglich.",
   "acct.claude": "Hier auf claude.ai wird dein Fortschritt über dein claude.ai-Konto gespeichert. Ein fiches-Konto kannst du in der Android-App verwenden.",
   "acct.email": "E-Mail-Adresse", "acct.signIn": "Anmelden",
+  "acct.switched": "Angemeldet mit einem anderen Konto – die Daten dieses Kontos werden geladen",
   "acct.welcome": "Angemeldet – deine Daten werden abgeglichen",
   "acct.signedIn": "Angemeldet als", "acct.syncNow": "Jetzt abgleichen", "acct.signOut": "Abmelden",
   "acct.synced": "Zuletzt abgeglichen um {tm}", "acct.syncing": "Wird abgeglichen …",
@@ -3089,6 +3094,7 @@ window.FICHES_I18N.de = {
   "start.never": "noch nie",
   "start.today": "heute", "start.yesterday": "gestern", "start.daysAgo": "vor {n} Tagen",
   "start.switch": "Sprache wechseln",
+  "grp.off": "+ {n} außerhalb deiner Auswahl", "grp.offT": "Wörter anderer Niveaus oder Wortarten – deine Auswahl: {f}",
   "grp.cur.meta": "{sub} · {words} · {due} fällig",
   "grp.cur.study": "Alle lernen",
   "card.sentsN.one": "Beispielsatz", "card.sentsN.other": "{n} Beispielsätze",
@@ -4370,7 +4376,8 @@ window.FICHES_I18N.de = {
         h += '<section class="gsec gcur-sec" aria-label="' + esc(cur.name) + '">' +
           '<div class="gcur-top"><button type="button" class="btn small ghost gup" data-ownat="' + esc(cur.parent || "") + '" title="' + t("grp.up") + '">← ' + esc(par ? par.name : t("grp.own.h")) + "</button>" + crumbs + "</div>" +
           '<div class="gcur"><div class="gcur-h"><span class="gcur-ic" aria-hidden="true">' + IC.folder + '</span><div class="gcur-t"><h3>' + esc(cur.name) + "</h3><span>" +
-          esc(t("grp.cur.meta", { sub: tn("grp.subN", here.length), words: tn("words", all.length), due: st.due })) + "</span></div>" +
+          esc(t("grp.cur.meta", { sub: tn("grp.subN", here.length), words: tn("words", all.filter(inLevels).length), due: st.due })) +
+          (all.length > all.filter(inLevels).length ? ' <span class="gcur-off" title="' + esc(t("grp.offT", { f: filterText() })) + '">' + esc(t("grp.off", { n: all.length - all.filter(inLevels).length })) + "</span>" : "") + "</span></div>" +
           '<span class="gcur-a">' + ibtn("edit", 'data-editgroup="' + esc(cur.key) + '"', t("grp.edit.nest")) + plus +
           '<button type="button" class="btn small" data-study="' + esc(cur.key) + '"' + (st.total || all.filter(inLevels).length ? "" : " disabled") + ">" + IC.play + " " + t("grp.cur.study") + "</button></span></div>" +
           (here.length ? '<div class="glist gcur-kids">' + here.map(function (g) { return groupCard(g, now); }).join("") + "</div>" : '<p class="gsec-empty">' + t("grp.noSub") + "</p>") +
@@ -4930,6 +4937,7 @@ window.FICHES_I18N.de = {
   IC.flame = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 2.5-5 .3 1.6 1 2.6 2 3 0-3-.5-5.5.5-8z"/></svg>';
   IC.award = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg>';
   IC.target = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>';
+  IC.link = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
   IC.users = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg>';
   IC.userplus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M19 8v6M16 11h6"/></svg>';
   IC.dots = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg>';
@@ -5191,14 +5199,27 @@ window.FICHES_I18N.de = {
     $("gm-modal").hidden = false;
     setTimeout(function () { try { $("gm-name").focus(); $("gm-name").select(); } catch (e) {} }, 0);
   }
+  function repairNesting() {
+    const now = Date.now(); let n = 0;
+    GROUPS.forEach(function (g) { if (g.custom && g.kids && g.kids.length && gw(g).length && cgroup(g.key)) { n += gw(g).length; moveWordsDown(g.key, now + n); } });
+    if (n) { custom.updated = now; saveCustomLocal(); wordsWriter.queue(); rebuildDeck(); }
+    return n;
+  }
   function closeGroupEditor() { $("gm-modal").hidden = true; GM = null; }
   // a group that gets its first subgroup hands its words to a new subgroup "Allgemein"
   function moveWordsDown(pkey, now) {
     const p = GBYKEY[pkey]; if (!p || !gw(p).length) return null;
-    const nk = "own-g-" + now.toString(36) + Math.random().toString(36).slice(2, 6);
-    const ng = { key: nk, name: t("grp.general"), desc: t("grp.general.desc", { name: p.name }), parent: pkey, mod: now };
-    custom.groups.push(ng);
-    const pg = cgroup(pkey); if (pg && Array.isArray(pg.refs) && pg.refs.length) { ng.refs = pg.refs; pg.refs = []; pg.mod = now; }
+    let ng = custom.groups.filter(function (g) { return g.parent === pkey && !g.deleted && g.name === t("grp.general"); })[0], nk;
+    if (ng) { nk = ng.key; ng.mod = now; }
+    else {
+      nk = "own-g-" + now.toString(36) + Math.random().toString(36).slice(2, 6);
+      ng = { key: nk, name: t("grp.general"), desc: t("grp.general.desc", { name: p.name }), parent: pkey, mod: now };
+      custom.groups.push(ng);
+    }
+    const pg = cgroup(pkey);
+    if (pg && Array.isArray(pg.refs) && pg.refs.length) {
+      ng.refs = (ng.refs || []).concat(pg.refs.filter(function (id) { return (ng.refs || []).indexOf(id) < 0; })); pg.refs = []; pg.mod = now;
+    }
     p.words.forEach(function (w) {
       const i = custom.words.findIndex(function (x) { return x.id === w.id; });
       if (w.custom) { if (i >= 0) custom.words[i] = Object.assign({}, custom.words[i], { group: nk, mod: now }); }
@@ -5967,7 +5988,7 @@ window.FICHES_I18N.de = {
   $("reset").addEventListener("click", function () { $("reset-confirm").hidden = false; $("reset").hidden = true; });
   $("reset-no").addEventListener("click", function () { $("reset-confirm").hidden = true; $("reset").hidden = false; });
   $("reset-yes").addEventListener("click", function () {
-    const keep = state.settings; state = fresh(); state.settings = keep; touch();
+    const keep = state.settings; state = fresh(); state.settings = keep; state.meta.resetAt = Date.now(); touch();
     $("reset-confirm").hidden = true; $("reset").hidden = false; renderHome();
   });
 
@@ -7021,9 +7042,16 @@ window.FICHES_I18N.de = {
     AC = sc.slice(0, 6).map(function (x) { return x[2]; }); ACI = -1;
     if (!AC.length || (AC.length === 1 && fold(AC[0].fr) === q)) { box.hidden = true; return; }
     box.innerHTML = AC.map(function (w, i) {
-      return '<button type="button" class="ac-i" role="option" data-aci="' + i + '"><span class="ac-w">' + frHTML(w) + '</span><span class="ac-t">' + esc(w.tr) + " · " + esc((GBYKEY[w.group] || {}).name || "") + "</span></button>";
+      return '<button type="button" class="ac-i" role="option" data-aci="' + i + '"><span class="ac-w">' + frHTML(w) + '</span><span class="ac-t">' + esc(w.tr) + " · " + acGroups(w) + "</span></button>";
     }).join("");
     box.hidden = false;
+  }
+  // the word's own group plus the own groups it is linked into (one word, shown once)
+  function acGroups(w) {
+    const home = esc((GBYKEY[w.group] || {}).name || "");
+    const links = (REFIN[w.id] || []).map(function (k) { return GBYKEY[k]; }).filter(Boolean)
+      .map(function (g) { return '<span class="ac-link" title="' + esc(t("ac.linkedT")) + '">' + IC.link + esc(g.name) + "</span>"; });
+    return home + (links.length ? " · " + links.join(", ") : "");
   }
   function pickAC(i) { const w = AC[i]; if (!w) return; $("f-ac").hidden = true; AC = []; $("f-fr").value = w.fr; $("f-fr").dispatchEvent(new Event("input")); $("f-ac").hidden = true; AC = []; }
   $("f-fr").addEventListener("input", renderAC);
@@ -7331,7 +7359,7 @@ window.FICHES_I18N.de = {
       if (i >= 0) custom.words[i] = entry; else custom.words.push(entry);
     });
     (res.links || []).forEach(function (l) { linkWords(l.group, [l.id], now); });
-    custom.updated = now; saveCustomLocal(); wordsWriter.queue(); rebuildDeck();
+    custom.updated = now; saveCustomLocal(); wordsWriter.queue(); rebuildDeck(); repairNesting();
   }
   function today8() { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
   $("exp-btn").addEventListener("click", async function () {
@@ -7886,7 +7914,10 @@ window.FICHES_I18N.de = {
   function queueRemote() { try { sbQueue("progress"); } catch (e) {} if (!srsRefs) return; clearTimeout(srsTimer); srsTimer = setTimeout(flushSrs, 1200); }
   function merge(a, b) {
     const out = normalize(JSON.parse(JSON.stringify(a.updated >= b.updated ? a : b)));
-    const other = a.updated >= b.updated ? b : a;
+    let other = a.updated >= b.updated ? b : a;
+    // "Fortschritt zurücksetzen": everything learned before the reset stays away, also when another device or the account still has it
+    const ra = Math.max((a.meta && a.meta.resetAt) || 0, (b.meta && b.meta.resetAt) || 0);
+    if (ra && (other.updated || 0) <= ra) other = { cards: {}, meta: {} };
     Object.keys(other.cards || {}).forEach(function (id) {
       const x = out.cards[id], y = other.cards[id];
       if (!x || (y && (y.last || 0) > (x.last || 0))) out.cards[id] = y;
@@ -7900,6 +7931,12 @@ window.FICHES_I18N.de = {
       if (other.meta.cnt) { const c = out.meta.cnt = out.meta.cnt || {}; Object.keys(other.meta.cnt).forEach(function (k) { const x = c[k] || [0, 0], y = other.meta.cnt[k] || [0, 0]; c[k] = [Math.max(x[0], y[0]), Math.max(x[1], y[1])]; }); }
       if (other.meta.kpg) { const g = out.meta.kpg = out.meta.kpg || {}; Object.keys(other.meta.kpg).forEach(function (k) { const x = g[k] || [0, 0], y = other.meta.kpg[k] || [0, 0]; g[k] = [Math.max(x[0], y[0]), Math.max(x[1], y[1])]; }); }
       ["best"].forEach(function (k) { out.meta[k] = Math.max(out.meta[k] || 0, other.meta[k] || 0); });
+    }
+    if (ra) {
+      out.meta.resetAt = ra;
+      Object.keys(out.cards).forEach(function (id) { if ((out.cards[id].last || 0) < ra) delete out.cards[id]; });
+      const rd = dayKey(ra);
+      ["hist", "kp", "kpg", "cnt"].forEach(function (k) { const h = out.meta[k]; if (h) Object.keys(h).forEach(function (d) { if (d < rd) delete h[d]; }); });
     }
     out.updated = Math.max(a.updated || 0, b.updated || 0);
     return out;
@@ -7969,8 +8006,25 @@ window.FICHES_I18N.de = {
   const SB_AUTH = "fiches-auth";
   const SB = { auth: null, timers: {}, busy: {}, again: {}, last: 0, err: "", step: "email", email: "", msg: "" };
   try { SB.auth = JSON.parse(localStorage.getItem(SB_AUTH) || "null"); } catch (e) {}
+  try { if (SB.auth && SB.auth.uid && !localStorage.getItem("fiches-owner")) localStorage.setItem("fiches-owner", SB.auth.uid); } catch (e) {}
   function sbAvailable() { return !(window.claude && typeof window.claude.use === "function"); }
   function sbOn() { return !!(SB.auth && sbAvailable()); }
+  // whose data is on this device: after signing in with another account the data of the previous one must not be merged into it
+  const SB_OWNER = "fiches-owner";
+  function accountSwitch() {
+    let prev = null; try { prev = localStorage.getItem(SB_OWNER); } catch (e) {}
+    const uid = SB.auth && SB.auth.uid; let switched = false;
+    if (prev && uid && prev !== uid) {
+      // all courses start empty on this device; the account brings its own progress, words and texts
+      Object.keys(LXS).forEach(function (l) { try { localStorage.removeItem(LXS[l].ls); localStorage.removeItem(LXS[l].lsw); localStorage.removeItem("fiches-sum-" + l); } catch (e) {} });
+      clearTimeout(SB.timers.progress); clearTimeout(SB.timers.words);
+      state = normalize(null); custom = normCustom({});
+      saveLocal(); saveCustomLocal(); rebuildDeck(); rerender();
+      switched = true;
+    }
+    try { if (uid) localStorage.setItem(SB_OWNER, uid); } catch (e) {}
+    return switched;
+  }
   function sbSaveAuth() { try { if (SB.auth) localStorage.setItem(SB_AUTH, JSON.stringify(SB.auth)); else localStorage.removeItem(SB_AUTH); } catch (e) {} }
   async function sbFetch(path, opt, authed) {
     opt = opt || {};
@@ -8096,8 +8150,9 @@ window.FICHES_I18N.de = {
             SB.step = "email"; SB.msg = t("acct.confirmMail", { e: SB.email }); SB.msgOk = true; renderAccount(); return;
           }
         } else js = await sbFetch("/auth/v1/token?grant_type=password", { method: "POST", body: { email: SB.email, password: pw } });
-        sbSetSession(js); SB.step = "email"; SB.err = ""; SB.last = 0; renderAccount();
-        toast(t("acct.welcome")); await sbSyncAll(); renderAccount();
+        sbSetSession(js); SB.step = "email"; SB.err = ""; SB.last = 0;
+        const switched = accountSwitch(); renderAccount();
+        toast(t(switched ? "acct.switched" : "acct.welcome")); await sbSyncAll(); renderAccount();
       }
       else if (a === "sync") { await sbSyncAll(); }
       else if (a === "chpw") {
@@ -8240,7 +8295,7 @@ window.FICHES_I18N.de = {
     const row = SHV.row, mine = row && row.owner === SB.auth.uid;
     if (!row) { b.innerHTML = '<p class="acct-note">' + esc(t("sh.loading")) + "</p>" + msg; return; }
     const code = mine && SHV.code;
-    b.innerHTML = '<p class="acct-note">' + esc(mine ? t("sh.ownerP") : t("sh.memberP")) + "</p>" +
+    b.innerHTML = '<p class="acct-note">' + esc(mine ? t("sh.ownerP") : t("sh.memberP")).split("\n").join("<br>") + "</p>" +
       (!mine ? "" : code ? '<div class="sh-codebox"><span class="sh-code" id="sh-code-v">' + esc(code.code) + '</span><button type="button" class="btn small" data-sh="copy">' + IC.copy + esc(t("th.copy")) + "</button>" +
         (AB && AB.shareText || navigator.share ? '<button type="button" class="btn small ghost" data-sh="send">' + esc(t("sh.send")) + "</button>" : "") + "</div>" +
         '<p class="acct-note">' + esc(t("sh.codeValid", { d: new Date(code.expires_at).toLocaleDateString("de-DE", { day: "numeric", month: "long" }) })) + "</p>"
@@ -8275,6 +8330,18 @@ window.FICHES_I18N.de = {
           SHV.msg = t("sh.e.course", { c: t("lang." + row.course.split("-")[0]) }); renderShare(); return;
         }
         const d = row.data || {}, inc = normCustom(JSON.parse(JSON.stringify({ words: d.words || [], groups: d.groups || [] })));
+        // joining (also again after leaving and deleting the copy): the shared groups and words replace this account's own
+        // deletion marks for them – otherwise the newer marks win and the group arrives empty. Revived entries get the current
+        // time, so this account's other devices take them over too.
+        const now = Date.now(), gk = {}, wk = {};
+        inc.groups.forEach(function (g) { if (!g.deleted) gk[g.key] = 1; });
+        inc.words.forEach(function (w) { if (!w.deleted) wk[w.id] = 1; });
+        custom.groups = custom.groups.filter(function (g) { return !(gk[g.key] && (g.deleted || g.purged || g.trash)); });
+        custom.words = custom.words.filter(function (w) { return !(wk[w.id] && (w.deleted || w.purged || w.trash)); });
+        const localG = {}, localW = {};
+        custom.groups.forEach(function (g) { localG[g.key] = 1; }); custom.words.forEach(function (w) { localW[w.id] = 1; });
+        inc.groups.forEach(function (g) { if (gk[g.key] && !localG[g.key]) g.mod = now; });
+        inc.words.forEach(function (w) { if (wk[w.id] && !localW[w.id]) w.mod = now; });
         custom = mergeCustom(custom, inc);
         const root = custom.groups.filter(function (g) { return g.shared && g.shared.id === row.id; })[0] || custom.groups.filter(function (g) { return !g.parent && inc.groups.some(function (x) { return x.key === g.key; }); })[0];
         if (root) { root.shared = { id: row.id, owner: row.owner }; delete root.parent; root.deleted = false; }
@@ -8910,7 +8977,7 @@ window.FICHES_I18N.de = {
   let ENTER = false; try { ENTER = sessionStorage.getItem("fiches-enter") === "1"; sessionStorage.removeItem("fiches-enter"); } catch (e) {}
   if (!ENTER) show("start");
   loadPack().catch(function () { return null; }).then(function (p) {
-    usePack(p); rebuildDeck(); rerender();
+    usePack(p); rebuildDeck(); repairNesting(); rerender();
     if (view === "settings") renderSettings();
     setTimeout(initSync, 0);
     if (sbOn()) setTimeout(sbSyncAll, 0);
